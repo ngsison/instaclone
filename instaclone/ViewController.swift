@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     let plusButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(UIImageRenderingMode.alwaysOriginal), for: UIControlState.normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -26,7 +25,6 @@ class ViewController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
-        tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
@@ -36,7 +34,6 @@ class ViewController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
-        tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
@@ -47,7 +44,6 @@ class ViewController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
-        tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
     
@@ -86,21 +82,18 @@ extension ViewController {
     private func setupPlusButton() {
         self.view.addSubview(plusButton)
         
-        NSLayoutConstraint.activate([
-            plusButton.heightAnchor.constraint(equalToConstant: 140),
-            plusButton.widthAnchor.constraint(equalToConstant: 140),
-            plusButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            plusButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 40)
-        ])
+        plusButton.anchor(height: 140)
+        plusButton.anchor(width: 140)
+        plusButton.anchor(centerX: self.view.centerXAnchor)
+        plusButton.anchor(top: self.view.topAnchor, equalTo: 40)
     }
     
     private func setupInputFields() {
-        
         let stackView = UIStackView()
+        
         stackView.distribution = UIStackViewDistribution.fillEqually
         stackView.axis = UILayoutConstraintAxis.vertical
         stackView.spacing = 10
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(usernameTextField)
@@ -109,12 +102,10 @@ extension ViewController {
         
         self.view.addSubview(stackView)
         
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: plusButton.bottomAnchor, constant: 20),
-            stackView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 40),
-            stackView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -40),
-            stackView.heightAnchor.constraint(equalToConstant: 200)
-        ])
+        stackView.anchor(top: plusButton.bottomAnchor, equalTo: 20)
+        stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
+        stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
+        stackView.anchor(height: 200)
     }
 }
 
