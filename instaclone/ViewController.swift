@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
-
+    
     
     
     // MARK: PROPERTIES
@@ -55,6 +56,9 @@ class ViewController: UIViewController {
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(UIColor.white, for: UIControlState.normal)
+        
+        button.addTarget(self, action: #selector(onSignUpButtonPress), for: UIControlEvents.touchUpInside)
+        
         return button
     }()
     
@@ -67,6 +71,11 @@ class ViewController: UIViewController {
     }
 
 
+    
+    // MARK: EVENTS
+    @objc func onSignUpButtonPress() {
+        
+    }
 }
 
 
