@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 class ViewController: UIViewController {
     
@@ -77,17 +78,35 @@ class ViewController: UIViewController {
     
     // MARK: - Events
     @objc func onSignUpButtonPress() {
-        guard let email = emailTextField.text, email.count > 0 else { return }
-        guard let username = usernameTextField.text, username.count > 0 else { return }
-        guard let password = passwordTextField.text, password.count > 0 else { return }
+        guard
+            let email = emailTextField.text, email.count > 0,
+            let username = usernameTextField.text, username.count > 0,
+            let password = passwordTextField.text, password.count > 0
+        else { return }
 
         Auth.auth().createUser(withEmail: email, password: password) { (result: AuthDataResult?, error: Error?) in
+            
             if let error = error {
                 print("Failed to create user: \(error)")
                 return
             }
             
-            print("Successfully created user: \(String(describing: result?.user.email))")
+            print("Successfully created user: \(result!.user.email!)")
+            
+            guard let uid = result?.user.uid else { return }
+            
+            let username = ["username": username]
+            let user = [uid: username]
+            Database.database().reference().child("users").updateChildValues(user, withCompletionBlock: {
+                (error: Error?, dbRef: DatabaseReference) in
+                
+                if let error = error {
+                    print("Failed to save user info to database: \(error)")
+                    return
+                }
+                
+                print("Successfully saved user info to database")
+            })
         }
     }
     
