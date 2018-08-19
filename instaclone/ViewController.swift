@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     // MARK: - Properties
     let plusButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
-        button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(UIImageRenderingMode.alwaysOriginal), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "plus_photo").renderOriginal(), for: UIControlState.normal)
+        button.addTarget(self, action: #selector(onPlusButtonPress), for: UIControlEvents.touchUpInside)
         return button
     }()
     
@@ -125,6 +126,14 @@ class ViewController: UIViewController {
         }
     }
     
+    @objc func onPlusButtonPress() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
     
     
     // MARK: - SetupViews
@@ -164,7 +173,32 @@ class ViewController: UIViewController {
 
 
 
-
+// MARK - Extension: UIImagePickerControllerDelegate, UINavigationControllerDelegate
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+//        let imageURL = info["UIImagePickerControllerImageURL"]
+//        let mediaType = info["UIImagePickerControllerMediaType"]
+//        let referenceURL = info["UIImagePickerControllerReferenceURL"]
+//        let cropRect = info["UIImagePickerControllerCropRect"]
+        
+        plusButton.layer.cornerRadius = plusButton.frame.width / 2
+        plusButton.layer.masksToBounds = true
+        
+        plusButton.layer.borderColor = UIColor.black.cgColor
+        plusButton.layer.borderWidth = 3
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            plusButton.setImage(editedImage.renderOriginal(), for: .normal)
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            plusButton.setImage(originalImage.renderOriginal(), for: .normal)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
 
 
 

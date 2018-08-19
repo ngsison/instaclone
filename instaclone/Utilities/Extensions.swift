@@ -68,3 +68,21 @@ extension UIView {
     }
     
 }
+
+
+
+// MARK: - UIImage
+extension UIImage {
+    func renderOriginal() -> UIImage {
+        return withRenderingMode(.alwaysOriginal)
+    }
+}
+
+
+
+
+
+
+
+
+
