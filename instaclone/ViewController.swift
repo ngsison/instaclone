@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class ViewController: UIViewController {
     
@@ -85,6 +86,9 @@ class ViewController: UIViewController {
             let password = passwordTextField.text, password.count > 0
         else { return }
 
+        
+        
+        // Sign Up User
         Auth.auth().createUser(withEmail: email, password: password) { (result: AuthDataResult?, error: Error?) in
             
             if let error = error {
@@ -94,19 +98,57 @@ class ViewController: UIViewController {
             
             print("Successfully created user: \(result!.user.email!)")
             
-            guard let uid = result?.user.uid else { return }
             
-            let username = ["username": username]
-            let user = [uid: username]
-            Database.database().reference().child("users").updateChildValues(user, withCompletionBlock: {
-                (error: Error?, dbRef: DatabaseReference) in
-                
+            
+            // Upload User's Profile Image
+            guard
+                let image = self.plusButton.imageView?.image,
+                let imageData = UIImageJPEGRepresentation(image, 0.3)
+            else { return }
+            
+            let fileName = NSUUID().uuidString
+            let profileImagesRef = Storage.storage().reference().child("profile_images").child(fileName)
+            
+            profileImagesRef.putData(imageData, metadata: nil, completion: {
+                (storageMetaData: StorageMetadata?, error: Error?) in
+              
                 if let error = error {
-                    print("Failed to save user info to database: \(error)")
+                    print("Failed to upload profile image: \(error)")
                     return
                 }
                 
-                print("Successfully saved user info to database")
+                print("Successfully uploaded profile image")
+                
+                
+                
+                // Get User's Profile Image's DownloadURL
+                profileImagesRef.downloadURL(completion: { (url, error) in
+                    
+                    guard let profileImageURL = url?.absoluteString else { return }
+                    print("Successfully fetched profile image's DownloadURL: \(profileImageURL)")
+                    
+                    
+                    
+                    // Save User's Details to the Database
+                    guard let uid = result?.user.uid else { return }
+                    
+                    let userDetails: [String: String] = [
+                        "username": username,
+                        "profileImageURL": profileImageURL
+                    ]
+                    
+                    let user = [uid: userDetails]
+                    Database.database().reference().child("users").updateChildValues(user, withCompletionBlock: {
+                        (error: Error?, dbRef: DatabaseReference) in
+                        
+                        if let error = error {
+                            print("Failed to save user info to database: \(error)")
+                            return
+                        }
+                        
+                        print("Successfully saved user info to database")
+                    })
+                })
             })
         }
     }
