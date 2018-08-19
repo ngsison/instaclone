@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     
     
     
-    // MARK: PROPERTIES
+    // MARK: - Properties
     let plusButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(UIImageRenderingMode.alwaysOriginal), for: UIControlState.normal)
@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     
     
     
-    // MARK: OVERRIDES
+    // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
 
 
     
-    // MARK: EVENTS
+    // MARK: - Events
     @objc func onSignUpButtonPress() {
         guard let email = emailTextField.text, email.count > 0 else { return }
         guard let username = usernameTextField.text, username.count > 0 else { return }
@@ -105,13 +105,10 @@ class ViewController: UIViewController {
             signUpButton.isEnabled = false
         }
     }
-}
-
-
-
-// MARK: EXTENSION - SETUP VIEWS
-extension ViewController {
     
+    
+    
+    // MARK: - SetupViews
     func setupViews() {
         setupPlusButton()
         setupInputFields()
@@ -119,7 +116,6 @@ extension ViewController {
     
     private func setupPlusButton() {
         self.view.addSubview(plusButton)
-        
         plusButton.anchor(height: 140)
         plusButton.anchor(width: 140)
         plusButton.anchor(centerX: self.view.centerXAnchor)
@@ -146,9 +142,6 @@ extension ViewController {
         stackView.anchor(height: 200)
     }
 }
-
-
-
 
 
 

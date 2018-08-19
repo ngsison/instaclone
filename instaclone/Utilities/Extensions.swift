@@ -9,7 +9,7 @@
 import UIKit
 
 
-// MARK: UIColor
+// MARK: - UIColor
 extension UIColor {
     
     static func rgb(_ red: CGFloat, _ green: CGFloat, _ blue: CGFloat) -> UIColor {
@@ -20,7 +20,7 @@ extension UIColor {
 
 
 
-// MARK: UIView
+// MARK: - UIView
 extension UIView {
     
     private func prepareToUseConstraint() {
@@ -66,4 +66,5 @@ extension UIView {
         self.prepareToUseConstraint()
         self.centerYAnchor.constraint(equalTo: centerY).isActive = true
     }
+    
 }
