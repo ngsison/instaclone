@@ -180,6 +180,8 @@ class ViewController: UIViewController {
     
     // MARK: - SetupViews
     func setupViews() {
+		self.view.backgroundColor = .white
+		
         setupPlusButton()
         setupInputFields()
     }

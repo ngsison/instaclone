@@ -7,14 +7,61 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class ProfileController: UICollectionViewController {
 	
+	
+	
+	// MARK: - Properties
+	private var username: String?
+	private var profileImageURL: String?
+	
+	
+	
+	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
 	
-		self.collectionView?.backgroundColor = .white
-		self.navigationItem.title = "User Profile"
+		getUserData()
+		setupViews()
 	}
 	
+	
+	
+	// MARK: - Functions
+	private func getUserData() {
+		let reference = Database.database().reference().child("users")
+		
+		guard let userID = Auth.auth().currentUser?.uid else { return }
+		
+		reference.child(userID).observeSingleEvent(of: DataEventType.value) { (snapshot: DataSnapshot) in
+			
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			
+			self.username = snapshotDict["username"] as? String
+			self.profileImageURL = snapshotDict["profileImageURL"] as? String
+			
+			self.loadDataToUI()
+		}
+	}
+	
+	private func loadDataToUI() {
+		self.navigationItem.title = self.username
+	}
+	
+	
+	
+	// MARK: - SetupViews
+	private func setupViews() {
+		self.collectionView?.backgroundColor = .white
+	}
 }
+
+
+
+
+
+
+
