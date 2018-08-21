@@ -26,10 +26,12 @@ class ProfileController: UICollectionViewController {
 	
 		getUserData()
 		setupViews()
+		
+		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
 	}
 	
 	
-	
+
 	// MARK: - Functions
 	private func getUserData() {
 		let reference = Database.database().reference().child("users")
@@ -58,6 +60,33 @@ class ProfileController: UICollectionViewController {
 		self.collectionView?.backgroundColor = .white
 	}
 }
+
+
+
+// MARK: - Extension: UICollectionView
+extension ProfileController: UICollectionViewDelegateFlowLayout {
+	
+	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		
+		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.identifier, for: indexPath)
+		header.backgroundColor = .blue
+		
+		return header
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		return CGSize(width: view.frame.width, height: 200)
+	}
+	
+}
+
+
+
+
+
+
+
+
 
 
 

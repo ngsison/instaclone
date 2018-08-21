@@ -16,6 +16,7 @@
 		20E4B3D82122C81D00616430 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3D72122C81D00616430 /* GoogleService-Info.plist */; };
 		48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142646212B1E0300DE2EA6 /* MainTabBarController.swift */; };
 		48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142648212B1F6000DE2EA6 /* ProfileController.swift */; };
+		48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEB7212BC51700FC375C /* ProfileHeader.swift */; };
 		90B5D4D1EDA797DA2288E448 /* Pods_instaclone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1344AB6DA6A92E0E861A9D0 /* Pods_instaclone.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		20E4B3D72122C81D00616430 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48142646212B1E0300DE2EA6 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		48142648212B1F6000DE2EA6 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		48F1AEB7212BC51700FC375C /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		C3AE94C3FAF72A84EF1C86FB /* Pods-instaclone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instaclone/Pods-instaclone.debug.xcconfig"; sourceTree = "<group>"; };
 		D1344AB6DA6A92E0E861A9D0 /* Pods_instaclone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instaclone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -69,6 +71,7 @@
 		20E4B3C12122AB9D00616430 /* instaclone */ = {
 			isa = PBXGroup;
 			children = (
+				48F1AEB5212BC4E900FC375C /* Profile */,
 				20E4B3D42122BA8C00616430 /* Utilities */,
 				20E4B3C22122AB9D00616430 /* AppDelegate.swift */,
 				48142646212B1E0300DE2EA6 /* MainTabBarController.swift */,
@@ -89,6 +92,14 @@
 				20E4B3D52122BAB900616430 /* Extensions.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		48F1AEB5212BC4E900FC375C /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				48F1AEB7212BC51700FC375C /* ProfileHeader.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		548EDB2115692CAD2A424D47 /* Pods */ = {
@@ -229,6 +240,7 @@
 			files = (
 				48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */,
 				20E4B3C52122AB9D00616430 /* ViewController.swift in Sources */,
+				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				20E4B3D62122BAB900616430 /* Extensions.swift in Sources */,
 				48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */,
 				20E4B3C32122AB9D00616430 /* AppDelegate.swift in Sources */,
