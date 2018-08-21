@@ -57,7 +57,7 @@ class ViewController: UIViewController {
     let signUpButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.setTitle("Sign Up", for: UIControlState.normal)
-        button.backgroundColor = UIColor.rgb(149, 204, 244)
+		button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
@@ -159,11 +159,11 @@ class ViewController: UIViewController {
         let passwordIsValid = passwordTextField.text!.count > 0
         
         if emailIsValid && usernameIsValid && passwordIsValid {
-            signUpButton.backgroundColor = UIColor.rgb(17, 154, 237)
+			signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
             signUpButton.isEnabled = true
         }
         else {
-            signUpButton.backgroundColor = UIColor.rgb(149, 204, 244)
+			signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
             signUpButton.isEnabled = false
         }
     }
