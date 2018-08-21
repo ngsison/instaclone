@@ -43,6 +43,19 @@ class ProfileHeader: UICollectionViewCell {
 		return button
 	}()
 	
+	let toolbarStackView: UIStackView = {
+		let stackView = UIStackView()
+		stackView.distribution = .fillEqually
+		return stackView
+	}()
+	
+	let usernameLabel: UILabel = {
+		let label = UILabel()
+		label.font = UIFont.boldSystemFont(ofSize: 14)
+		label.textColor = .black
+		return label
+	}()
+	
 	
 	
 	// MARK: - Overrides
@@ -59,8 +72,12 @@ class ProfileHeader: UICollectionViewCell {
 	
 	// MARK: - Functions
 	func loadProfileData(for user: User) {
-		guard let profileImageURL = user.profileImageURL else { return }
+		guard
+			let username = user.username,
+			let profileImageURL = user.profileImageURL
+		else { return }
 		
+		usernameLabel.text = username
 		profileImageView.loadImage(from: profileImageURL) {
 			self.profileImageView.layer.borderColor = UIColor.black.cgColor
 			self.profileImageView.layer.borderWidth = 2
@@ -73,6 +90,7 @@ class ProfileHeader: UICollectionViewCell {
 	private func setupViews() {
 		setupProfileImage()
 		setupToolbar()
+		setupUsername()
 	}
 	
 	private func setupProfileImage() {
@@ -84,17 +102,23 @@ class ProfileHeader: UICollectionViewCell {
 	}
 	
 	private func setupToolbar() {
-		let stackView = UIStackView()
-		stackView.distribution = .fillEqually
-		stackView.addArrangedSubview(gridButton)
-		stackView.addArrangedSubview(listButton)
-		stackView.addArrangedSubview(bookmarkButton)
+		toolbarStackView.addArrangedSubview(gridButton)
+		toolbarStackView.addArrangedSubview(listButton)
+		toolbarStackView.addArrangedSubview(bookmarkButton)
 		
-		self.addSubview(stackView)
-		stackView.anchor(left: self.leftAnchor, equalTo: 0)
-		stackView.anchor(right: self.rightAnchor, equalTo: 0)
-		stackView.anchor(bottom: self.bottomAnchor, equalTo: 0)
-		stackView.anchor(height: 50)
+		self.addSubview(toolbarStackView)
+		toolbarStackView.anchor(left: self.leftAnchor, equalTo: 0)
+		toolbarStackView.anchor(right: self.rightAnchor, equalTo: 0)
+		toolbarStackView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		toolbarStackView.anchor(height: 50)
+	}
+	
+	private func setupUsername() {
+		self.addSubview(usernameLabel)
+		usernameLabel.anchor(left: self.leftAnchor, equalTo: 10)
+		usernameLabel.anchor(right: self.rightAnchor, equalTo: -10)
+		usernameLabel.anchor(top: profileImageView.bottomAnchor, equalTo: 0)
+		usernameLabel.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
 	}
 }
 
