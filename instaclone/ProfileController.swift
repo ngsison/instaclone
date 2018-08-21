@@ -15,8 +15,7 @@ class ProfileController: UICollectionViewController {
 	
 	
 	// MARK: - Properties
-	private var username: String?
-	private var profileImageURL: String?
+	private var user: User?
 	
 	
 	
@@ -42,15 +41,15 @@ class ProfileController: UICollectionViewController {
 			
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
 			
-			self.username = snapshotDict["username"] as? String
-			self.profileImageURL = snapshotDict["profileImageURL"] as? String
+			self.user = User(withDictionary: snapshotDict)
 			
 			self.loadDataToUI()
+			self.collectionView?.reloadData()
 		}
 	}
 	
 	private func loadDataToUI() {
-		self.navigationItem.title = self.username
+		self.navigationItem.title = self.user?.username
 	}
 	
 	
@@ -68,13 +67,17 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		
-		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.identifier, for: indexPath)
-		header.backgroundColor = .blue
+		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.identifier, for: indexPath) as! ProfileHeader
+		
+		if let user = self.user {
+			header.loadProfileData(for: user)
+		}
 		
 		return header
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		
 		return CGSize(width: view.frame.width, height: 200)
 	}
 	

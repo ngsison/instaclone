@@ -17,6 +17,7 @@
 		48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142646212B1E0300DE2EA6 /* MainTabBarController.swift */; };
 		48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142648212B1F6000DE2EA6 /* ProfileController.swift */; };
 		48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEB7212BC51700FC375C /* ProfileHeader.swift */; };
+		48F1AEBB212BD0FF00FC375C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEBA212BD0FF00FC375C /* User.swift */; };
 		90B5D4D1EDA797DA2288E448 /* Pods_instaclone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1344AB6DA6A92E0E861A9D0 /* Pods_instaclone.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 		48142646212B1E0300DE2EA6 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		48142648212B1F6000DE2EA6 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		48F1AEB7212BC51700FC375C /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
+		48F1AEBA212BD0FF00FC375C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3AE94C3FAF72A84EF1C86FB /* Pods-instaclone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instaclone/Pods-instaclone.debug.xcconfig"; sourceTree = "<group>"; };
 		D1344AB6DA6A92E0E861A9D0 /* Pods_instaclone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_instaclone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -71,6 +73,7 @@
 		20E4B3C12122AB9D00616430 /* instaclone */ = {
 			isa = PBXGroup;
 			children = (
+				48F1AEB9212BD0E200FC375C /* Models */,
 				48F1AEB5212BC4E900FC375C /* Profile */,
 				20E4B3D42122BA8C00616430 /* Utilities */,
 				20E4B3C22122AB9D00616430 /* AppDelegate.swift */,
@@ -100,6 +103,14 @@
 				48F1AEB7212BC51700FC375C /* ProfileHeader.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		48F1AEB9212BD0E200FC375C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				48F1AEBA212BD0FF00FC375C /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		548EDB2115692CAD2A424D47 /* Pods */ = {
@@ -244,6 +255,7 @@
 				20E4B3D62122BAB900616430 /* Extensions.swift in Sources */,
 				48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */,
 				20E4B3C32122AB9D00616430 /* AppDelegate.swift in Sources */,
+				48F1AEBB212BD0FF00FC375C /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

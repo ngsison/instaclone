@@ -231,7 +231,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         plusButton.layer.masksToBounds = true
         
         plusButton.layer.borderColor = UIColor.black.cgColor
-        plusButton.layer.borderWidth = 3
+        plusButton.layer.borderWidth = 2
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             plusButton.setImage(editedImage.renderOriginal(), for: .normal)

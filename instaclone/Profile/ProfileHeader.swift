@@ -17,7 +17,6 @@ class ProfileHeader: UICollectionViewCell {
 	
 	private let profileImageView: UIImageView = {
 		let imageView = UIImageView()
-		imageView.backgroundColor = .red
 		imageView.layer.cornerRadius = 40
 		imageView.layer.masksToBounds = true
 		return imageView
@@ -37,9 +36,21 @@ class ProfileHeader: UICollectionViewCell {
 	
 	
 	
+	// MARK: - Functions
+	func loadProfileData(for user: User) {
+		guard let profileImageURL = user.profileImageURL else { return }
+		
+		profileImageView.loadImage(from: profileImageURL) {
+			self.profileImageView.layer.borderColor = UIColor.black.cgColor
+			self.profileImageView.layer.borderWidth = 2
+		}
+	}
+	
+	
+	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.backgroundColor = .blue
+		self.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
 		setupProfileImage()
 	}
 	
