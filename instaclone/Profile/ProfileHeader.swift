@@ -15,11 +15,32 @@ class ProfileHeader: UICollectionViewCell {
 	// MARK: - Properties
 	static let identifier = "profileHeader"
 	
-	private let profileImageView: UIImageView = {
+	let profileImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.layer.cornerRadius = 40
 		imageView.layer.masksToBounds = true
 		return imageView
+	}()
+	
+	public let gridButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
+		button.tintColor = UIColor(white: 0, alpha: 0.2)
+		return button
+	}()
+	
+	let listButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.setImage(#imageLiteral(resourceName: "list"), for: .normal)
+		button.tintColor = UIColor(white: 0, alpha: 0.2)
+		return button
+	}()
+	
+	let bookmarkButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
+		button.tintColor = UIColor(white: 0, alpha: 0.2)
+		return button
 	}()
 	
 	
@@ -50,8 +71,8 @@ class ProfileHeader: UICollectionViewCell {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
 		setupProfileImage()
+		setupToolbar()
 	}
 	
 	private func setupProfileImage() {
@@ -60,6 +81,20 @@ class ProfileHeader: UICollectionViewCell {
 		profileImageView.anchor(left: self.leftAnchor, equalTo: 10)
 		profileImageView.anchor(width: 80)
 		profileImageView.anchor(height: 80)
+	}
+	
+	private func setupToolbar() {
+		let stackView = UIStackView()
+		stackView.distribution = .fillEqually
+		stackView.addArrangedSubview(gridButton)
+		stackView.addArrangedSubview(listButton)
+		stackView.addArrangedSubview(bookmarkButton)
+		
+		self.addSubview(stackView)
+		stackView.anchor(left: self.leftAnchor, equalTo: 0)
+		stackView.anchor(right: self.rightAnchor, equalTo: 0)
+		stackView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		stackView.anchor(height: 50)
 	}
 }
 
