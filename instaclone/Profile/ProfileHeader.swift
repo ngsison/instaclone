@@ -58,25 +58,67 @@ class ProfileHeader: UICollectionViewCell {
     
     let postsLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nposts"
+        
+        let postValueText = NSAttributedString(string: "11\n", attributes: [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+        ])
+        
+        let postLabelText = NSAttributedString(string: "posts", attributes: [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray
+        ])
+        
+        var attributedText = NSMutableAttributedString(attributedString: postValueText)
+        attributedText.append(postLabelText)
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
+        
         return label
     }()
     
     let followersLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nfollowers"
+        
+        let postValueText = NSAttributedString(string: "11\n", attributes: [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+            ])
+        
+        let postLabelText = NSAttributedString(string: "followers", attributes: [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray
+            ])
+        
+        var attributedText = NSMutableAttributedString(attributedString: postValueText)
+        attributedText.append(postLabelText)
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
+        
         return label
     }()
     
     let followingLabel: UILabel = {
         let label = UILabel()
-        label.text = "11\nfollowing"
+
+        let postValueText = NSAttributedString(string: "11\n", attributes: [
+            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+            ])
+        
+        let postLabelText = NSAttributedString(string: "following", attributes: [
+            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+            NSAttributedStringKey.foregroundColor: UIColor.lightGray
+            ])
+        
+        var attributedText = NSMutableAttributedString(attributedString: postValueText)
+        attributedText.append(postLabelText)
+        
+        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
+        
         return label
     }()
     
@@ -184,6 +226,15 @@ class ProfileHeader: UICollectionViewCell {
         editProfileButton.anchor(height: 32)
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 
