@@ -85,6 +85,17 @@ class ProfileHeader: UICollectionViewCell {
         stackView.distribution = .fillEqually
         return stackView
     }()
+    
+    let editProfileButton: UIButton = {
+        let button = UIButton(type: UIButtonType.system)
+        button.setTitle("Edit Profile", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 3
+        return button
+    }()
 	
 	
 	
@@ -109,8 +120,8 @@ class ProfileHeader: UICollectionViewCell {
 		
 		usernameLabel.text = username
 		profileImageView.loadImage(from: profileImageURL) {
-			self.profileImageView.layer.borderColor = UIColor.black.cgColor
-			self.profileImageView.layer.borderWidth = 2
+			self.profileImageView.layer.borderColor = UIColor.gray.cgColor
+			self.profileImageView.layer.borderWidth = 1
 		}
 	}
 	
@@ -122,6 +133,7 @@ class ProfileHeader: UICollectionViewCell {
 		setupToolbar()
 		setupUsername()
         setupStats()
+        setupEditProfileButton()
 	}
 	
 	private func setupProfileImage() {
@@ -160,8 +172,16 @@ class ProfileHeader: UICollectionViewCell {
         self.addSubview(statsStackView)
         statsStackView.anchor(top: self.topAnchor, equalTo: 10)
         statsStackView.anchor(left: profileImageView.rightAnchor, equalTo: 10)
-        statsStackView.anchor(right: self.rightAnchor, equalTo: 10)
+        statsStackView.anchor(right: self.rightAnchor, equalTo: -10)
         statsStackView.anchor(height: 50)
+    }
+    
+    private func setupEditProfileButton() {
+        self.addSubview(editProfileButton)
+        editProfileButton.anchor(top: statsStackView.bottomAnchor, equalTo: 8)
+        editProfileButton.anchor(left: statsStackView.leftAnchor, equalTo: 0)
+        editProfileButton.anchor(right: statsStackView.rightAnchor, equalTo: 0)
+        editProfileButton.anchor(height: 32)
     }
 }
 
