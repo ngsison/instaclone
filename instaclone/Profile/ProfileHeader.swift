@@ -25,7 +25,7 @@ class ProfileHeader: UICollectionViewCell {
 	public let gridButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
-		button.tintColor = UIColor(white: 0, alpha: 0.2)
+		//button.tintColor = UIColor(white: 0, alpha: 0.2)
 		return button
 	}()
 	
@@ -81,7 +81,7 @@ class ProfileHeader: UICollectionViewCell {
     let followersLabel: UILabel = {
         let label = UILabel()
         
-        let postValueText = NSAttributedString(string: "11\n", attributes: [
+        let postValueText = NSAttributedString(string: "0\n", attributes: [
             NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
             ])
         
@@ -103,7 +103,7 @@ class ProfileHeader: UICollectionViewCell {
     let followingLabel: UILabel = {
         let label = UILabel()
 
-        let postValueText = NSAttributedString(string: "11\n", attributes: [
+        let postValueText = NSAttributedString(string: "0\n", attributes: [
             NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
             ])
         
@@ -196,6 +196,23 @@ class ProfileHeader: UICollectionViewCell {
 		toolbarStackView.anchor(right: self.rightAnchor, equalTo: 0)
 		toolbarStackView.anchor(bottom: self.bottomAnchor, equalTo: 0)
 		toolbarStackView.anchor(height: 50)
+        
+        let topBorder = UIView()
+        topBorder.backgroundColor = UIColor.lightGray
+        self.addSubview(topBorder)
+        topBorder.anchor(left: toolbarStackView.leftAnchor, equalTo: 0)
+        topBorder.anchor(right: toolbarStackView.rightAnchor, equalTo: 0)
+        topBorder.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
+        topBorder.anchor(height: 1)
+        
+        
+        let bottomBorder = UIView()
+        bottomBorder.backgroundColor = UIColor.lightGray
+        self.addSubview(bottomBorder)
+        bottomBorder.anchor(left: toolbarStackView.leftAnchor, equalTo: 0)
+        bottomBorder.anchor(right: toolbarStackView.rightAnchor, equalTo: 0)
+        bottomBorder.anchor(top: toolbarStackView.bottomAnchor, equalTo: 0)
+        bottomBorder.anchor(height: 1)
 	}
 	
 	private func setupUsername() {
@@ -220,7 +237,7 @@ class ProfileHeader: UICollectionViewCell {
     
     private func setupEditProfileButton() {
         self.addSubview(editProfileButton)
-        editProfileButton.anchor(top: statsStackView.bottomAnchor, equalTo: 8)
+        editProfileButton.anchor(top: statsStackView.bottomAnchor, equalTo: 2)
         editProfileButton.anchor(left: statsStackView.leftAnchor, equalTo: 0)
         editProfileButton.anchor(right: statsStackView.rightAnchor, equalTo: 0)
         editProfileButton.anchor(height: 32)
