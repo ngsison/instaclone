@@ -15,6 +15,7 @@ class ProfileController: UICollectionViewController {
 	
 	
 	// MARK: - Properties
+    private var identifier = "profileCell"
 	private var user: User?
 	
 	
@@ -27,6 +28,8 @@ class ProfileController: UICollectionViewController {
 		setupViews()
 		
 		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.identifier)
+        collectionView?.collectionViewLayout = UICollectionViewFlowLayout()
 	}
 	
 	
@@ -80,7 +83,29 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 		
 		return CGSize(width: view.frame.width, height: 200)
 	}
-	
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 7
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath)
+        cell.backgroundColor = .purple
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let availableWidth = (self.view.frame.width - 2) / 3
+        return CGSize(width: availableWidth, height: availableWidth)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
 }
 
 

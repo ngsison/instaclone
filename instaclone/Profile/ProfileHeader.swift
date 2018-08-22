@@ -13,7 +13,7 @@ class ProfileHeader: UICollectionViewCell {
 	
 	
 	// MARK: - Properties
-	static let identifier = "profileHeader"
+	static let identifier = "profileHeaderCell"
 	
 	let profileImageView: UIImageView = {
 		let imageView = UIImageView()
