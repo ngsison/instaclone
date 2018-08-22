@@ -55,6 +55,36 @@ class ProfileHeader: UICollectionViewCell {
 		label.textColor = .black
 		return label
 	}()
+    
+    let postsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nposts"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let followersLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nfollowers"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let followingLabel: UILabel = {
+        let label = UILabel()
+        label.text = "11\nfollowing"
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    let statsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
 	
 	
 	
@@ -91,6 +121,7 @@ class ProfileHeader: UICollectionViewCell {
 		setupProfileImage()
 		setupToolbar()
 		setupUsername()
+        setupStats()
 	}
 	
 	private func setupProfileImage() {
@@ -120,6 +151,18 @@ class ProfileHeader: UICollectionViewCell {
 		usernameLabel.anchor(top: profileImageView.bottomAnchor, equalTo: 0)
 		usernameLabel.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
 	}
+    
+    private func setupStats() {
+        statsStackView.addArrangedSubview(postsLabel)
+        statsStackView.addArrangedSubview(followersLabel)
+        statsStackView.addArrangedSubview(followingLabel)
+        
+        self.addSubview(statsStackView)
+        statsStackView.anchor(top: self.topAnchor, equalTo: 10)
+        statsStackView.anchor(left: profileImageView.rightAnchor, equalTo: 10)
+        statsStackView.anchor(right: self.rightAnchor, equalTo: 10)
+        statsStackView.anchor(height: 50)
+    }
 }
 
 
