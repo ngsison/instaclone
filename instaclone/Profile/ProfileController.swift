@@ -36,7 +36,18 @@ class ProfileController: UICollectionViewController {
 
 	// MARK: - Events
 	@objc private func onLogoutButtonPress() {
-		print("Logout button was pressed!")
+		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+		
+		let logoutAction = UIAlertAction(title: "Log out", style: .destructive) { (_) in
+			self.logout()
+		}
+		
+		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+		
+		alertController.addAction(logoutAction)
+		alertController.addAction(cancelAction)
+		
+		present(alertController, animated: true, completion: nil)
 	}
 	
 	
@@ -60,6 +71,10 @@ class ProfileController: UICollectionViewController {
 	
 	private func loadDataToUI() {
 		self.navigationItem.title = self.user?.username
+	}
+	
+	private func logout() {
+		print("Perform logout")
 	}
 	
 	
