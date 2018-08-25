@@ -46,7 +46,7 @@ class LoginController: UIViewController {
 		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
 		tf.borderStyle = UITextBorderStyle.roundedRect
 		tf.font = UIFont.systemFont(ofSize: 14)
-		//tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
+		tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
 		return tf
 	}()
 	
@@ -57,7 +57,7 @@ class LoginController: UIViewController {
 		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
 		tf.borderStyle = UITextBorderStyle.roundedRect
 		tf.font = UIFont.systemFont(ofSize: 14)
-		//tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
+		tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
 		return tf
 	}()
 	
@@ -93,6 +93,20 @@ class LoginController: UIViewController {
 	@objc private func onShowSignupButtonPress() {
 		let signupController = SignupController()
 		self.navigationController?.pushViewController(signupController, animated: true)
+	}
+	
+	@objc func onTextInputChanged() {
+		let emailIsValid = emailTextField.text!.count > 0
+		let passwordIsValid = passwordTextField.text!.count > 0
+		
+		if emailIsValid && passwordIsValid {
+			loginButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+			loginButton.isEnabled = true
+		}
+		else {
+			loginButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+			loginButton.isEnabled = false
+		}
 	}
 	
 	
