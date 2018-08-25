@@ -54,7 +54,7 @@ class SignupController: UIViewController {
         return tf
     }()
     
-    let signUpButton: UIButton = {
+    let signupButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
         button.setTitle("Sign Up", for: UIControlState.normal)
 		button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
@@ -63,10 +63,28 @@ class SignupController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(UIColor.white, for: UIControlState.normal)
         button.isEnabled = false
-        button.addTarget(self, action: #selector(onSignUpButtonPress), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(onSignupButtonPress), for: UIControlEvents.touchUpInside)
         
         return button
     }()
+	
+	let showSigninButton: UIButton = {
+		let button = UIButton(type: .system)
+		
+		var attributedTitle = NSMutableAttributedString(attributedString: NSAttributedString(string: "Already have an account? ", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+			NSAttributedStringKey.foregroundColor: UIColor.lightGray
+			]))
+		
+		attributedTitle.append(NSAttributedString(string: "Sign In.", attributes: [
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14),
+			NSAttributedStringKey.foregroundColor: UIColor.rgb(red: 17, green: 154, blue: 237)
+			]))
+		
+		button.setAttributedTitle(attributedTitle, for: .normal)
+		button.addTarget(self, action: #selector(onShowSigninButtonPress), for: .touchUpInside)
+		return button
+	}()
     
     
     
@@ -79,7 +97,7 @@ class SignupController: UIViewController {
 
     
     // MARK: - Events
-    @objc func onSignUpButtonPress() {
+    @objc func onSignupButtonPress() {
         guard
             let email = emailTextField.text, email.count > 0,
             let username = usernameTextField.text, username.count > 0,
@@ -159,12 +177,12 @@ class SignupController: UIViewController {
         let passwordIsValid = passwordTextField.text!.count > 0
         
         if emailIsValid && usernameIsValid && passwordIsValid {
-			signUpButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
-            signUpButton.isEnabled = true
+			signupButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+            signupButton.isEnabled = true
         }
         else {
-			signUpButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
-            signUpButton.isEnabled = false
+			signupButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+            signupButton.isEnabled = false
         }
     }
     
@@ -175,15 +193,19 @@ class SignupController: UIViewController {
         
         present(imagePickerController, animated: true, completion: nil)
     }
+	
+	@objc private func onShowSigninButtonPress() {
+		self.navigationController?.popViewController(animated: true)
+	}
     
     
     
     // MARK: - SetupViews
     func setupViews() {
 		self.view.backgroundColor = .white
-		
         setupPlusButton()
         setupInputFields()
+		setupShowSigninButton()
     }
     
     private func setupPlusButton() {
@@ -204,7 +226,7 @@ class SignupController: UIViewController {
         stackView.addArrangedSubview(emailTextField)
         stackView.addArrangedSubview(usernameTextField)
         stackView.addArrangedSubview(passwordTextField)
-        stackView.addArrangedSubview(signUpButton)
+        stackView.addArrangedSubview(signupButton)
         
         self.view.addSubview(stackView)
         
@@ -213,6 +235,14 @@ class SignupController: UIViewController {
         stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
         stackView.anchor(height: 190)
     }
+	
+	private func setupShowSigninButton() {
+		self.view.addSubview(showSigninButton)
+		showSigninButton.anchor(bottom: self.view.bottomAnchor, equalTo: 8)
+		showSigninButton.anchor(left: self.view.leftAnchor, equalTo: 8)
+		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		showSigninButton.anchor(height: 50)
+	}
 }
 
 

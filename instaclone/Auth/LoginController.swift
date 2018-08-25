@@ -13,7 +13,7 @@ class LoginController: UIViewController {
 	
 	
 	// MARK: - Properties
-	let signupButton: UIButton = {
+	let showSignupButton: UIButton = {
 		let button = UIButton(type: .system)
 
 		var attributedTitle = NSMutableAttributedString(attributedString: NSAttributedString(string: "Don't have an account? ", attributes: [
@@ -27,7 +27,7 @@ class LoginController: UIViewController {
 		]))
 
 		button.setAttributedTitle(attributedTitle, for: .normal)
-		button.addTarget(self, action: #selector(showSignUp), for: .touchUpInside)
+		button.addTarget(self, action: #selector(onShowSignupButtonPress), for: .touchUpInside)
 		return button
 	}()
 	
@@ -90,7 +90,7 @@ class LoginController: UIViewController {
 	
 	
 	// MARK: - Events
-	@objc private func showSignUp() {
+	@objc private func onShowSignupButtonPress() {
 		let signupController = SignupController()
 		self.navigationController?.pushViewController(signupController, animated: true)
 	}
@@ -101,17 +101,17 @@ class LoginController: UIViewController {
 	private func setupViews() {
 		self.view.backgroundColor = UIColor.white
 		self.navigationController?.isNavigationBarHidden = true
-		setupSignUpButton()
+		setupShowSignupButton()
 		setupLogo()
 		setupInputFields()
 	}
 	
-	private func setupSignUpButton() {
-		self.view.addSubview(signupButton)
-		signupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 8)
-		signupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		signupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
-		signupButton.anchor(height: 50)
+	private func setupShowSignupButton() {
+		self.view.addSubview(showSignupButton)
+		showSignupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 8)
+		showSignupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
+		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		showSignupButton.anchor(height: 50)
 	}
 	
 	private func setupLogo() {
