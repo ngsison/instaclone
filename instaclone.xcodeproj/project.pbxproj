@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		20E4B3C32122AB9D00616430 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3C22122AB9D00616430 /* AppDelegate.swift */; };
 		20E4B3C52122AB9D00616430 /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3C42122AB9D00616430 /* SignupController.swift */; };
-		20E4B3C82122AB9D00616430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3C62122AB9D00616430 /* Main.storyboard */; };
 		20E4B3CA2122AB9F00616430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3C92122AB9F00616430 /* Assets.xcassets */; };
 		20E4B3CD2122AB9F00616430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */; };
 		20E4B3D62122BAB900616430 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3D52122BAB900616430 /* Extensions.swift */; };
@@ -27,7 +26,6 @@
 		20E4B3BF2122AB9D00616430 /* instaclone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instaclone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E4B3C22122AB9D00616430 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20E4B3C42122AB9D00616430 /* SignupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
-		20E4B3C72122AB9D00616430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		20E4B3C92122AB9F00616430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20E4B3CC2122AB9F00616430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		20E4B3CE2122AB9F00616430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -79,13 +77,8 @@
 				48F1AEB9212BD0E200FC375C /* Models */,
 				48F1AEB5212BC4E900FC375C /* Profile */,
 				20E4B3D42122BA8C00616430 /* Utilities */,
-				20E4B3C22122AB9D00616430 /* AppDelegate.swift */,
+				48B1EC902131908D00258340 /* Supporting Files */,
 				48142646212B1E0300DE2EA6 /* MainTabBarController.swift */,
-				20E4B3C62122AB9D00616430 /* Main.storyboard */,
-				20E4B3C92122AB9F00616430 /* Assets.xcassets */,
-				20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */,
-				20E4B3CE2122AB9F00616430 /* Info.plist */,
-				20E4B3D72122C81D00616430 /* GoogleService-Info.plist */,
 			);
 			path = instaclone;
 			sourceTree = "<group>";
@@ -105,6 +98,18 @@
 				20E4B3C42122AB9D00616430 /* SignupController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		48B1EC902131908D00258340 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				20E4B3C22122AB9D00616430 /* AppDelegate.swift */,
+				20E4B3C92122AB9F00616430 /* Assets.xcassets */,
+				20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */,
+				20E4B3CE2122AB9F00616430 /* Info.plist */,
+				20E4B3D72122C81D00616430 /* GoogleService-Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		48F1AEB5212BC4E900FC375C /* Profile */ = {
@@ -203,7 +208,6 @@
 			files = (
 				20E4B3CD2122AB9F00616430 /* LaunchScreen.storyboard in Resources */,
 				20E4B3CA2122AB9F00616430 /* Assets.xcassets in Resources */,
-				20E4B3C82122AB9D00616430 /* Main.storyboard in Resources */,
 				20E4B3D82122C81D00616430 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,14 +278,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		20E4B3C62122AB9D00616430 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				20E4B3C72122AB9D00616430 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -414,7 +410,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KMTXVH4GTQ;
-				INFOPLIST_FILE = instaclone/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/instaclone/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,7 +429,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KMTXVH4GTQ;
-				INFOPLIST_FILE = instaclone/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/instaclone/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
