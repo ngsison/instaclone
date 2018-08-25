@@ -16,23 +16,42 @@ class MainTabBarController: UITabBarController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		self.view.backgroundColor = UIColor.white
+		self.tabBar.tintColor = .black
 		
 		if Auth.auth().currentUser == nil {
-			DispatchQueue.main.async {
-				let loginController = LoginController()
-				let navigationController = UINavigationController(rootViewController: loginController)
-				self.present(navigationController, animated: true, completion: nil)
-			}
-			return
+			showLoginController()
+		} else {
+			showMainTabs()
 		}
-		
+	}
+	
+	
+	
+	// MARK: - Functions
+	func showLoginController() {
+		DispatchQueue.main.async {
+			let loginController = LoginController()
+			let loginNavController = UINavigationController(rootViewController: loginController)
+			self.present(loginNavController, animated: false, completion: nil)
+		}
+	}
+	
+	func showMainTabs() {
 		let profileController = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
 		let profileNavController = UINavigationController(rootViewController: profileController)
 		profileNavController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
 		profileNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
 		
-		self.tabBar.tintColor = .black
 		self.viewControllers = [profileNavController]
 	}
-	
 }
+
+
+
+
+
+
+
+
+

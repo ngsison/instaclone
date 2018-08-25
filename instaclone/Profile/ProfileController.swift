@@ -75,6 +75,20 @@ class ProfileController: UICollectionViewController {
 	private func logOut() {
 		do {
 			try Auth.auth().signOut()
+			print("Successfully logged out")
+			
+			/**
+				Presenting new instance of LoginController because:
+					- it's going to be dismissed anyway.
+					- the 'showLoginController' of rootViewController is not animated.
+			
+				After dismissal of the LoginController/SignupController:
+					- rootViewController's (MainTabBarController) viewControllers will be reset by calling 'showMainTabs'
+			*/
+			
+			let loginController = LoginController()
+			let loginNavController = UINavigationController(rootViewController: loginController)
+			present(loginNavController, animated: true, completion: nil)
 		} catch let error {
 			print("Error signing out: \(error)")
 		}

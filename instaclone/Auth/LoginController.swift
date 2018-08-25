@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginController: UIViewController {
 	
@@ -114,7 +115,21 @@ class LoginController: UIViewController {
 	}
 	
 	@objc private func onLoginButtonPress() {
-		print("LoginButton was pressed!")
+		guard
+			let email = emailTextField.text, email.count > 0,
+			let password = passwordTextField.text, password.count > 0
+		else { return }
+		
+		Auth.auth().signIn(withEmail: email, password: password) { (result: AuthDataResult?, error: Error?) in
+			if let error = error {
+				print("Error signing in: \(error)")
+			}
+			
+			print("Successfully signed in")
+			guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+			mainTabBarController.showMainTabs()
+			self.dismiss(animated: true, completion: nil)
+		}
 	}
 	
 	
