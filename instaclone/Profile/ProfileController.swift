@@ -38,8 +38,8 @@ class ProfileController: UICollectionViewController {
 	@objc private func onLogoutButtonPress() {
 		let alertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
 		
-		let logoutAction = UIAlertAction(title: "Log out", style: .destructive) { (_) in
-			self.logout()
+		let logoutAction = UIAlertAction(title: "Log Out", style: .destructive) { (_) in
+			self.logOut()
 		}
 		
 		let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -72,7 +72,7 @@ class ProfileController: UICollectionViewController {
 		self.navigationItem.title = self.user?.username
 	}
 	
-	private func logout() {
+	private func logOut() {
 		do {
 			try Auth.auth().signOut()
 		} catch let error {

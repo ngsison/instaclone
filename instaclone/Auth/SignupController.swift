@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  SignupController.swift
 //  instaclone
 //
 //  Created by Nathaniel SISON on 14/8/2018.
@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 
-class ViewController: UIViewController {
+class SignupController: UIViewController {
     
     
     
@@ -218,7 +218,7 @@ class ViewController: UIViewController {
 
 
 // MARK - Extension: UIImagePickerControllerDelegate, UINavigationControllerDelegate
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension SignupController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         

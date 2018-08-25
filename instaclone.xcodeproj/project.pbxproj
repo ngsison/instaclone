@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20E4B3C32122AB9D00616430 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3C22122AB9D00616430 /* AppDelegate.swift */; };
-		20E4B3C52122AB9D00616430 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3C42122AB9D00616430 /* ViewController.swift */; };
+		20E4B3C52122AB9D00616430 /* SignupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E4B3C42122AB9D00616430 /* SignupController.swift */; };
 		20E4B3C82122AB9D00616430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3C62122AB9D00616430 /* Main.storyboard */; };
 		20E4B3CA2122AB9F00616430 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3C92122AB9F00616430 /* Assets.xcassets */; };
 		20E4B3CD2122AB9F00616430 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */; };
@@ -26,7 +26,7 @@
 		1F5687832F0B10D22BAEA708 /* Pods-instaclone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.release.xcconfig"; path = "Pods/Target Support Files/Pods-instaclone/Pods-instaclone.release.xcconfig"; sourceTree = "<group>"; };
 		20E4B3BF2122AB9D00616430 /* instaclone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = instaclone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20E4B3C22122AB9D00616430 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		20E4B3C42122AB9D00616430 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		20E4B3C42122AB9D00616430 /* SignupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupController.swift; sourceTree = "<group>"; };
 		20E4B3C72122AB9D00616430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		20E4B3C92122AB9F00616430 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		20E4B3CC2122AB9F00616430 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -75,13 +75,12 @@
 		20E4B3C12122AB9D00616430 /* instaclone */ = {
 			isa = PBXGroup;
 			children = (
-				4885BF64213182C100B94ACF /* Login */,
+				4885BF64213182C100B94ACF /* Auth */,
 				48F1AEB9212BD0E200FC375C /* Models */,
 				48F1AEB5212BC4E900FC375C /* Profile */,
 				20E4B3D42122BA8C00616430 /* Utilities */,
 				20E4B3C22122AB9D00616430 /* AppDelegate.swift */,
 				48142646212B1E0300DE2EA6 /* MainTabBarController.swift */,
-				20E4B3C42122AB9D00616430 /* ViewController.swift */,
 				20E4B3C62122AB9D00616430 /* Main.storyboard */,
 				20E4B3C92122AB9F00616430 /* Assets.xcassets */,
 				20E4B3CB2122AB9F00616430 /* LaunchScreen.storyboard */,
@@ -99,12 +98,13 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
-		4885BF64213182C100B94ACF /* Login */ = {
+		4885BF64213182C100B94ACF /* Auth */ = {
 			isa = PBXGroup;
 			children = (
 				4885BF65213182D800B94ACF /* LoginController.swift */,
+				20E4B3C42122AB9D00616430 /* SignupController.swift */,
 			);
-			path = Login;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		48F1AEB5212BC4E900FC375C /* Profile */ = {
@@ -261,7 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */,
-				20E4B3C52122AB9D00616430 /* ViewController.swift in Sources */,
+				20E4B3C52122AB9D00616430 /* SignupController.swift in Sources */,
 				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				20E4B3D62122BAB900616430 /* Extensions.swift in Sources */,
 				48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */,
