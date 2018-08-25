@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MainTabBarController: UITabBarController {
 	
@@ -15,6 +16,14 @@ class MainTabBarController: UITabBarController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		
+		if Auth.auth().currentUser == nil {
+			DispatchQueue.main.async {
+				let loginController = LoginController()
+				self.present(loginController, animated: true, completion: nil)
+			}
+			return
+		}
 		
 		let profileController = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
 		let profileNavController = UINavigationController(rootViewController: profileController)
