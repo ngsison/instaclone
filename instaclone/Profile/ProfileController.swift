@@ -34,6 +34,13 @@ class ProfileController: UICollectionViewController {
 	
 	
 
+	// MARK: - Events
+	@objc private func onLogoutButtonPress() {
+		print("Logout button was pressed!")
+	}
+	
+	
+	
 	// MARK: - Functions
 	private func getUserData() {
 		let reference = Database.database().reference().child("users")
@@ -60,6 +67,11 @@ class ProfileController: UICollectionViewController {
 	// MARK: - SetupViews
 	private func setupViews() {
 		self.collectionView?.backgroundColor = .white
+		setupLogoutButton()
+	}
+	
+	private func setupLogoutButton() {
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").renderOriginal(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(onLogoutButtonPress))
 	}
 }
 
