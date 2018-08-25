@@ -211,7 +211,7 @@ class SignupController: UIViewController {
         stackView.anchor(top: plusButton.bottomAnchor, equalTo: 20)
         stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
         stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
-        stackView.anchor(height: 200)
+        stackView.anchor(height: 190)
     }
 }
 

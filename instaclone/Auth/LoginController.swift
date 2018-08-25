@@ -29,6 +29,41 @@ class LoginController: UIViewController {
 		return imageView
 	}()
 	
+	let emailTextField: UITextField = {
+		let tf = UITextField()
+		tf.placeholder = "Email"
+		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
+		tf.borderStyle = UITextBorderStyle.roundedRect
+		tf.font = UIFont.systemFont(ofSize: 14)
+		//tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
+		return tf
+	}()
+	
+	let passwordTextField: UITextField = {
+		let tf = UITextField()
+		tf.placeholder = "Password"
+		tf.isSecureTextEntry = true
+		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
+		tf.borderStyle = UITextBorderStyle.roundedRect
+		tf.font = UIFont.systemFont(ofSize: 14)
+		//tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
+		return tf
+	}()
+	
+	let loginButton: UIButton = {
+		let button = UIButton(type: UIButtonType.system)
+		button.setTitle("Log In", for: UIControlState.normal)
+		button.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
+		button.layer.cornerRadius = 5
+		button.layer.masksToBounds = true
+		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+		button.setTitleColor(UIColor.white, for: UIControlState.normal)
+		button.isEnabled = false
+		//button.addTarget(self, action: #selector(onSignUpButtonPress), for: UIControlEvents.touchUpInside)
+		
+		return button
+	}()
+	
 	
 	
 	// MARK: - Overrides
@@ -57,6 +92,7 @@ class LoginController: UIViewController {
 		self.navigationController?.isNavigationBarHidden = true
 		setupSignUpButton()
 		setupLogo()
+		setupInputFields()
 	}
 	
 	private func setupSignUpButton() {
@@ -73,5 +109,24 @@ class LoginController: UIViewController {
 		logoImageView.anchor(right: self.view.rightAnchor, equalTo: 0)
 		logoImageView.anchor(top: self.view.topAnchor, equalTo: 0)
 		logoImageView.anchor(height: 150)
+	}
+	
+	private func setupInputFields() {
+		let stackView = UIStackView()
+		
+		stackView.distribution = UIStackViewDistribution.fillEqually
+		stackView.axis = UILayoutConstraintAxis.vertical
+		stackView.spacing = 10
+		
+		stackView.addArrangedSubview(emailTextField)
+		stackView.addArrangedSubview(passwordTextField)
+		stackView.addArrangedSubview(loginButton)
+		
+		self.view.addSubview(stackView)
+		
+		stackView.anchor(top: logoImageView.bottomAnchor, equalTo: 40)
+		stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
+		stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
+		stackView.anchor(height: 140)
 	}
 }
