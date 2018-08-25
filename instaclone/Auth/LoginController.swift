@@ -15,7 +15,18 @@ class LoginController: UIViewController {
 	// MARK: - Properties
 	let signupButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle("Don't have an account? Sign Up.", for: .normal)
+
+		var attributedTitle = NSMutableAttributedString(attributedString: NSAttributedString(string: "Don't have an account? ", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+			NSAttributedStringKey.foregroundColor: UIColor.lightGray
+		]))
+		
+		attributedTitle.append(NSAttributedString(string: "Sign Up.", attributes: [
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14),
+			NSAttributedStringKey.foregroundColor: UIColor.rgb(red: 17, green: 154, blue: 237)
+		]))
+
+		button.setAttributedTitle(attributedTitle, for: .normal)
 		button.addTarget(self, action: #selector(showSignUp), for: .touchUpInside)
 		return button
 	}()
