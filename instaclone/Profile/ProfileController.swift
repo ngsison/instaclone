@@ -54,10 +54,9 @@ class ProfileController: UICollectionViewController {
 	
 	// MARK: - Functions
 	private func getUserData() {
-		let reference = Database.database().reference().child("users")
-		
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		
+		let reference = Database.database().reference().child("users")
 		reference.child(userID).observeSingleEvent(of: DataEventType.value) { (snapshot: DataSnapshot) in
 			
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
@@ -74,7 +73,11 @@ class ProfileController: UICollectionViewController {
 	}
 	
 	private func logout() {
-		print("Perform logout")
+		do {
+			try Auth.auth().signOut()
+		} catch let error {
+			print("Error signing out: \(error)")
+		}
 	}
 	
 	
