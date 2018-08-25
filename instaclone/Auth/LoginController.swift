@@ -20,12 +20,25 @@ class LoginController: UIViewController {
 		return button
 	}()
 	
+	let logoImageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+		imageView.backgroundColor = UIColor.rgb(red: 0, green: 120, blue: 175)
+		imageView.image = #imageLiteral(resourceName: "Instagram_logo_white")
+		imageView.contentMode = .center
+		return imageView
+	}()
+	
 	
 	
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupViews()
+	}
+	
+	override var preferredStatusBarStyle: UIStatusBarStyle {
+		return .lightContent
 	}
 	
 	
@@ -43,6 +56,7 @@ class LoginController: UIViewController {
 		self.view.backgroundColor = UIColor.white
 		self.navigationController?.isNavigationBarHidden = true
 		setupSignUpButton()
+		setupLogo()
 	}
 	
 	private func setupSignUpButton() {
@@ -51,5 +65,13 @@ class LoginController: UIViewController {
 		signupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
 		signupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
 		signupButton.anchor(height: 50)
+	}
+	
+	private func setupLogo() {
+		self.view.addSubview(logoImageView)
+		logoImageView.anchor(left: self.view.leftAnchor, equalTo: 0)
+		logoImageView.anchor(right: self.view.rightAnchor, equalTo: 0)
+		logoImageView.anchor(top: self.view.topAnchor, equalTo: 0)
+		logoImageView.anchor(height: 150)
 	}
 }
