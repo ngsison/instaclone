@@ -46,6 +46,8 @@ class LoginController: UIViewController {
 		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
 		tf.borderStyle = UITextBorderStyle.roundedRect
 		tf.font = UIFont.systemFont(ofSize: 14)
+		tf.autocapitalizationType = UITextAutocapitalizationType.none
+		tf.autocorrectionType = UITextAutocorrectionType.no
 		tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
 		return tf
 	}()
@@ -57,6 +59,8 @@ class LoginController: UIViewController {
 		tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
 		tf.borderStyle = UITextBorderStyle.roundedRect
 		tf.font = UIFont.systemFont(ofSize: 14)
+		tf.autocapitalizationType = UITextAutocapitalizationType.none
+		tf.autocorrectionType = UITextAutocorrectionType.no
 		tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
 		return tf
 	}()
@@ -70,7 +74,7 @@ class LoginController: UIViewController {
 		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
 		button.setTitleColor(UIColor.white, for: UIControlState.normal)
 		button.isEnabled = false
-		//button.addTarget(self, action: #selector(onSignUpButtonPress), for: UIControlEvents.touchUpInside)
+		button.addTarget(self, action: #selector(onLoginButtonPress), for: UIControlEvents.touchUpInside)
 		
 		return button
 	}()
@@ -95,7 +99,7 @@ class LoginController: UIViewController {
 		self.navigationController?.pushViewController(signupController, animated: true)
 	}
 	
-	@objc func onTextInputChanged() {
+	@objc private func onTextInputChanged() {
 		let emailIsValid = emailTextField.text!.count > 0
 		let passwordIsValid = passwordTextField.text!.count > 0
 		
@@ -107,6 +111,10 @@ class LoginController: UIViewController {
 			loginButton.backgroundColor = UIColor.rgb(red: 149, green: 204, blue: 244)
 			loginButton.isEnabled = false
 		}
+	}
+	
+	@objc private func onLoginButtonPress() {
+		print("LoginButton was pressed!")
 	}
 	
 	

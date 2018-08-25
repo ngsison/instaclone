@@ -29,6 +29,8 @@ class SignupController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+		tf.autocapitalizationType = UITextAutocapitalizationType.none
+		tf.autocorrectionType = UITextAutocorrectionType.no
         tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -39,6 +41,8 @@ class SignupController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+		tf.autocapitalizationType = UITextAutocapitalizationType.none
+		tf.autocorrectionType = UITextAutocorrectionType.no
         tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
         return tf
     }()
@@ -50,6 +54,8 @@ class SignupController: UIViewController {
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = UITextBorderStyle.roundedRect
         tf.font = UIFont.systemFont(ofSize: 14)
+		tf.autocapitalizationType = UITextAutocapitalizationType.none
+		tf.autocorrectionType = UITextAutocorrectionType.no
         tf.addTarget(self, action: #selector(onTextInputChanged), for: UIControlEvents.editingChanged)
         return tf
     }()
