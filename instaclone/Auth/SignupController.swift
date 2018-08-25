@@ -238,9 +238,9 @@ class SignupController: UIViewController {
 	
 	private func setupShowSigninButton() {
 		self.view.addSubview(showSigninButton)
-		showSigninButton.anchor(bottom: self.view.bottomAnchor, equalTo: 8)
+		showSigninButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
 		showSigninButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: -8)
 		showSigninButton.anchor(height: 50)
 	}
 }

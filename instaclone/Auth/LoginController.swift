@@ -108,9 +108,9 @@ class LoginController: UIViewController {
 	
 	private func setupShowSignupButton() {
 		self.view.addSubview(showSignupButton)
-		showSignupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 8)
+		showSignupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
 		showSignupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: -8)
 		showSignupButton.anchor(height: 50)
 	}
 	
