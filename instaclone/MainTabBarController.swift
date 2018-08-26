@@ -71,7 +71,8 @@ extension MainTabBarController: UITabBarControllerDelegate {
 		
 		if selectedTabIndex == 2 {
 			let photoSelectorController = PhotoSelectorController(collectionViewLayout: UICollectionViewFlowLayout())
-			present(photoSelectorController, animated: true, completion: nil)
+			let photoSelectorNavController = UINavigationController(rootViewController: photoSelectorController)
+			present(photoSelectorNavController, animated: true, completion: nil)
 			return false
 		}
 		
