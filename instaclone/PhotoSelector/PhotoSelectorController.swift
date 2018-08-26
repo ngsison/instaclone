@@ -22,6 +22,7 @@ class PhotoSelectorController: UICollectionViewController {
 		super.viewDidLoad()
 		setupViews()
 		self.collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: PhotoSelectorController.identifier)
+		self.collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
 	}
 	
 	override var prefersStatusBarHidden: Bool {
@@ -38,6 +39,10 @@ class PhotoSelectorController: UICollectionViewController {
 		return cell
 	}
 	
+	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
+		return header
+	}
 	
 	
 	
@@ -76,18 +81,28 @@ class PhotoSelectorController: UICollectionViewController {
 
 // MARK: Extension: UICollectionViewDelegateFlowLayout
 extension PhotoSelectorController: UICollectionViewDelegateFlowLayout {
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let width = (self.view.frame.width - 3) / 4
-		return CGSize(width: width, height: width)
-	}
 	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		let availableWidth = (self.view.frame.width - 3) / 4
+		return CGSize(width: availableWidth, height: availableWidth)
+	}
+
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
 		return 1
 	}
-	
+
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 		return 1
 	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+		return CGSize(width: self.view.frame.width, height: self.view.frame.width)
+	}
+	
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+		return UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0)
+	}
+	
 }
 
 
