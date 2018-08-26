@@ -45,6 +45,7 @@ class MainTabBarController: UITabBarController {
 		let profileTab = createTab(for: ProfileController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "profile_unselected"), selectedIcon: #imageLiteral(resourceName: "profile_selected"))
 		
 		self.viewControllers = [homeTab, searchTab, uploadTab, notificationsTab, profileTab]
+		self.delegate = self
 		
 		guard let tabs = self.tabBar.items else { return }
 		for tab in tabs {
@@ -61,6 +62,22 @@ class MainTabBarController: UITabBarController {
 }
 
 
+
+
+// MARK: - Extension: UITabBarControllerDelegate
+extension MainTabBarController: UITabBarControllerDelegate {
+	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+		let selectedTabIndex = self.viewControllers?.index(of: viewController)
+		
+		if selectedTabIndex == 2 {
+			let photoSelectorController = PhotoSelectorController(collectionViewLayout: UICollectionViewFlowLayout())
+			present(photoSelectorController, animated: true, completion: nil)
+			return false
+		}
+		
+		return true
+	}
+}
 
 
 
