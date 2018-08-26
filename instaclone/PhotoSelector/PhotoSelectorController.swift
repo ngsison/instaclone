@@ -15,6 +15,7 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Properties
 	var images = [UIImage]()
+	var assets = [PHAsset]()
 	var selectedImageIndex = 0
 	
 	
@@ -51,6 +52,10 @@ class PhotoSelectorController: UICollectionViewController {
 		
 		if selectedImageIndex < self.images.count {
 			header.imageView.image = self.images[selectedImageIndex]
+			
+			fetchImage(for: self.assets[selectedImageIndex], targetSize: PHImageManagerMaximumSize) { (image, info) in
+				header.imageView.image = image
+			}
 		}
 		
 		return header
@@ -78,30 +83,39 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Functions
 	private func fetchPhotos() {
-		let creationDateSortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-		
-		let fetchOptions = PHFetchOptions()
-		fetchOptions.fetchLimit = 10
-		fetchOptions.sortDescriptors = [creationDateSortDescriptor]
-	
-		let photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-		
-		photos.enumerateObjects { (asset: PHAsset, index: Int, pointer) in
-			let imageManager = PHImageManager.default()
-			let imageRequestOptions = PHImageRequestOptions()
-			imageRequestOptions.isSynchronous = true
+		DispatchQueue.main.async {
+			let creationDateSortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
 			
-			imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageRequestOptions, resultHandler: {
-				(image: UIImage?, info: [AnyHashable: Any]?) in
+			let fetchOptions = PHFetchOptions()
+			fetchOptions.fetchLimit = 50
+			fetchOptions.sortDescriptors = [creationDateSortDescriptor]
+			
+			let photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+			
+			photos.enumerateObjects { (asset: PHAsset, index: Int, pointer) in
+				self.assets.append(asset)
 				
-				if let image = image {
-					self.images.append(image)
+				let targetImageSize = CGSize(width: 150, height: 150)
+				self.fetchImage(for: asset, targetSize: targetImageSize) { (image, info) in
+					if let image = image {
+						self.images.append(image)
+					}
+					
+					if index == photos.count - 1 {
+						self.collectionView?.reloadData()
+					}
 				}
-				
-				if index == photos.count - 1 {
-					self.collectionView?.reloadData()
-				}
-			})
+			}
+		}
+	}
+	
+	private func fetchImage(for asset: PHAsset, targetSize: CGSize, onSuccess: @escaping (_ image: UIImage?, _ info: [AnyHashable: Any]?) -> Void) {
+		let imageManager = PHImageManager.default()
+		let imageRequestOptions = PHImageRequestOptions()
+		imageRequestOptions.isSynchronous = true
+		
+		imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: imageRequestOptions) { (image, info) in
+			onSuccess(image, info)
 		}
 	}
 	

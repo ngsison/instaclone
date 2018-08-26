@@ -116,12 +116,12 @@ extension UIImageView {
 			}
 			
 			guard let imageData = data else { return }
-			DispatchQueue.main.async(execute: {
+			DispatchQueue.main.async {
 				let image = UIImage(data: imageData)
 				self.image = image
 				onSuccess()
-			})
-			}.resume()
+			}
+		}.resume()
 	}
 	
 }
