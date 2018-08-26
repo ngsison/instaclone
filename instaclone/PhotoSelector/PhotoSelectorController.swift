@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class PhotoSelectorController: UICollectionViewController {
 	
@@ -14,15 +15,19 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Properties
 	static let identifier = "photoSelectorCell"
+	var images = [UIImage]()
 	
 	
 	
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		setupViews()
+		
 		self.collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: PhotoSelectorController.identifier)
 		self.collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
+		
+		setupViews()
+		fetchPhotos()
 	}
 	
 	override var prefersStatusBarHidden: Bool {
@@ -30,17 +35,19 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 10
+		return self.images.count
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorController.identifier, for: indexPath)
 		cell.backgroundColor = UIColor.blue
+		
 		return cell
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
+		
 		return header
 	}
 	
@@ -55,6 +62,35 @@ class PhotoSelectorController: UICollectionViewController {
 	@objc private func onNextBarButtonPress() {
 		print("Next button was pressed")
 		self.dismiss(animated: true, completion: nil)
+	}
+	
+	
+	
+	// MARK: - Functions
+	private func fetchPhotos() {
+		let fetchOptions = PHFetchOptions()
+		fetchOptions.fetchLimit = 10
+	
+		let photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
+		
+		photos.enumerateObjects { (asset: PHAsset, index: Int, pointer) in
+			let imageManager = PHImageManager.default()
+			let targetImageSize = CGSize(width: 350, height: 350)
+			let imageRequestOptions = PHImageRequestOptions()
+			imageRequestOptions.isSynchronous = true
+			
+			imageManager.requestImage(for: asset, targetSize: targetImageSize, contentMode: .aspectFit, options: imageRequestOptions, resultHandler: {
+				(image: UIImage?, info: [AnyHashable: Any]?) in
+				
+				if let image = image {
+					self.images.append(image)
+				}
+				
+				if index == photos.count - 1 {
+					self.collectionView?.reloadData()
+				}
+			})
+		}
 	}
 	
 	
