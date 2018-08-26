@@ -75,14 +75,17 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Functions
 	private func fetchPhotos() {
+		let creationDateSortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+		
 		let fetchOptions = PHFetchOptions()
 		fetchOptions.fetchLimit = 10
+		fetchOptions.sortDescriptors = [creationDateSortDescriptor]
 	
 		let photos = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
 		
 		photos.enumerateObjects { (asset: PHAsset, index: Int, pointer) in
 			let imageManager = PHImageManager.default()
-			let targetImageSize = CGSize(width: 350, height: 350)
+			let targetImageSize = CGSize(width: 500, height: 500)
 			let imageRequestOptions = PHImageRequestOptions()
 			imageRequestOptions.isSynchronous = true
 			
