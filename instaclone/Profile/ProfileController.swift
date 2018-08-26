@@ -38,7 +38,7 @@ class ProfileController: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath)
-		cell.backgroundColor = .purple
+		cell.backgroundColor = .lightGray
 		return cell
 	}
 	
