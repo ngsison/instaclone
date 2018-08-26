@@ -41,6 +41,7 @@ class PhotoSelectorController: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorCell.identifier, for: indexPath) as! PhotoSelectorCell
 		cell.imageView.image = self.images[indexPath.item]
+		cell.selectedIndicatorView.isHidden = indexPath.item != self.selectedImageIndex
 		
 		return cell
 	}
