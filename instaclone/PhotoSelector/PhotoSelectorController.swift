@@ -14,7 +14,6 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	
 	// MARK: - Properties
-	static let identifier = "photoSelectorCell"
 	var images = [UIImage]()
 	
 	
@@ -23,7 +22,7 @@ class PhotoSelectorController: UICollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: PhotoSelectorController.identifier)
+		self.collectionView?.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: PhotoSelectorCell.identifier)
 		self.collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
 		
 		setupViews()
@@ -39,8 +38,8 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorController.identifier, for: indexPath)
-		cell.backgroundColor = UIColor.blue
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorCell.identifier, for: indexPath) as! PhotoSelectorCell
+		cell.setImage(self.images[indexPath.item])
 		
 		return cell
 	}
