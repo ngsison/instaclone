@@ -48,7 +48,10 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
-		header.imageView.image = self.images[selectedImageIndex]
+		
+		if selectedImageIndex < self.images.count {
+			header.imageView.image = self.images[selectedImageIndex]
+		}
 		
 		return header
 	}
@@ -85,11 +88,10 @@ class PhotoSelectorController: UICollectionViewController {
 		
 		photos.enumerateObjects { (asset: PHAsset, index: Int, pointer) in
 			let imageManager = PHImageManager.default()
-			let targetImageSize = CGSize(width: 500, height: 500)
 			let imageRequestOptions = PHImageRequestOptions()
 			imageRequestOptions.isSynchronous = true
 			
-			imageManager.requestImage(for: asset, targetSize: targetImageSize, contentMode: .aspectFit, options: imageRequestOptions, resultHandler: {
+			imageManager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: imageRequestOptions, resultHandler: {
 				(image: UIImage?, info: [AnyHashable: Any]?) in
 				
 				if let image = image {
