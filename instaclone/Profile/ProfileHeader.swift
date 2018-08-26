@@ -162,10 +162,7 @@ class ProfileHeader: UICollectionViewCell {
 		else { return }
 		
 		usernameLabel.text = username
-		profileImageView.loadImage(from: profileImageURL) {
-			self.profileImageView.layer.borderColor = UIColor.gray.cgColor
-			self.profileImageView.layer.borderWidth = 1
-		}
+		profileImageView.loadImage(from: profileImageURL)
 	}
 	
 	
