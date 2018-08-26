@@ -45,6 +45,11 @@ class MainTabBarController: UITabBarController {
 		let profileTab = createTab(for: ProfileController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "profile_unselected"), selectedIcon: #imageLiteral(resourceName: "profile_selected"))
 		
 		self.viewControllers = [homeTab, searchTab, uploadTab, notificationsTab, profileTab]
+		
+		guard let tabs = self.tabBar.items else { return }
+		for tab in tabs {
+			tab.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+		}
 	}
 	
 	func createTab(for viewController: UIViewController, unselectedIcon: UIImage, selectedIcon: UIImage) -> UINavigationController {
