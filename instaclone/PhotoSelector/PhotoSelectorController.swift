@@ -51,8 +51,6 @@ class PhotoSelectorController: UICollectionViewController {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
 		
 		if selectedImageIndex < self.images.count {
-			header.imageView.image = self.images[selectedImageIndex]
-			
 			fetchImage(for: self.assets[selectedImageIndex], targetSize: PHImageManagerMaximumSize) { (image, info) in
 				header.imageView.image = image
 			}
