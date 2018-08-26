@@ -15,6 +15,7 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Properties
 	var images = [UIImage]()
+	var selectedImageIndex = 0
 	
 	
 	
@@ -39,15 +40,21 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorCell.identifier, for: indexPath) as! PhotoSelectorCell
-		cell.setImage(self.images[indexPath.item])
+		cell.imageView.image = self.images[indexPath.item]
 		
 		return cell
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
+		header.imageView.image = self.images[selectedImageIndex]
 		
 		return header
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		self.selectedImageIndex = indexPath.item
+		collectionView.reloadData()
 	}
 	
 	

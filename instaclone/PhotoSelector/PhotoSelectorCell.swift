@@ -14,8 +14,11 @@ class PhotoSelectorCell: UICollectionViewCell {
 	
 	// MARK: - Properties
 	static let identifier = "photoSelectorCell"
+	
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
+		imageView.contentMode = UIViewContentMode.scaleAspectFill
+		imageView.clipsToBounds = true
 		return imageView
 	}()
 	
@@ -33,21 +36,19 @@ class PhotoSelectorCell: UICollectionViewCell {
 	
 	
 	
-	// MARK: - Functions
-	func setImage(_ image: UIImage) {
-		self.imageView.image = image
-	}
-	
-	
-	
 	// MARK: - Setup Views
 	private func setupViews() {
+		setupImageView()
+	}
+	
+	private func setupImageView() {
 		self.addSubview(imageView)
 		imageView.anchor(left: self.leftAnchor, equalTo: 0)
 		imageView.anchor(right: self.rightAnchor, equalTo: 0)
 		imageView.anchor(top: self.topAnchor, equalTo: 0)
 		imageView.anchor(bottom: self.bottomAnchor, equalTo: 0)
 	}
+	
 }
 
 

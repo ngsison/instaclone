@@ -15,12 +15,18 @@ class PhotoSelectorHeader: UICollectionViewCell {
 	// MARK: - Properties
 	static let identifier = "photoSelectorHeaderCell"
 	
+	let imageView: UIImageView = {
+		let imageView = UIImageView()
+		imageView.contentMode = UIViewContentMode.scaleAspectFill
+		imageView.clipsToBounds = true
+		return imageView
+	}()
+	
 	
 	
 	// MARK: - Overrides
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-		
 		setupViews()
 	}
 	
@@ -32,6 +38,15 @@ class PhotoSelectorHeader: UICollectionViewCell {
 	
 	// MARK: - SetupViews
 	private func setupViews() {
-		self.backgroundColor = UIColor.red
+		self.backgroundColor = UIColor.lightGray
+		setupImageView()
+	}
+	
+	private func setupImageView() {
+		self.addSubview(imageView)
+		imageView.anchor(left: self.leftAnchor, equalTo: 0)
+		imageView.anchor(right: self.rightAnchor, equalTo: 0)
+		imageView.anchor(top: self.topAnchor, equalTo: 0)
+		imageView.anchor(bottom: self.bottomAnchor, equalTo: 0)
 	}
 }

@@ -102,8 +102,8 @@
 			isa = PBXGroup;
 			children = (
 				480C38752132ED1D002D9570 /* PhotoSelectorHeader.swift */,
-				480C38732132CF0E002D9570 /* PhotoSelectorController.swift */,
 				480C387721330147002D9570 /* PhotoSelectorCell.swift */,
+				480C38732132CF0E002D9570 /* PhotoSelectorController.swift */,
 			);
 			path = PhotoSelector;
 			sourceTree = "<group>";
