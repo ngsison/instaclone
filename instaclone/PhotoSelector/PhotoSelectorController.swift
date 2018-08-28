@@ -165,10 +165,6 @@ extension PhotoSelectorController: UICollectionViewDelegateFlowLayout {
 		return CGSize(width: self.view.frame.width, height: self.view.frame.width)
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-		return UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0)
-	}
-	
 }
 
 
