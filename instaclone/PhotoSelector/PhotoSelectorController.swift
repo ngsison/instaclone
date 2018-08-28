@@ -62,6 +62,8 @@ class PhotoSelectorController: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		self.selectedImageIndex = indexPath.item
 		collectionView.reloadData()
+		
+		collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
 	}
 	
 	
