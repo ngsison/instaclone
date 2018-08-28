@@ -26,7 +26,17 @@ extension UIColor {
 
 // MARK: - UIView
 extension UIView {
-    
+	
+	func hideKeyboardWhenTappedAround() {
+		let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+		tap.cancelsTouchesInView = false
+		self.addGestureRecognizer(tap)
+	}
+	
+	@objc private func dismissKeyboard() {
+		self.endEditing(true)
+	}
+	
     private func prepareToUseConstraint() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
