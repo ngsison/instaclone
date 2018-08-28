@@ -34,6 +34,12 @@ class SharePhotoController: UIViewController {
 		return iv
 	}()
 	
+	let captionTextView: UITextView = {
+		let tv = UITextView()
+		tv.font = UIFont.systemFont(ofSize: 14)
+		return tv
+	}()
+	
 	
 	
 	// MARK: - Overrides
@@ -61,6 +67,7 @@ class SharePhotoController: UIViewController {
 		setupNavigationButtons()
 		setupInputContainer()
 		setupImageView()
+		setupTextView()
 	}
 	
 	private func setupNavigationButtons() {
@@ -82,6 +89,14 @@ class SharePhotoController: UIViewController {
 		imageView.anchor(bottom: inputContainer.bottomAnchor, equalTo: 8)
 		imageView.anchor(left: inputContainer.leftAnchor, equalTo: 8)
 		imageView.anchor(width: 84)
+	}
+	
+	private func setupTextView() {
+		inputContainer.addSubview(captionTextView)
+		captionTextView.anchor(top: inputContainer.topAnchor, equalTo: 8)
+		captionTextView.anchor(bottom: inputContainer.bottomAnchor, equalTo: 8)
+		captionTextView.anchor(left: imageView.rightAnchor, equalTo: 8)
+		captionTextView.anchor(right: inputContainer.rightAnchor, equalTo: 8)
 	}
 }
 
