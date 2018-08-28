@@ -17,6 +17,7 @@ class PhotoSelectorController: UICollectionViewController {
 	var images = [UIImage]()
 	var assets = [PHAsset]()
 	var selectedImageIndex = 0
+	var header: PhotoSelectorHeader?
 	
 	
 	
@@ -26,6 +27,9 @@ class PhotoSelectorController: UICollectionViewController {
 		
 		self.collectionView?.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: PhotoSelectorCell.identifier)
 		self.collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
+		
+		let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+		layout?.sectionHeadersPinToVisibleBounds = true
 		
 		setupViews()
 		fetchPhotos()
@@ -56,14 +60,13 @@ class PhotoSelectorController: UICollectionViewController {
 			}
 		}
 		
+		self.header = header
 		return header
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		self.selectedImageIndex = indexPath.item
 		collectionView.reloadData()
-		
-		collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.bottom, animated: true)
 	}
 	
 	
@@ -75,8 +78,9 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	@objc private func onNextBarButtonPress() {
-		print("Next button was pressed")
-		self.dismiss(animated: true, completion: nil)
+		let sharePhotoController = SharePhotoController()
+		sharePhotoController.selectedImage = header?.imageView.image
+		self.navigationController?.pushViewController(sharePhotoController, animated: true)
 	}
 	
 	
@@ -128,13 +132,13 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	private func setupNavigationButtons() {
-		self.navigationController?.navigationBar.isTranslucent = false
+		self.navigationController?.navigationBar.tintColor = UIColor.black
 		
 		let cancelBarButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onCancelBarButtonPress))
-		cancelBarButton.tintColor = UIColor.black
 		self.navigationItem.leftBarButtonItem = cancelBarButton
 		
 		let nextBarButton = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.done, target: self, action: #selector(onNextBarButtonPress))
+		nextBarButton.tintColor = #colorLiteral(red: 0.1058823529, green: 0.6784313725, blue: 0.9725490196, alpha: 1)
 		self.navigationItem.rightBarButtonItem = nextBarButton
 	}
 }

@@ -147,7 +147,7 @@ class LoginController: UIViewController {
 		self.view.addSubview(showSignupButton)
 		showSignupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
 		showSignupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: -8)
+		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
 		showSignupButton.anchor(height: 50)
 	}
 	
@@ -174,7 +174,7 @@ class LoginController: UIViewController {
 		
 		stackView.anchor(top: logoImageView.bottomAnchor, equalTo: 40)
 		stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
-		stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
+		stackView.anchor(right: self.view.rightAnchor, equalTo: 40)
 		stackView.anchor(height: 140)
 	}
 }

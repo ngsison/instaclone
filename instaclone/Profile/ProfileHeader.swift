@@ -216,7 +216,7 @@ class ProfileHeader: UICollectionViewCell {
 	private func setupUsername() {
 		self.addSubview(usernameLabel)
 		usernameLabel.anchor(left: self.leftAnchor, equalTo: 10)
-		usernameLabel.anchor(right: self.rightAnchor, equalTo: -10)
+		usernameLabel.anchor(right: self.rightAnchor, equalTo: 10)
 		usernameLabel.anchor(top: profileImageView.bottomAnchor, equalTo: 0)
 		usernameLabel.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
 	}
@@ -229,7 +229,7 @@ class ProfileHeader: UICollectionViewCell {
         self.addSubview(statsStackView)
         statsStackView.anchor(top: self.topAnchor, equalTo: 10)
         statsStackView.anchor(left: profileImageView.rightAnchor, equalTo: 10)
-        statsStackView.anchor(right: self.rightAnchor, equalTo: -10)
+        statsStackView.anchor(right: self.rightAnchor, equalTo: 10)
         statsStackView.anchor(height: 50)
     }
     

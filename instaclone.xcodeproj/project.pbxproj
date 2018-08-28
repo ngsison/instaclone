@@ -19,6 +19,7 @@
 		48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142646212B1E0300DE2EA6 /* MainTabBarController.swift */; };
 		48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48142648212B1F6000DE2EA6 /* ProfileController.swift */; };
 		4885BF66213182D800B94ACF /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885BF65213182D800B94ACF /* LoginController.swift */; };
+		48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */; };
 		48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEB7212BC51700FC375C /* ProfileHeader.swift */; };
 		48F1AEBB212BD0FF00FC375C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEBA212BD0FF00FC375C /* User.swift */; };
 		90B5D4D1EDA797DA2288E448 /* Pods_instaclone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1344AB6DA6A92E0E861A9D0 /* Pods_instaclone.framework */; };
@@ -40,6 +41,7 @@
 		48142646212B1E0300DE2EA6 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		48142648212B1F6000DE2EA6 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		4885BF65213182D800B94ACF /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		48F1AEB7212BC51700FC375C /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		48F1AEBA212BD0FF00FC375C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C3AE94C3FAF72A84EF1C86FB /* Pods-instaclone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-instaclone.debug.xcconfig"; path = "Pods/Target Support Files/Pods-instaclone/Pods-instaclone.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				480C38752132ED1D002D9570 /* PhotoSelectorHeader.swift */,
 				480C387721330147002D9570 /* PhotoSelectorCell.swift */,
 				480C38732132CF0E002D9570 /* PhotoSelectorController.swift */,
+				48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */,
 			);
 			path = PhotoSelector;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				480C38742132CF0E002D9570 /* PhotoSelectorController.swift in Sources */,
 				20E4B3D62122BAB900616430 /* Extensions.swift in Sources */,
+				48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */,
 				48142647212B1E0300DE2EA6 /* MainTabBarController.swift in Sources */,
 				4885BF66213182D800B94ACF /* LoginController.swift in Sources */,
 				20E4B3C32122AB9D00616430 /* AppDelegate.swift in Sources */,

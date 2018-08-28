@@ -241,7 +241,7 @@ class SignupController: UIViewController {
         
         stackView.anchor(top: plusButton.bottomAnchor, equalTo: 20)
         stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
-        stackView.anchor(right: self.view.rightAnchor, equalTo: -40)
+        stackView.anchor(right: self.view.rightAnchor, equalTo: 40)
         stackView.anchor(height: 190)
     }
 	
@@ -249,7 +249,7 @@ class SignupController: UIViewController {
 		self.view.addSubview(showSigninButton)
 		showSigninButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
 		showSigninButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: -8)
+		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: 8)
 		showSigninButton.anchor(height: 50)
 	}
 }

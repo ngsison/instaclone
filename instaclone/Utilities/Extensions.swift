@@ -38,7 +38,7 @@ extension UIView {
     
     func anchor(bottom: NSLayoutYAxisAnchor, equalTo constant: CGFloat) {
         self.prepareToUseConstraint()
-        self.bottomAnchor.constraint(equalTo: bottom, constant: constant).isActive = true
+        self.bottomAnchor.constraint(equalTo: bottom, constant: -constant).isActive = true
     }
     
     func anchor(left: NSLayoutXAxisAnchor, equalTo constant: CGFloat) {
@@ -48,7 +48,7 @@ extension UIView {
     
     func anchor(right: NSLayoutXAxisAnchor, equalTo constant: CGFloat) {
         self.prepareToUseConstraint()
-        self.rightAnchor.constraint(equalTo: right, constant: constant).isActive = true
+        self.rightAnchor.constraint(equalTo: right, constant: -constant).isActive = true
     }
     
     func anchor(height: CGFloat) {
