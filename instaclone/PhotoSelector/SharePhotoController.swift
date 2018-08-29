@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
+import FirebaseDatabase
 
 class SharePhotoController: UIViewController {
 
@@ -56,7 +59,57 @@ class SharePhotoController: UIViewController {
 	
 	// MARK: - Events
 	@objc private func onShareBarButtonPress() {
-		print("Share button was pressed!")
+		guard
+			let image = selectedImage,
+			let imageData = UIImageJPEGRepresentation(image, 0.5)
+			else { return }
+		
+		let fileName = NSUUID().uuidString
+		let reference = Storage.storage().reference().child("posts").child(fileName)
+		
+		reference.putData(imageData, metadata: nil) {
+			(storageMetaData: StorageMetadata?, error: Error?) in
+			
+			if let error = error {
+				print("Failed to upload photo: \(error)")
+				return
+			}
+			
+			// Get User's Profile Image's DownloadURL
+			reference.downloadURL { (url, error) in
+				guard let imageURL = url?.absoluteString else { return }
+				self.savePostToDatabase(imageURL)
+			}
+		}
+			
+	}
+	
+	
+	
+	// MARK: - Functions
+	private func savePostToDatabase(_ imageURL: String) {
+		guard
+			let uid = Auth.auth().currentUser?.uid,
+			let postImage = selectedImage
+		else { return }
+		
+		let postsRef = Database.database().reference().child("posts").child(uid)
+		let postRef = postsRef.childByAutoId()
+		let postDic: [String: Any] = [
+			"imageURL": imageURL,
+			"caption": captionTextView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? "",
+			"imageWidth:": postImage.size.width,
+			"imageHeight": postImage.size.height,
+			"createdOn": Date().timeIntervalSince1970
+		]
+		
+		postRef.updateChildValues(postDic) { (error: Error?, dbRef: DatabaseReference) in
+			if let error = error {
+				print("Failed to save post to the database: \(error)")
+			}
+			
+			print("Successfully saved post to the database.")
+		}
 	}
 	
 	
