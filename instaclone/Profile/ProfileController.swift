@@ -23,13 +23,10 @@ class ProfileController: UICollectionViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-	
 		getUserData()
 		setupViews()
-		
-		collectionView?.collectionViewLayout = UICollectionViewFlowLayout()
-        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.identifier)
-		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
+		configureCollectionView()
+		fetchPosts()
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -74,6 +71,12 @@ class ProfileController: UICollectionViewController {
 	
 	
 	// MARK: - Functions
+	private func configureCollectionView() {
+		collectionView?.collectionViewLayout = UICollectionViewFlowLayout()
+		collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.identifier)
+		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
+	}
+
 	private func getUserData() {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		
@@ -112,6 +115,21 @@ class ProfileController: UICollectionViewController {
 			present(loginNavController, animated: true, completion: nil)
 		} catch let error {
 			print("Error signing out: \(error)")
+		}
+	}
+	
+	private func fetchPosts() {
+		guard let uid = Auth.auth().currentUser?.uid else { return }
+		
+		let reference = Database.database().reference().child("posts").child(uid)
+		reference.observeSingleEvent(of: DataEventType.value, with: { (snapshot: DataSnapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			
+			snapshotDict.forEach { (key, value) in
+				print(value)
+			}
+		}) { (error: Error) in
+			print("Failed to retrieve posts from the database: \(error)")
 		}
 	}
 	
