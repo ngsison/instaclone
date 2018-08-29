@@ -118,13 +118,13 @@ class ProfileController: UICollectionViewController {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
 		let reference = Database.database().reference().child("posts").child(uid)
-		reference.observe(.childAdded, with: { (snapshot: DataSnapshot) in
+		reference.queryOrdered(byChild: "createdOn").observe(.childAdded, with: { (snapshot: DataSnapshot) in
 			guard let postDict = snapshot.value as? [String: Any] else {
 				print("No posts were fecthed.")
 				return
 			}
 			let post = Post(withDictionary: postDict)
-			self.user?.posts.append(post)
+			self.user?.posts.insert(post, at: 0)
 			print("Posts: \(self.user?.posts.count ?? 0)")
 			self.collectionView?.reloadData()
 		}) { (error: Error) in
