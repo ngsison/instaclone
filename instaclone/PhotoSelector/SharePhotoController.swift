@@ -62,21 +62,29 @@ class SharePhotoController: UIViewController {
 		guard
 			let image = selectedImage,
 			let imageData = UIImageJPEGRepresentation(image, 0.5)
-			else { return }
+		else { return }
+		
+		navigationItem.rightBarButtonItem?.isEnabled = false
 		
 		let fileName = NSUUID().uuidString
 		let reference = Storage.storage().reference().child("posts").child(fileName)
-		
 		reference.putData(imageData, metadata: nil) {
 			(storageMetaData: StorageMetadata?, error: Error?) in
 			
 			if let error = error {
+				self.navigationItem.rightBarButtonItem?.isEnabled = true
 				print("Failed to upload photo: \(error)")
 				return
 			}
 			
 			// Get User's Profile Image's DownloadURL
 			reference.downloadURL { (url, error) in
+				if let error = error {
+					self.navigationItem.rightBarButtonItem?.isEnabled = true
+					print("Failed to retrieve image downloadURL: \(error)")
+					return
+				}
+				
 				guard let imageURL = url?.absoluteString else { return }
 				self.savePostToDatabase(imageURL)
 			}
@@ -105,10 +113,13 @@ class SharePhotoController: UIViewController {
 		
 		postRef.updateChildValues(postDic) { (error: Error?, dbRef: DatabaseReference) in
 			if let error = error {
+				self.navigationItem.rightBarButtonItem?.isEnabled = true
 				print("Failed to save post to the database: \(error)")
+				return
 			}
 			
 			print("Successfully saved post to the database.")
+			self.dismiss(animated: true, completion: nil)
 		}
 	}
 	
