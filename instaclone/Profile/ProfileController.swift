@@ -118,19 +118,14 @@ class ProfileController: UICollectionViewController {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
 		let reference = Database.database().reference().child("posts").child(uid)
-		reference.observeSingleEvent(of: DataEventType.value, with: { (snapshot: DataSnapshot) in
-			guard let snapshotDict = snapshot.value as? [String: Any] else {
+		reference.observe(.childAdded, with: { (snapshot: DataSnapshot) in
+			guard let postDict = snapshot.value as? [String: Any] else {
 				print("No posts were fecthed.")
 				return
 			}
-			
-			snapshotDict.forEach { (key, value) in
-				guard let postDict = value as? [String: Any] else { return }
-				let post = Post(withDictionary: postDict)
-				self.user?.posts.append(post)
-			}
+			let post = Post(withDictionary: postDict)
+			self.user?.posts.append(post)
 			print("Posts: \(self.user?.posts.count ?? 0)")
-			
 			self.collectionView?.reloadData()
 		}) { (error: Error) in
 			print("Failed to retrieve posts from the database: \(error)")
