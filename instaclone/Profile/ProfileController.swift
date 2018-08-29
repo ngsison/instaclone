@@ -16,7 +16,11 @@ class ProfileController: UICollectionViewController {
 	
 	// MARK: - Properties
     private var identifier = "profileCell"
-	private var user: User?
+	private var user: User? {
+		didSet {
+			self.navigationItem.title = user?.username
+		}
+	}
 	
 	
 	
@@ -82,18 +86,10 @@ class ProfileController: UICollectionViewController {
 		
 		let reference = Database.database().reference().child("users")
 		reference.child(userID).observeSingleEvent(of: DataEventType.value) { (snapshot: DataSnapshot) in
-			
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
-			
 			self.user = User(withDictionary: snapshotDict)
-			
-			self.loadDataToUI()
 			self.collectionView?.reloadData()
 		}
-	}
-	
-	private func loadDataToUI() {
-		self.navigationItem.title = self.user?.username
 	}
 	
 	private func logOut() {

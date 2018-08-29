@@ -16,13 +16,11 @@ class ProfileHeader: UICollectionViewCell {
 	static let identifier = "profileHeaderCell"
 	var user: User? {
 		didSet {
-			guard
-				let username = user?.username,
-				let profileImageURL = user?.profileImageURL
-			else { return }
-			
-			usernameLabel.text = username
-			profileImageView.loadImage(from: profileImageURL)
+			usernameLabel.text = user?.username
+			if let profileImageURL = user?.profileImageURL {
+				profileImageView.loadImage(from: profileImageURL)
+			}
+			updateStats()
 		}
 	}
 	
@@ -70,64 +68,20 @@ class ProfileHeader: UICollectionViewCell {
     
     let postsLabel: UILabel = {
         let label = UILabel()
-        
-        let postValueText = NSAttributedString(string: "11\n", attributes: [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
-        ])
-        
-        let postLabelText = NSAttributedString(string: "posts", attributes: [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-            NSAttributedStringKey.foregroundColor: UIColor.lightGray
-        ])
-        
-        var attributedText = NSMutableAttributedString(attributedString: postValueText)
-        attributedText.append(postLabelText)
-        
-        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
-        
         return label
     }()
     
     let followersLabel: UILabel = {
         let label = UILabel()
-        
-        let postValueText = NSAttributedString(string: "0\n", attributes: [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
-            ])
-        
-        let postLabelText = NSAttributedString(string: "followers", attributes: [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-            NSAttributedStringKey.foregroundColor: UIColor.lightGray
-            ])
-        
-        var attributedText = NSMutableAttributedString(attributedString: postValueText)
-        attributedText.append(postLabelText)
-        
-        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
-        
         return label
     }()
     
     let followingLabel: UILabel = {
         let label = UILabel()
-
-        let postValueText = NSAttributedString(string: "0\n", attributes: [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
-            ])
-        
-        let postLabelText = NSAttributedString(string: "following", attributes: [
-            NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
-            NSAttributedStringKey.foregroundColor: UIColor.lightGray
-            ])
-        
-        var attributedText = NSMutableAttributedString(attributedString: postValueText)
-        attributedText.append(postLabelText)
-        
-        label.attributedText = attributedText
         label.textAlignment = .center
         label.numberOfLines = 0
         
@@ -161,6 +115,32 @@ class ProfileHeader: UICollectionViewCell {
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	
+	
+	// MARK: - Functions
+	private func updateStats() {
+		let posts = self.user?.posts.count ?? 0
+		let followers = 0
+		let following = 0
+		
+		postsLabel.attributedText = getAttributedTextForStat(count: posts, label: "posts")
+		followersLabel.attributedText = getAttributedTextForStat(count: followers, label: "followers")
+		followingLabel.attributedText = getAttributedTextForStat(count: following, label: "following")
+	}
+	
+	private func getAttributedTextForStat(count: Int, label: String) -> NSMutableAttributedString {
+		let attributedString = NSMutableAttributedString(string: "\(count)\n", attributes: [
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+		])
+		
+		attributedString.append(NSAttributedString(string: label, attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14),
+			NSAttributedStringKey.foregroundColor: UIColor.lightGray
+		]))
+		
+		return attributedString
 	}
 	
 	
