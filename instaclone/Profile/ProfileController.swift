@@ -17,6 +17,7 @@ class ProfileController: UICollectionViewController {
 	// MARK: - Properties
     private var identifier = "profileCell"
 	private var user: User?
+	private var posts = [Post]()
 	
 	
 	
@@ -126,8 +127,11 @@ class ProfileController: UICollectionViewController {
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
 			
 			snapshotDict.forEach { (key, value) in
-				print(value)
+				guard let postDict = value as? [String: Any] else { return }
+				let post = Post(withDictionary: postDict)
+				self.posts.append(post)
 			}
+			print("Posts: \(self.posts.count)")
 		}) { (error: Error) in
 			print("Failed to retrieve posts from the database: \(error)")
 		}

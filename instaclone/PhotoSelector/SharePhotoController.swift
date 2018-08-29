@@ -106,7 +106,7 @@ class SharePhotoController: UIViewController {
 		let postDic: [String: Any] = [
 			"imageURL": imageURL,
 			"caption": captionTextView.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) ?? "",
-			"imageWidth:": postImage.size.width,
+			"imageWidth": postImage.size.width,
 			"imageHeight": postImage.size.height,
 			"createdOn": Date().timeIntervalSince1970
 		]
