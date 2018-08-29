@@ -109,8 +109,7 @@ extension UIImageView {
 			
 			guard let imageData = data else { return }
 			DispatchQueue.main.async(execute: {
-				let image = UIImage(data: imageData)
-				self.image = image
+				self.image = UIImage(data: imageData)
 			})
 		}.resume()
 	}
@@ -127,8 +126,7 @@ extension UIImageView {
 			
 			guard let imageData = data else { return }
 			DispatchQueue.main.async {
-				let image = UIImage(data: imageData)
-				self.image = image
+				self.image = UIImage(data: imageData)
 				onSuccess()
 			}
 		}.resume()
