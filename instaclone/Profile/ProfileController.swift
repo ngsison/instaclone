@@ -17,26 +17,25 @@ class ProfileController: UICollectionViewController {
 	// MARK: - Properties
     private var identifier = "profileCell"
 	private var user: User?
-	private var posts = [Post]()
 	
 	
 	
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		getUserData()
-		setupViews()
 		configureCollectionView()
+		setupViews()
+		getUserData()
 		fetchPosts()
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 7
+		return self.user?.posts.count ?? 0
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath)
-		cell.backgroundColor = .lightGray
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as! ProfileCell
+		cell.post = self.user?.posts[indexPath.item]
 		return cell
 	}
 	
@@ -45,7 +44,7 @@ class ProfileController: UICollectionViewController {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.identifier, for: indexPath) as! ProfileHeader
 		
 		if let user = self.user {
-			header.loadProfileData(for: user)
+			header.user = user
 		}
 		
 		return header
@@ -74,7 +73,7 @@ class ProfileController: UICollectionViewController {
 	// MARK: - Functions
 	private func configureCollectionView() {
 		collectionView?.collectionViewLayout = UICollectionViewFlowLayout()
-		collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: self.identifier)
+		collectionView?.register(ProfileCell.self, forCellWithReuseIdentifier: ProfileCell.identifier)
 		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
 	}
 
@@ -124,14 +123,19 @@ class ProfileController: UICollectionViewController {
 		
 		let reference = Database.database().reference().child("posts").child(uid)
 		reference.observeSingleEvent(of: DataEventType.value, with: { (snapshot: DataSnapshot) in
-			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			guard let snapshotDict = snapshot.value as? [String: Any] else {
+				print("No posts were fecthed.")
+				return
+			}
 			
 			snapshotDict.forEach { (key, value) in
 				guard let postDict = value as? [String: Any] else { return }
 				let post = Post(withDictionary: postDict)
-				self.posts.append(post)
+				self.user?.posts.append(post)
 			}
-			print("Posts: \(self.posts.count)")
+			print("Posts: \(self.user?.posts.count ?? 0)")
+			
+			self.collectionView?.reloadData()
 		}) { (error: Error) in
 			print("Failed to retrieve posts from the database: \(error)")
 		}

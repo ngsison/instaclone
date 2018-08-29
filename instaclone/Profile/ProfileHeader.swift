@@ -14,6 +14,17 @@ class ProfileHeader: UICollectionViewCell {
 	
 	// MARK: - Properties
 	static let identifier = "profileHeaderCell"
+	var user: User? {
+		didSet {
+			guard
+				let username = user?.username,
+				let profileImageURL = user?.profileImageURL
+			else { return }
+			
+			usernameLabel.text = username
+			profileImageView.loadImage(from: profileImageURL)
+		}
+	}
 	
 	let profileImageView: UIImageView = {
 		let imageView = UIImageView()
@@ -150,19 +161,6 @@ class ProfileHeader: UICollectionViewCell {
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
-	}
-	
-	
-	
-	// MARK: - Functions
-	func loadProfileData(for user: User) {
-		guard
-			let username = user.username,
-			let profileImageURL = user.profileImageURL
-		else { return }
-		
-		usernameLabel.text = username
-		profileImageView.loadImage(from: profileImageURL)
 	}
 	
 	

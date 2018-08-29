@@ -11,6 +11,7 @@ import Foundation
 class User {
 	var username: String?
 	var profileImageURL: String?
+	var posts = [Post]()
 	
 	init(withDictionary dictionary: [String: Any]) {
 		self.username = dictionary["username"] as? String
