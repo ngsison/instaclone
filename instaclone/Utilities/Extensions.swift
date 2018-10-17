@@ -94,49 +94,6 @@ extension UIImage {
 
 
 
-// MARK: - UIImageView
-extension UIImageView {
-	
-	public func loadImage(from urlString: String) {
-		guard let url = URL(string: urlString) else { return }
-		
-		self.image = nil
-		URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-			if let error = error {
-				print(error)
-				return
-			}
-			
-			guard let imageData = data else { return }
-			DispatchQueue.main.async(execute: {
-				self.image = UIImage(data: imageData)
-			})
-		}.resume()
-	}
-	
-	public func loadImage(from urlString: String, onSuccess: @escaping () -> Void) {
-		guard let url = URL(string: urlString) else { return }
-		
-		self.image = nil
-		URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-			if let error = error {
-				print(error)
-				return
-			}
-			
-			guard let imageData = data else { return }
-			DispatchQueue.main.async {
-				self.image = UIImage(data: imageData)
-				onSuccess()
-			}
-		}.resume()
-	}
-	
-}
-
-
-
-
 
 
 

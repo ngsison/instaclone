@@ -18,27 +18,13 @@ class ProfileCell: UICollectionViewCell {
 		didSet {
 			if let imageURL = post?.imageURL {
 				guard let url = URL(string: imageURL) else { return }
-				
-				self.imageView.image = nil
-				URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
-					if let error = error {
-						print(error)
-						return
-					}
-					
-					if (url.absoluteString != self.post?.imageURL) { return }
-					
-					guard let imageData = data else { return }
-					DispatchQueue.main.async(execute: {
-						self.imageView.image = UIImage(data: imageData)
-					})
-				}.resume()
+				self.imageView.loadImage(from: url.absoluteString)
 			}
 		}
 	}
 	
-	let imageView: UIImageView = {
-		let imageView = UIImageView()
+	let imageView: CustomImageView = {
+		let imageView = CustomImageView()
 		imageView.contentMode = UIViewContentMode.scaleAspectFill
 		imageView.clipsToBounds = true
 		return imageView

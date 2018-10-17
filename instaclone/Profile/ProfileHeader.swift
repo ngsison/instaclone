@@ -24,8 +24,8 @@ class ProfileHeader: UICollectionViewCell {
 		}
 	}
 	
-	let profileImageView: UIImageView = {
-		let imageView = UIImageView()
+	let profileImageView: CustomImageView = {
+		let imageView = CustomImageView()
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.cornerRadius = 40
 		imageView.layer.masksToBounds = true
