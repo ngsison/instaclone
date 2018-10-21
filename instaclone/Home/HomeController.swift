@@ -37,7 +37,6 @@ class HomeController: UICollectionViewController {
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomePostCell.identifier, for: indexPath) as! HomePostCell
-		cell.post = nil
 		cell.post = posts[indexPath.item]
 		
 		return cell
