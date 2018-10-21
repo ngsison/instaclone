@@ -56,16 +56,48 @@ class HomeController: UICollectionViewController {
 		
 		let reference = Database.database().reference().child("posts").child(uid)
 		reference.observeSingleEvent(of: DataEventType.value, with: { (snapshot: DataSnapshot) in
-			
+
 			guard let snapshotDict = snapshot.value as? [String: Any] else {
 				print("No posts were fecthed.")
 				return
 			}
+
 			
-			snapshotDict.forEach { (key, value) in
+			// Get all keys from dictionary and sort (I don't know why how the keys were sorted by Firebase)
+//			var snapshotKeys = [String]()
+//			for key in snapshotDict.keys {
+//				snapshotKeys.append(key)
+//			}
+//			snapshotKeys.sort()
+			
+//			for snapshotKey in snapshotKeys {
+//				guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
+//				let post = Post(withDictionary: postDict)
+//				self.posts.insert(post, at: 0)
+//			}
+			
+			
+			// Get all createdOn from dictionary and sort descending (latest first)
+			var dates = [NSNumber]()
+			for value in snapshotDict.values {
 				guard let postDict = value as? [String: Any] else { return }
 				let post = Post(withDictionary: postDict)
-				self.posts.append(post)
+				dates.append(post.createdOn!)
+			}
+			dates.sort { $0.doubleValue < $1.doubleValue }
+			
+			
+			// For each date in dates, query the post with the same date and insert at the beginning of the posts array
+			for date in dates {
+				let postDict = snapshotDict.values.first(where: { value -> Bool in
+					guard let postDict = value as? [String: Any] else { return false }
+					let post = Post(withDictionary: postDict)
+					
+					return post.createdOn == date
+				}) as! [String: Any]
+				
+				let post = Post(withDictionary: postDict)
+				self.posts.insert(post, at: 0)
 			}
 
 			self.collectionView?.reloadData()
@@ -92,7 +124,7 @@ class HomeController: UICollectionViewController {
 extension HomeController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: self.view.frame.width, height: 300)
+		return CGSize(width: self.view.frame.width, height: self.view.frame.width)
 	}
 	
 }

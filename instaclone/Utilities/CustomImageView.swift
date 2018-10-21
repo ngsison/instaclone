@@ -15,14 +15,15 @@ class CustomImageView: UIImageView {
 	var lastURL: String?
 	
 	public func loadImage(from urlString: String) {
-		guard let url = URL(string: urlString) else { return }
+		lastURL = urlString
 		
 		if let cachedImage = imageCache[urlString] {
 			self.image = cachedImage
 			return
 		}
 		
-		lastURL = urlString
+		guard let url = URL(string: urlString) else { return }
+		
 		URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
 			if let error = error {
 				print(error)
