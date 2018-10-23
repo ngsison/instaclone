@@ -130,6 +130,7 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 		var height: CGFloat = 8 + 40 + 8 	// user imageview
 		height += self.view.frame.width		// post imageview
 		height += 50						// action buttons
+		height += 60						// caption
 		
 		return CGSize(width: self.view.frame.width, height: height)
 	}

@@ -76,6 +76,31 @@ class HomePostCell: UICollectionViewCell {
 		return button
 	}()
 	
+	let captionLabel: UILabel = {
+		let label = UILabel()
+		label.numberOfLines = 0
+		
+		let attributedText = NSMutableAttributedString(string: "Username", attributes: [
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+		])
+		
+		attributedText.append(NSAttributedString(string: " Some caption text that will perharps wrap on the next line", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)
+		]))
+		
+		attributedText.append(NSAttributedString(string: "\n\n", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 4)
+		]))
+		
+		attributedText.append(NSAttributedString(string: "1 week ago", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13),
+			NSAttributedStringKey.foregroundColor: UIColor.gray
+		]))
+		
+		label.attributedText = attributedText
+		return label
+	}()
+	
 	
 	// MARK: - Overrides
 	override init(frame: CGRect) {
@@ -99,18 +124,18 @@ class HomePostCell: UICollectionViewCell {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.backgroundColor = UIColor.lightGray
-		
 		self.addSubview(userImageView)
 		self.addSubview(usernameLabel)
 		self.addSubview(optionsButton)
 		self.addSubview(photoImageView)
+		self.addSubview(captionLabel)
 		
 		setupUserImageView()
 		setupUsernameLabel()
 		setupOptionsButton()
 		setupPhotoImageView()
 		setupActionButtons()
+		setupCaptionLabel()
 	}
 	
 	private func setupUserImageView() {
@@ -159,6 +184,13 @@ class HomePostCell: UICollectionViewCell {
 		bookmarkButton.anchor(right: self.rightAnchor, equalTo: 8)
 		bookmarkButton.anchor(width: 40)
 		bookmarkButton.anchor(height: 50)
+	}
+	
+	private func setupCaptionLabel() {
+		captionLabel.anchor(top: likeButton.bottomAnchor, equalTo: 0)
+		captionLabel.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		captionLabel.anchor(left: self.leftAnchor, equalTo: 8)
+		captionLabel.anchor(right: self.rightAnchor, equalTo: 8)
 	}
 }
 
