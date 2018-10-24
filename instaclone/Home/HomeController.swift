@@ -53,11 +53,8 @@ class HomeController: UICollectionViewController {
 	private func fetchPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
-			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
-			let user = User(uid: uid, dictionary: snapshotDict)
-			
-			self.fetchPosts(with: user) 
+		Database.fetchUser(withUID: uid) { (user) in
+			self.fetchPosts(with: user)
 		}
 	}
 	

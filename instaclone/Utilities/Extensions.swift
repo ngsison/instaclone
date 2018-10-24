@@ -7,6 +7,23 @@
 //
 
 import UIKit
+import FirebaseDatabase
+
+
+
+// MARK: - FirebaseDatabase
+extension Database {
+	
+	static func fetchUser(withUID uid: String, onSuccess: @escaping (User) -> Void) {
+		Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			let user = User(uid: uid, dictionary: snapshotDict)
+			onSuccess(user)
+		}
+	}
+	
+}
+
 
 
 // MARK: - UIColor
