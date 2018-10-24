@@ -15,7 +15,6 @@ class ProfileController: UICollectionViewController {
 	
 	
 	// MARK: - Properties
-    private var identifier = "profileCell"
 	private var user: User? {
 		didSet {
 			self.navigationItem.title = user?.username
@@ -29,7 +28,7 @@ class ProfileController: UICollectionViewController {
 		super.viewDidLoad()
 		configureCollectionView()
 		setupViews()
-		getUserData()
+		fetchUser()
 		fetchPosts()
 	}
 	
@@ -38,7 +37,7 @@ class ProfileController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.identifier, for: indexPath) as! ProfileCell
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
 		cell.post = self.user?.posts[indexPath.item]
 		return cell
 	}
@@ -81,7 +80,7 @@ class ProfileController: UICollectionViewController {
 		collectionView?.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: ProfileHeader.identifier)
 	}
 
-	private func getUserData() {
+	private func fetchUser() {
 		guard let userID = Auth.auth().currentUser?.uid else { return }
 		
 		let reference = Database.database().reference().child("users")
@@ -125,7 +124,8 @@ class ProfileController: UICollectionViewController {
 				return
 			}
 			
-			let post = Post(withDictionary: postDict)
+			guard let user = self.user else { return }
+			let post = Post(user: user, dictionary: postDict)
 			self.user?.posts.insert(post, at: 0)
 			
 			self.collectionView?.reloadData()

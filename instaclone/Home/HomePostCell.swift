@@ -18,16 +18,24 @@ class HomePostCell: UICollectionViewCell {
 	
 	var post: Post? {
 		didSet {
-			guard let imageURL = post?.imageURL else { return }
-			photoImageView.loadImage(from: imageURL)
+			usernameLabel.text = post?.user.username;
+			setupAttributedCaption()
+			
+			if let profileImageURL = post?.user.profileImageURL {
+				profileImageView.loadImage(from: profileImageURL)
+			}
+			
+			if let postImageURL = post?.imageURL {
+				postImageView.loadImage(from: postImageURL)
+			}
 		}
 	}
 	
-	let userImageView: CustomImageView = {
+	let profileImageView: CustomImageView = {
 		let iv = CustomImageView()
 		iv.contentMode = .scaleAspectFill
 		iv.clipsToBounds = true
-		iv.backgroundColor = UIColor.blue
+		iv.backgroundColor = UIColor.lightGray
 		return iv
 	}()
 	
@@ -45,7 +53,7 @@ class HomePostCell: UICollectionViewCell {
 		return button
 	}()
 	
-	let photoImageView: CustomImageView = {
+	let postImageView: CustomImageView = {
 		let iv = CustomImageView()
 		iv.contentMode = .scaleAspectFill
 		iv.clipsToBounds = true
@@ -79,25 +87,6 @@ class HomePostCell: UICollectionViewCell {
 	let captionLabel: UILabel = {
 		let label = UILabel()
 		label.numberOfLines = 0
-		
-		let attributedText = NSMutableAttributedString(string: "Username", attributes: [
-			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
-		])
-		
-		attributedText.append(NSAttributedString(string: " Some caption text that will perharps wrap on the next line", attributes: [
-			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)
-		]))
-		
-		attributedText.append(NSAttributedString(string: "\n\n", attributes: [
-			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 4)
-		]))
-		
-		attributedText.append(NSAttributedString(string: "1 week ago", attributes: [
-			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13),
-			NSAttributedStringKey.foregroundColor: UIColor.gray
-		]))
-		
-		label.attributedText = attributedText
 		return label
 	}()
 	
@@ -122,34 +111,60 @@ class HomePostCell: UICollectionViewCell {
 	
 	
 	
+	// MARK: - Functions
+	private func setupAttributedCaption() {
+		guard let post = self.post else { return }
+		
+		let attributedText = NSMutableAttributedString(string: post.user.username, attributes: [
+			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
+			])
+		
+		attributedText.append(NSAttributedString(string: " \(post.caption)", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)
+			]))
+		
+		attributedText.append(NSAttributedString(string: "\n\n", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 4)
+			]))
+		
+		attributedText.append(NSAttributedString(string: "1 week ago", attributes: [
+			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13),
+			NSAttributedStringKey.foregroundColor: UIColor.gray
+			]))
+		
+		captionLabel.attributedText = attributedText
+	}
+	
+	
+	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.addSubview(userImageView)
+		self.addSubview(profileImageView)
 		self.addSubview(usernameLabel)
 		self.addSubview(optionsButton)
-		self.addSubview(photoImageView)
+		self.addSubview(postImageView)
 		self.addSubview(captionLabel)
 		
 		setupUserImageView()
 		setupUsernameLabel()
 		setupOptionsButton()
-		setupPhotoImageView()
+		setupPostImageView()
 		setupActionButtons()
 		setupCaptionLabel()
 	}
 	
 	private func setupUserImageView() {
-		userImageView.anchor(top: self.topAnchor, equalTo: 8)
-		userImageView.anchor(left: self.leftAnchor, equalTo: 8)
-		userImageView.anchor(width: 40)
-		userImageView.anchor(height: 40)
-		userImageView.layer.cornerRadius = 20
+		profileImageView.anchor(top: self.topAnchor, equalTo: 8)
+		profileImageView.anchor(left: self.leftAnchor, equalTo: 8)
+		profileImageView.anchor(width: 40)
+		profileImageView.anchor(height: 40)
+		profileImageView.layer.cornerRadius = 20
 	}
 	
 	private func setupUsernameLabel() {
 		usernameLabel.anchor(top: self.topAnchor, equalTo: 0)
-		usernameLabel.anchor(bottom: photoImageView.topAnchor, equalTo: 0)
-		usernameLabel.anchor(left: userImageView.rightAnchor, equalTo: 8)
+		usernameLabel.anchor(bottom: postImageView.topAnchor, equalTo: 0)
+		usernameLabel.anchor(left: profileImageView.rightAnchor, equalTo: 8)
 		usernameLabel.anchor(right: optionsButton.leftAnchor, equalTo: 8)
 	}
 	
@@ -162,11 +177,11 @@ class HomePostCell: UICollectionViewCell {
 		optionsButton.addTarget(self, action: #selector(optionsButtonClicked), for: .touchUpInside)
 	}
 	
-	private func setupPhotoImageView() {
-		photoImageView.anchor(top: userImageView.bottomAnchor, equalTo: 8)
-		photoImageView.anchor(left: self.leftAnchor, equalTo: 0)
-		photoImageView.anchor(right: self.rightAnchor, equalTo: 0)
-		photoImageView.anchor(height: self.bounds.width)
+	private func setupPostImageView() {
+		postImageView.anchor(top: profileImageView.bottomAnchor, equalTo: 8)
+		postImageView.anchor(left: self.leftAnchor, equalTo: 0)
+		postImageView.anchor(right: self.rightAnchor, equalTo: 0)
+		postImageView.anchor(height: self.bounds.width)
 	}
 	
 	private func setupActionButtons() {
@@ -174,13 +189,13 @@ class HomePostCell: UICollectionViewCell {
 		stackView.distribution = .fillEqually
 		
 		self.addSubview(stackView)
-		stackView.anchor(top: photoImageView.bottomAnchor, equalTo: 0)
+		stackView.anchor(top: postImageView.bottomAnchor, equalTo: 0)
 		stackView.anchor(left: self.leftAnchor, equalTo: 8)
 		stackView.anchor(width: 120)
 		stackView.anchor(height: 50)
 		
 		self.addSubview(bookmarkButton)
-		bookmarkButton.anchor(top: photoImageView.bottomAnchor, equalTo: 0)
+		bookmarkButton.anchor(top: postImageView.bottomAnchor, equalTo: 0)
 		bookmarkButton.anchor(right: self.rightAnchor, equalTo: 8)
 		bookmarkButton.anchor(width: 40)
 		bookmarkButton.anchor(height: 50)

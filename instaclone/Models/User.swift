@@ -9,12 +9,12 @@
 import Foundation
 
 class User {
-	var username: String?
-	var profileImageURL: String?
+	let username: String
+	let profileImageURL: String
 	var posts = [Post]()
 	
 	init(withDictionary dictionary: [String: Any]) {
-		self.username = dictionary["username"] as? String
-		self.profileImageURL = dictionary["profileImageURL"] as? String
+		self.username = dictionary["username"] as? String ?? ""
+		self.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
 	}
 }

@@ -52,61 +52,33 @@ class HomeController: UICollectionViewController {
 	
 	private func fetchPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
-		
-		let reference = Database.database().reference().child("posts").child(uid)
-		reference.observeSingleEvent(of: DataEventType.value, with: { (snapshot: DataSnapshot) in
-
-			guard let snapshotDict = snapshot.value as? [String: Any] else {
-				print("No posts were fecthed.")
-				return
-			}
-
-			self.posts = self.getSortedPosts(from: snapshotDict)
-			self.collectionView?.reloadData()
-		}) { (error: Error) in
-			print("Failed to retrieve posts from the database: \(error)")
-		}
-	}
-	
-	private func getSortedPosts(from snapshotDict: [String: Any]) -> [Post] {
-		// Get all keys from dictionary and sort (I don't know how the keys were sorted by Firebase)
-		//			var snapshotKeys = [String]()
-		//			for key in snapshotDict.keys {
-		//				snapshotKeys.append(key)
-		//			}
-		//			snapshotKeys.sort()
-		
-		//			for snapshotKey in snapshotKeys {
-		//				guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
-		//				let post = Post(withDictionary: postDict)
-		//				self.posts.insert(post, at: 0)
-		//			}
-		
-		var posts = [Post]()
-		
-		// Get all createdOn from dictionary and sort descending (latest first)
-		var dates = [NSNumber]()
-		for value in snapshotDict.values {
-			guard let postDict = value as? [String: Any] else { return posts }
-			let post = Post(withDictionary: postDict)
-			dates.append(post.createdOn!)
-		}
-		dates.sort { $0.doubleValue < $1.doubleValue }
-		
-		// For each date in dates, query the post with the same date and insert at the beginning of the posts array
-		for date in dates {
-			let postDict = snapshotDict.values.first(where: { value -> Bool in
-				guard let postDict = value as? [String: Any] else { return false }
-				let post = Post(withDictionary: postDict)
-				
-				return post.createdOn == date
-			}) as! [String: Any]
+		Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			let user = User(withDictionary: snapshotDict)
 			
-			let post = Post(withDictionary: postDict)
-			posts.insert(post, at: 0)
+			Database.database().reference().child("posts").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+				guard let snapshotDict = snapshot.value as? [String: Any] else {
+					print("No posts were fecthed.")
+					return
+				}
+				
+				var snapshotKeys = [String]()
+				for key in snapshotDict.keys {
+					snapshotKeys.append(key)
+				}
+				snapshotKeys.sort()
+	
+				for snapshotKey in snapshotKeys {
+					guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
+					let post = Post(user: user, dictionary: postDict)
+					self.posts.insert(post, at: 0)
+				}
+				
+				self.collectionView?.reloadData()
+			}) { (error: Error) in
+				print("Failed to retrieve posts from the database: \(error)")
+			}
 		}
-		
-		return posts
 	}
 	
 	
