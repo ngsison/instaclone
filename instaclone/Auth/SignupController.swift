@@ -210,7 +210,7 @@ class SignupController: UIViewController {
     
     
     
-    // MARK: - SetupViews
+    // MARK: - Setup Views
     func setupViews() {
 		self.view.backgroundColor = .white
         setupPlusButton()

@@ -13,7 +13,6 @@ class HomePostCell: UICollectionViewCell {
 	
 	
 	// MARK: - Properties
-	
 	public static let identifier = "homePostCell"
 	
 	var post: Post? {

@@ -29,6 +29,7 @@ class ProfileHeader: UICollectionViewCell {
 		imageView.contentMode = .scaleAspectFill
 		imageView.layer.cornerRadius = 40
 		imageView.layer.masksToBounds = true
+		imageView.backgroundColor = .lightGray
 		return imageView
 	}()
 	

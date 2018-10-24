@@ -36,7 +36,7 @@ class PhotoSelectorHeader: UICollectionViewCell {
 	
 	
 	
-	// MARK: - SetupViews
+	// MARK: - Setup Views
 	private func setupViews() {
 		self.backgroundColor = UIColor.lightGray
 		setupImageView()

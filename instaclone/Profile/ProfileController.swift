@@ -134,7 +134,7 @@ class ProfileController: UICollectionViewController {
 	
 	
 	
-	// MARK: - SetupViews
+	// MARK: - Setup Views
 	private func setupViews() {
 		self.collectionView?.backgroundColor = .white
 		setupLogoutButton()

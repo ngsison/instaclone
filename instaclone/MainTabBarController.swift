@@ -39,7 +39,7 @@ class MainTabBarController: UITabBarController {
 	
 	func showMainTabs() {
 		let homeTab = createTab(for: HomeController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "home_unselected"), selectedIcon: #imageLiteral(resourceName: "home_selected"))
-		let searchTab = createTab(for: UIViewController(), unselectedIcon: #imageLiteral(resourceName: "search_unselected"), selectedIcon: #imageLiteral(resourceName: "search_selected"))
+		let searchTab = createTab(for: SearchController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "search_unselected"), selectedIcon: #imageLiteral(resourceName: "search_selected"))
 		let uploadTab = createTab(for: UIViewController(), unselectedIcon: #imageLiteral(resourceName: "plus_unselected"), selectedIcon: #imageLiteral(resourceName: "plus_unselected"))
 		let notificationsTab = createTab(for: UIViewController(), unselectedIcon: #imageLiteral(resourceName: "like_unselected"), selectedIcon: #imageLiteral(resourceName: "like_selected"))
 		let profileTab = createTab(for: ProfileController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "profile_unselected"), selectedIcon: #imageLiteral(resourceName: "profile_selected"))

@@ -22,6 +22,8 @@
 		481660652177E36F00C27079 /* HomePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481660642177E36F00C27079 /* HomePostCell.swift */; };
 		483D02542136A1DD008C8C48 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483D02532136A1DD008C8C48 /* Post.swift */; };
 		483D02562136A751008C8C48 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483D02552136A751008C8C48 /* ProfileCell.swift */; };
+		4847267B2180FF0400FCCCC5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4847267A2180FF0400FCCCC5 /* SearchController.swift */; };
+		4847267D2181229B00FCCCC5 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4847267C2181229B00FCCCC5 /* SearchCell.swift */; };
 		4885BF66213182D800B94ACF /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885BF65213182D800B94ACF /* LoginController.swift */; };
 		4897D7832177968B002FAD7E /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4897D7822177968B002FAD7E /* CustomImageView.swift */; };
 		48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */; };
@@ -49,6 +51,8 @@
 		481660642177E36F00C27079 /* HomePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePostCell.swift; sourceTree = "<group>"; };
 		483D02532136A1DD008C8C48 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		483D02552136A751008C8C48 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		4847267A2180FF0400FCCCC5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		4847267C2181229B00FCCCC5 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		4885BF65213182D800B94ACF /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		4897D7822177968B002FAD7E /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
@@ -91,6 +95,7 @@
 		20E4B3C12122AB9D00616430 /* instaclone */ = {
 			isa = PBXGroup;
 			children = (
+				484726792180FEDF00FCCCC5 /* Search */,
 				481660612177DFB500C27079 /* Home */,
 				480C38722132CEE6002D9570 /* PhotoSelector */,
 				4885BF64213182C100B94ACF /* Auth */,
@@ -130,6 +135,15 @@
 				481660642177E36F00C27079 /* HomePostCell.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		484726792180FEDF00FCCCC5 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4847267A2180FF0400FCCCC5 /* SearchController.swift */,
+				4847267C2181229B00FCCCC5 /* SearchCell.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		4885BF64213182C100B94ACF /* Auth */ = {
@@ -311,9 +325,11 @@
 				481660652177E36F00C27079 /* HomePostCell.swift in Sources */,
 				48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */,
 				20E4B3C52122AB9D00616430 /* SignupController.swift in Sources */,
+				4847267D2181229B00FCCCC5 /* SearchCell.swift in Sources */,
 				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				4897D7832177968B002FAD7E /* CustomImageView.swift in Sources */,
 				483D02542136A1DD008C8C48 /* Post.swift in Sources */,
+				4847267B2180FF0400FCCCC5 /* SearchController.swift in Sources */,
 				480C38742132CF0E002D9570 /* PhotoSelectorController.swift in Sources */,
 				20E4B3D62122BAB900616430 /* Extensions.swift in Sources */,
 				48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */,
