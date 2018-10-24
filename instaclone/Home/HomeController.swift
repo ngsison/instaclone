@@ -52,32 +52,37 @@ class HomeController: UICollectionViewController {
 	
 	private func fetchPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
+		
 		Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value) { (snapshot) in
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
-			let user = User(withDictionary: snapshotDict)
+			let user = User(uid: uid, dictionary: snapshotDict)
 			
-			Database.database().reference().child("posts").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-				guard let snapshotDict = snapshot.value as? [String: Any] else {
-					print("No posts were fecthed.")
-					return
-				}
-				
-				var snapshotKeys = [String]()
-				for key in snapshotDict.keys {
-					snapshotKeys.append(key)
-				}
-				snapshotKeys.sort()
+			self.fetchPosts(with: user) 
+		}
+	}
 	
-				for snapshotKey in snapshotKeys {
-					guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
-					let post = Post(user: user, dictionary: postDict)
-					self.posts.insert(post, at: 0)
-				}
-				
-				self.collectionView?.reloadData()
-			}) { (error: Error) in
-				print("Failed to retrieve posts from the database: \(error)")
+	private func fetchPosts(with user: User) {
+		Database.database().reference().child("posts").child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else {
+				print("No posts were fecthed.")
+				return
 			}
+			
+			var snapshotKeys = [String]()
+			for key in snapshotDict.keys {
+				snapshotKeys.append(key)
+			}
+			snapshotKeys.sort()
+			
+			for snapshotKey in snapshotKeys {
+				guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
+				let post = Post(user: user, dictionary: postDict)
+				self.posts.insert(post, at: 0)
+			}
+			
+			self.collectionView?.reloadData()
+		}) { (error: Error) in
+			print("Failed to retrieve posts from the database: \(error)")
 		}
 	}
 	

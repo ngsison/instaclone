@@ -81,12 +81,12 @@ class ProfileController: UICollectionViewController {
 	}
 
 	private func fetchUser() {
-		guard let userID = Auth.auth().currentUser?.uid else { return }
+		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		let reference = Database.database().reference().child("users")
-		reference.child(userID).observeSingleEvent(of: DataEventType.value) { (snapshot: DataSnapshot) in
+		Database.database().reference().child("users").child(uid).observeSingleEvent(of: DataEventType.value) { (snapshot: DataSnapshot) in
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
-			self.user = User(withDictionary: snapshotDict)
+			self.user = User(uid: uid, dictionary: snapshotDict)
+			
 			self.collectionView?.reloadData()
 		}
 	}
