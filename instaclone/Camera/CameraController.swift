@@ -14,6 +14,8 @@ class CameraController: UIViewController {
 	
 	
 	// MARK: - Properties
+	let captureOutput = AVCapturePhotoOutput()
+	
 	let captureButton: UIButton = {
 		let button = UIButton(type: .custom)
 		button.setImage(#imageLiteral(resourceName: "capture_photo"), for: .normal)
@@ -42,7 +44,8 @@ class CameraController: UIViewController {
 	
 	// MARK: - Events
 	@objc private func onCaptureButtonPress() {
-		print("TAKE THE FUCKING PHOTO")
+		let settings = AVCapturePhotoSettings()
+		captureOutput.capturePhoto(with: settings, delegate: self)
 	}
 	
 	@objc private func onDismissButtonPress() {
@@ -69,7 +72,6 @@ class CameraController: UIViewController {
 		
 		
 		// 2. setup outputs
-		let captureOutput = AVCapturePhotoOutput()
 		if captureSession.canAddOutput(captureOutput) {
 			captureSession.addOutput(captureOutput)
 		}
@@ -107,5 +109,25 @@ class CameraController: UIViewController {
 		dismissButton.anchor(right: view.rightAnchor, equalTo: 12)
 		dismissButton.anchor(width: 50)
 		dismissButton.anchor(height: 50)
+	}
+}
+
+
+
+
+// MARK: Extension - AVCapturePhotoCaptureDelegate
+extension CameraController: AVCapturePhotoCaptureDelegate {
+	func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+		guard let imageData = photo.fileDataRepresentation() else { return }
+		
+		let previewImageView = UIImageView(image: UIImage(data: imageData))
+		previewImageView.contentMode = .scaleAspectFill
+		previewImageView.clipsToBounds = true
+		
+		view.addSubview(previewImageView)
+		previewImageView.anchor(top: view.topAnchor, equalTo: 0)
+		previewImageView.anchor(bottom: view.bottomAnchor, equalTo: 0)
+		previewImageView.anchor(left: view.leftAnchor, equalTo: 0)
+		previewImageView.anchor(right: view.rightAnchor, equalTo: 0)
 	}
 }
