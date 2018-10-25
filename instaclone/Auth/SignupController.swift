@@ -97,7 +97,7 @@ class SignupController: UIViewController {
     // MARK: - Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.view.hideKeyboardWhenTappedAround()
+		view.hideKeyboardWhenTappedAround()
         setupViews()
     }
 
@@ -205,25 +205,25 @@ class SignupController: UIViewController {
     }
 	
 	@objc private func onShowSigninButtonPress() {
-		self.navigationController?.popViewController(animated: true)
+		navigationController?.popViewController(animated: true)
 	}
     
     
     
     // MARK: - Setup Views
     func setupViews() {
-		self.view.backgroundColor = .white
+		view.backgroundColor = .white
         setupPlusButton()
         setupInputFields()
 		setupShowSigninButton()
     }
     
     private func setupPlusButton() {
-        self.view.addSubview(plusButton)
+        view.addSubview(plusButton)
         plusButton.anchor(height: 140)
         plusButton.anchor(width: 140)
-        plusButton.anchor(centerX: self.view.centerXAnchor)
-        plusButton.anchor(top: self.view.topAnchor, equalTo: 40)
+        plusButton.anchor(centerX: view.centerXAnchor)
+        plusButton.anchor(top: view.topAnchor, equalTo: 40)
     }
     
     private func setupInputFields() {
@@ -238,19 +238,19 @@ class SignupController: UIViewController {
         stackView.addArrangedSubview(passwordTextField)
         stackView.addArrangedSubview(signupButton)
         
-        self.view.addSubview(stackView)
+        view.addSubview(stackView)
         
         stackView.anchor(top: plusButton.bottomAnchor, equalTo: 20)
-        stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
-        stackView.anchor(right: self.view.rightAnchor, equalTo: 40)
+        stackView.anchor(left: view.leftAnchor, equalTo: 40)
+        stackView.anchor(right: view.rightAnchor, equalTo: 40)
         stackView.anchor(height: 190)
     }
 	
 	private func setupShowSigninButton() {
-		self.view.addSubview(showSigninButton)
-		showSigninButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
-		showSigninButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSigninButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		view.addSubview(showSigninButton)
+		showSigninButton.anchor(bottom: view.bottomAnchor, equalTo: 0)
+		showSigninButton.anchor(left: view.leftAnchor, equalTo: 8)
+		showSigninButton.anchor(right: view.rightAnchor, equalTo: 8)
 		showSigninButton.anchor(height: 50)
 	}
 }

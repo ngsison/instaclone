@@ -16,8 +16,8 @@ class MainTabBarController: UITabBarController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.white
-		self.tabBar.tintColor = .black
+		view.backgroundColor = UIColor.white
+		tabBar.tintColor = .black
 		
 		if Auth.auth().currentUser == nil {
 			showLoginController()
@@ -44,10 +44,10 @@ class MainTabBarController: UITabBarController {
 		let notificationsTab = createTab(for: UIViewController(), unselectedIcon: #imageLiteral(resourceName: "like_unselected"), selectedIcon: #imageLiteral(resourceName: "like_selected"))
 		let profileTab = createTab(for: ProfileController(collectionViewLayout: UICollectionViewFlowLayout()), unselectedIcon: #imageLiteral(resourceName: "profile_unselected"), selectedIcon: #imageLiteral(resourceName: "profile_selected"))
 		
-		self.viewControllers = [homeTab, searchTab, uploadTab, notificationsTab, profileTab]
-		self.delegate = self
+		viewControllers = [homeTab, searchTab, uploadTab, notificationsTab, profileTab]
+		delegate = self
 		
-		guard let tabs = self.tabBar.items else { return }
+		guard let tabs = tabBar.items else { return }
 		for tab in tabs {
 			tab.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
 		}
@@ -67,7 +67,7 @@ class MainTabBarController: UITabBarController {
 // MARK: - Extension: UITabBarControllerDelegate
 extension MainTabBarController: UITabBarControllerDelegate {
 	func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-		let selectedTabIndex = self.viewControllers?.index(of: viewController)
+		let selectedTabIndex = viewControllers?.index(of: viewController)
 		
 		if selectedTabIndex == 2 {
 			let photoSelectorController = PhotoSelectorController(collectionViewLayout: UICollectionViewFlowLayout())

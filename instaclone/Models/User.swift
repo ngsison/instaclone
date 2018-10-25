@@ -16,7 +16,7 @@ class User {
 	
 	init(uid: String, dictionary: [String: Any]) {
 		self.uid = uid
-		self.username = dictionary["username"] as? String ?? ""
-		self.profileImageURL = dictionary["profileImageURL"] as? String ?? ""
+		username = dictionary["username"] as? String ?? ""
+		profileImageURL = dictionary["profileImageURL"] as? String ?? ""
 	}
 }

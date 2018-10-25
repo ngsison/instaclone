@@ -91,7 +91,7 @@ class HomeController: UICollectionViewController {
 	}
 	
 	private func setupNavigationItems() {
-		self.navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo2"))
+		navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo2"))
 	}
 }
 
@@ -102,11 +102,11 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		var height: CGFloat = 8 + 40 + 8 	// user imageview
-		height += self.view.frame.width		// post imageview
+		height += view.frame.width		// post imageview
 		height += 50						// action buttons
 		height += 60						// caption
 		
-		return CGSize(width: self.view.frame.width, height: height)
+		return CGSize(width: view.frame.width, height: height)
 	}
 	
 }

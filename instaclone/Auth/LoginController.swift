@@ -85,7 +85,7 @@ class LoginController: UIViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.hideKeyboardWhenTappedAround()
+		view.hideKeyboardWhenTappedAround()
 		setupViews()
 	}
 	
@@ -98,7 +98,7 @@ class LoginController: UIViewController {
 	// MARK: - Events
 	@objc private func onShowSignupButtonPress() {
 		let signupController = SignupController()
-		self.navigationController?.pushViewController(signupController, animated: true)
+		navigationController?.pushViewController(signupController, animated: true)
 	}
 	
 	@objc private func onTextInputChanged() {
@@ -138,26 +138,26 @@ class LoginController: UIViewController {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.view.backgroundColor = UIColor.white
-		self.navigationController?.isNavigationBarHidden = true
+		view.backgroundColor = UIColor.white
+		navigationController?.isNavigationBarHidden = true
 		setupShowSignupButton()
 		setupLogo()
 		setupInputFields()
 	}
 	
 	private func setupShowSignupButton() {
-		self.view.addSubview(showSignupButton)
-		showSignupButton.anchor(bottom: self.view.bottomAnchor, equalTo: 0)
-		showSignupButton.anchor(left: self.view.leftAnchor, equalTo: 8)
-		showSignupButton.anchor(right: self.view.rightAnchor, equalTo: 8)
+		view.addSubview(showSignupButton)
+		showSignupButton.anchor(bottom: view.bottomAnchor, equalTo: 0)
+		showSignupButton.anchor(left: view.leftAnchor, equalTo: 8)
+		showSignupButton.anchor(right: view.rightAnchor, equalTo: 8)
 		showSignupButton.anchor(height: 50)
 	}
 	
 	private func setupLogo() {
-		self.view.addSubview(logoImageView)
-		logoImageView.anchor(left: self.view.leftAnchor, equalTo: 0)
-		logoImageView.anchor(right: self.view.rightAnchor, equalTo: 0)
-		logoImageView.anchor(top: self.view.topAnchor, equalTo: 0)
+		view.addSubview(logoImageView)
+		logoImageView.anchor(left: view.leftAnchor, equalTo: 0)
+		logoImageView.anchor(right: view.rightAnchor, equalTo: 0)
+		logoImageView.anchor(top: view.topAnchor, equalTo: 0)
 		logoImageView.anchor(height: 150)
 	}
 	
@@ -172,11 +172,11 @@ class LoginController: UIViewController {
 		stackView.addArrangedSubview(passwordTextField)
 		stackView.addArrangedSubview(loginButton)
 		
-		self.view.addSubview(stackView)
+		view.addSubview(stackView)
 		
 		stackView.anchor(top: logoImageView.bottomAnchor, equalTo: 40)
-		stackView.anchor(left: self.view.leftAnchor, equalTo: 40)
-		stackView.anchor(right: self.view.rightAnchor, equalTo: 40)
+		stackView.anchor(left: view.leftAnchor, equalTo: 40)
+		stackView.anchor(right: view.rightAnchor, equalTo: 40)
 		stackView.anchor(height: 140)
 	}
 }

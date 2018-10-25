@@ -127,7 +127,7 @@ class SharePhotoController: UIViewController {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.view.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+		view.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
 		setupNavigationButtons()
 		setupInputContainer()
 		setupImageView()
@@ -136,14 +136,14 @@ class SharePhotoController: UIViewController {
 	
 	private func setupNavigationButtons() {
 		let shareBarButton = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(onShareBarButtonPress))
-		self.navigationItem.rightBarButtonItem = shareBarButton
+		navigationItem.rightBarButtonItem = shareBarButton
 	}
 	
 	private func setupInputContainer() {
-		self.view.addSubview(inputContainer)
-		inputContainer.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, equalTo: 0)
-		inputContainer.anchor(left: self.view.leftAnchor, equalTo: 0)
-		inputContainer.anchor(right: self.view.rightAnchor, equalTo: 0)
+		view.addSubview(inputContainer)
+		inputContainer.anchor(top: view.safeAreaLayoutGuide.topAnchor, equalTo: 0)
+		inputContainer.anchor(left: view.leftAnchor, equalTo: 0)
+		inputContainer.anchor(right: view.rightAnchor, equalTo: 0)
 		inputContainer.anchor(height: 100)
 	}
 	

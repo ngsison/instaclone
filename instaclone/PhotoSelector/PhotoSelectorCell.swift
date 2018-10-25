@@ -50,19 +50,19 @@ class PhotoSelectorCell: UICollectionViewCell {
 	}
 	
 	private func setupImageView() {
-		self.addSubview(imageView)
-		imageView.anchor(left: self.leftAnchor, equalTo: 0)
-		imageView.anchor(right: self.rightAnchor, equalTo: 0)
-		imageView.anchor(top: self.topAnchor, equalTo: 0)
-		imageView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(imageView)
+		imageView.anchor(left: leftAnchor, equalTo: 0)
+		imageView.anchor(right: rightAnchor, equalTo: 0)
+		imageView.anchor(top: topAnchor, equalTo: 0)
+		imageView.anchor(bottom: bottomAnchor, equalTo: 0)
 	}
 	
 	private func setupSelectedIndicator() {
-		self.addSubview(selectedIndicatorView)
-		selectedIndicatorView.anchor(left: self.leftAnchor, equalTo: 0)
-		selectedIndicatorView.anchor(right: self.rightAnchor, equalTo: 0)
-		selectedIndicatorView.anchor(top: self.topAnchor, equalTo: 0)
-		selectedIndicatorView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(selectedIndicatorView)
+		selectedIndicatorView.anchor(left: leftAnchor, equalTo: 0)
+		selectedIndicatorView.anchor(right: rightAnchor, equalTo: 0)
+		selectedIndicatorView.anchor(top: topAnchor, equalTo: 0)
+		selectedIndicatorView.anchor(bottom: bottomAnchor, equalTo: 0)
 	}
 	
 }

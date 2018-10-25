@@ -61,9 +61,9 @@ class SearchCell: UICollectionViewCell {
 	}
 	
 	private func setupProfileImageView() {
-		self.addSubview(profileImageView)
-		profileImageView.anchor(centerY: self.centerYAnchor)
-		profileImageView.anchor(left: self.leftAnchor, equalTo: 8)
+		addSubview(profileImageView)
+		profileImageView.anchor(centerY: centerYAnchor)
+		profileImageView.anchor(left: leftAnchor, equalTo: 8)
 		profileImageView.anchor(width: 44)
 		profileImageView.anchor(height: 44)
 		
@@ -71,18 +71,18 @@ class SearchCell: UICollectionViewCell {
 	}
 	
 	private func setupUsernameLabel() {
-		self.addSubview(usernameLabel)
-		usernameLabel.anchor(top: self.topAnchor, equalTo: 0)
-		usernameLabel.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(usernameLabel)
+		usernameLabel.anchor(top: topAnchor, equalTo: 0)
+		usernameLabel.anchor(bottom: bottomAnchor, equalTo: 0)
 		usernameLabel.anchor(left: profileImageView.rightAnchor, equalTo: 8)
-		usernameLabel.anchor(right: self.rightAnchor, equalTo: 8)
+		usernameLabel.anchor(right: rightAnchor, equalTo: 8)
 	}
 	
 	private func setupSeparatorView() {
 		let separatorView = UIView()
 		separatorView.backgroundColor = UIColor(white: 0, alpha: 0.25)
 		
-		self.addSubview(separatorView)
+		addSubview(separatorView)
 		separatorView.anchor(left: usernameLabel.leftAnchor, equalTo: 0)
 		separatorView.anchor(right: rightAnchor, equalTo: 0)
 		separatorView.anchor(bottom: bottomAnchor, equalTo: 0)

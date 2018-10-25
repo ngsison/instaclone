@@ -25,8 +25,8 @@ class PhotoSelectorController: UICollectionViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		self.collectionView?.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: PhotoSelectorCell.identifier)
-		self.collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
+		collectionView?.register(PhotoSelectorCell.self, forCellWithReuseIdentifier: PhotoSelectorCell.identifier)
+		collectionView?.register(PhotoSelectorHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotoSelectorHeader.identifier)
 		
 		let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
 		layout?.sectionHeadersPinToVisibleBounds = true
@@ -40,13 +40,13 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.images.count
+		return images.count
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoSelectorCell.identifier, for: indexPath) as! PhotoSelectorCell
-		cell.imageView.image = self.images[indexPath.item]
-		cell.selectedIndicatorView.isHidden = indexPath.item != self.selectedImageIndex
+		cell.imageView.image = images[indexPath.item]
+		cell.selectedIndicatorView.isHidden = indexPath.item != selectedImageIndex
 		
 		return cell
 	}
@@ -54,8 +54,8 @@ class PhotoSelectorController: UICollectionViewController {
 	override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoSelectorHeader.identifier, for: indexPath) as! PhotoSelectorHeader
 		
-		if selectedImageIndex < self.images.count {
-			fetchImage(for: self.assets[selectedImageIndex], targetSize: PHImageManagerMaximumSize) { (image, info) in
+		if selectedImageIndex < images.count {
+			fetchImage(for: assets[selectedImageIndex], targetSize: PHImageManagerMaximumSize) { (image, info) in
 				header.imageView.image = image
 			}
 		}
@@ -65,7 +65,7 @@ class PhotoSelectorController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		self.selectedImageIndex = indexPath.item
+		selectedImageIndex = indexPath.item
 		collectionView.reloadData()
 	}
 	
@@ -74,13 +74,13 @@ class PhotoSelectorController: UICollectionViewController {
 	// MARK: - Events
 	@objc private func onCancelBarButtonPress() {
 		print("Cancel button was pressed!")
-		self.dismiss(animated: true, completion: nil)
+		dismiss(animated: true, completion: nil)
 	}
 	
 	@objc private func onNextBarButtonPress() {
 		let sharePhotoController = SharePhotoController()
 		sharePhotoController.selectedImage = header?.imageView.image
-		self.navigationController?.pushViewController(sharePhotoController, animated: true)
+		navigationController?.pushViewController(sharePhotoController, animated: true)
 	}
 	
 	
@@ -127,19 +127,19 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.collectionView?.backgroundColor = UIColor.white
+		collectionView?.backgroundColor = UIColor.white
 		setupNavigationButtons()
 	}
 	
 	private func setupNavigationButtons() {
-		self.navigationController?.navigationBar.tintColor = UIColor.black
+		navigationController?.navigationBar.tintColor = UIColor.black
 		
 		let cancelBarButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(onCancelBarButtonPress))
-		self.navigationItem.leftBarButtonItem = cancelBarButton
+		navigationItem.leftBarButtonItem = cancelBarButton
 		
 		let nextBarButton = UIBarButtonItem(title: "Next", style: UIBarButtonItemStyle.done, target: self, action: #selector(onNextBarButtonPress))
 		nextBarButton.tintColor = #colorLiteral(red: 0.1058823529, green: 0.6784313725, blue: 0.9725490196, alpha: 1)
-		self.navigationItem.rightBarButtonItem = nextBarButton
+		navigationItem.rightBarButtonItem = nextBarButton
 	}
 }
 
@@ -149,7 +149,7 @@ class PhotoSelectorController: UICollectionViewController {
 extension PhotoSelectorController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		let availableWidth = (self.view.frame.width - 3) / 4
+		let availableWidth = (view.frame.width - 3) / 4
 		return CGSize(width: availableWidth, height: availableWidth)
 	}
 
@@ -162,7 +162,7 @@ extension PhotoSelectorController: UICollectionViewDelegateFlowLayout {
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return CGSize(width: self.view.frame.width, height: self.view.frame.width)
+		return CGSize(width: view.frame.width, height: view.frame.width)
 	}
 	
 }

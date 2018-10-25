@@ -112,7 +112,7 @@ class HomePostCell: UICollectionViewCell {
 	
 	// MARK: - Functions
 	private func setupAttributedCaption() {
-		guard let post = self.post else { return }
+		guard let post = post else { return }
 		
 		let attributedText = NSMutableAttributedString(string: post.user.username, attributes: [
 			NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 14)
@@ -138,11 +138,11 @@ class HomePostCell: UICollectionViewCell {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.addSubview(profileImageView)
-		self.addSubview(usernameLabel)
-		self.addSubview(optionsButton)
-		self.addSubview(postImageView)
-		self.addSubview(captionLabel)
+		addSubview(profileImageView)
+		addSubview(usernameLabel)
+		addSubview(optionsButton)
+		addSubview(postImageView)
+		addSubview(captionLabel)
 		
 		setupUserImageView()
 		setupUsernameLabel()
@@ -153,15 +153,15 @@ class HomePostCell: UICollectionViewCell {
 	}
 	
 	private func setupUserImageView() {
-		profileImageView.anchor(top: self.topAnchor, equalTo: 8)
-		profileImageView.anchor(left: self.leftAnchor, equalTo: 8)
+		profileImageView.anchor(top: topAnchor, equalTo: 8)
+		profileImageView.anchor(left: leftAnchor, equalTo: 8)
 		profileImageView.anchor(width: 40)
 		profileImageView.anchor(height: 40)
 		profileImageView.layer.cornerRadius = 20
 	}
 	
 	private func setupUsernameLabel() {
-		usernameLabel.anchor(top: self.topAnchor, equalTo: 0)
+		usernameLabel.anchor(top: topAnchor, equalTo: 0)
 		usernameLabel.anchor(bottom: postImageView.topAnchor, equalTo: 0)
 		usernameLabel.anchor(left: profileImageView.rightAnchor, equalTo: 8)
 		usernameLabel.anchor(right: optionsButton.leftAnchor, equalTo: 8)
@@ -170,7 +170,7 @@ class HomePostCell: UICollectionViewCell {
 	private func setupOptionsButton() {
 		optionsButton.anchor(top: usernameLabel.topAnchor, equalTo: 0)
 		optionsButton.anchor(bottom: usernameLabel.bottomAnchor, equalTo: 0)
-		optionsButton.anchor(right: self.rightAnchor, equalTo: 0)
+		optionsButton.anchor(right: rightAnchor, equalTo: 0)
 		optionsButton.anchor(width: 44)
 		
 		optionsButton.addTarget(self, action: #selector(optionsButtonClicked), for: .touchUpInside)
@@ -178,33 +178,33 @@ class HomePostCell: UICollectionViewCell {
 	
 	private func setupPostImageView() {
 		postImageView.anchor(top: profileImageView.bottomAnchor, equalTo: 8)
-		postImageView.anchor(left: self.leftAnchor, equalTo: 0)
-		postImageView.anchor(right: self.rightAnchor, equalTo: 0)
-		postImageView.anchor(height: self.bounds.width)
+		postImageView.anchor(left: leftAnchor, equalTo: 0)
+		postImageView.anchor(right: rightAnchor, equalTo: 0)
+		postImageView.anchor(height: bounds.width)
 	}
 	
 	private func setupActionButtons() {
 		let stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, shareButton])
 		stackView.distribution = .fillEqually
 		
-		self.addSubview(stackView)
+		addSubview(stackView)
 		stackView.anchor(top: postImageView.bottomAnchor, equalTo: 0)
-		stackView.anchor(left: self.leftAnchor, equalTo: 8)
+		stackView.anchor(left: leftAnchor, equalTo: 8)
 		stackView.anchor(width: 120)
 		stackView.anchor(height: 50)
 		
-		self.addSubview(bookmarkButton)
+		addSubview(bookmarkButton)
 		bookmarkButton.anchor(top: postImageView.bottomAnchor, equalTo: 0)
-		bookmarkButton.anchor(right: self.rightAnchor, equalTo: 8)
+		bookmarkButton.anchor(right: rightAnchor, equalTo: 8)
 		bookmarkButton.anchor(width: 40)
 		bookmarkButton.anchor(height: 50)
 	}
 	
 	private func setupCaptionLabel() {
 		captionLabel.anchor(top: likeButton.bottomAnchor, equalTo: 0)
-		captionLabel.anchor(bottom: self.bottomAnchor, equalTo: 0)
-		captionLabel.anchor(left: self.leftAnchor, equalTo: 8)
-		captionLabel.anchor(right: self.rightAnchor, equalTo: 8)
+		captionLabel.anchor(bottom: bottomAnchor, equalTo: 0)
+		captionLabel.anchor(left: leftAnchor, equalTo: 8)
+		captionLabel.anchor(right: rightAnchor, equalTo: 8)
 	}
 }
 

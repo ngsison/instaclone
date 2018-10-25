@@ -38,24 +38,24 @@ class PhotoSelectorHeader: UICollectionViewCell {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.backgroundColor = UIColor.lightGray
+		backgroundColor = UIColor.lightGray
 		setupImageView()
 		setupBottomBorder()
 	}
 	
 	private func setupImageView() {
-		self.addSubview(imageView)
-		imageView.anchor(left: self.leftAnchor, equalTo: 0)
-		imageView.anchor(right: self.rightAnchor, equalTo: 0)
-		imageView.anchor(top: self.topAnchor, equalTo: 0)
-		imageView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(imageView)
+		imageView.anchor(left: leftAnchor, equalTo: 0)
+		imageView.anchor(right: rightAnchor, equalTo: 0)
+		imageView.anchor(top: topAnchor, equalTo: 0)
+		imageView.anchor(bottom: bottomAnchor, equalTo: 0)
 	}
 	
 	private func setupBottomBorder() {
 		let bottomBorder = UIView()
 		bottomBorder.backgroundColor = UIColor.white
 		
-		self.addSubview(bottomBorder)
+		addSubview(bottomBorder)
 		bottomBorder.anchor(left: imageView.leftAnchor, equalTo: 0)
 		bottomBorder.anchor(right: imageView.rightAnchor, equalTo: 0)
 		bottomBorder.anchor(top: imageView.bottomAnchor, equalTo: 0)

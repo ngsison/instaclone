@@ -19,11 +19,11 @@ class CustomImageView: UIImageView {
 		
 		lastURL = urlString
 		if let cachedImage = imageCache[urlString] {
-			self.image = cachedImage
+			image = cachedImage
 			return
 		}
 		
-		self.image = nil
+		image = nil
 		URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
 			if let error = error {
 				print(error)

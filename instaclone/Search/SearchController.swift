@@ -81,7 +81,7 @@ class SearchController: UICollectionViewController {
 	}
 	
 	private func setupSearchBar() {
-		guard let navBar = self.navigationController?.navigationBar else { return }
+		guard let navBar = navigationController?.navigationBar else { return }
 		
 		navBar.addSubview(searchBar)
 		searchBar.anchor(top: navBar.topAnchor, equalTo: 0)
@@ -106,9 +106,9 @@ extension SearchController: UICollectionViewDelegateFlowLayout {
 extension SearchController: UISearchBarDelegate {
 	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 		if searchText.isEmpty {
-			filteredUsers = self.users
+			filteredUsers = users
 		} else {
-			filteredUsers = self.users.filter({ (user) -> Bool in
+			filteredUsers = users.filter({ (user) -> Bool in
 				return user.username.lowercased().contains(searchText.lowercased())
 			})
 		}

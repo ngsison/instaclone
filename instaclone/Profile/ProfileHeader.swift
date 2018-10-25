@@ -122,7 +122,7 @@ class ProfileHeader: UICollectionViewCell {
 	
 	// MARK: - Functions
 	private func updateStats() {
-		let posts = self.user?.posts.count ?? 0
+		let posts = user?.posts.count ?? 0
 		let followers = 0
 		let following = 0
 		
@@ -156,9 +156,9 @@ class ProfileHeader: UICollectionViewCell {
 	}
 	
 	private func setupProfileImage() {
-		self.addSubview(profileImageView)
-		profileImageView.anchor(top: self.topAnchor, equalTo: 10)
-		profileImageView.anchor(left: self.leftAnchor, equalTo: 10)
+		addSubview(profileImageView)
+		profileImageView.anchor(top: topAnchor, equalTo: 10)
+		profileImageView.anchor(left: leftAnchor, equalTo: 10)
 		profileImageView.anchor(width: 80)
 		profileImageView.anchor(height: 80)
 	}
@@ -168,15 +168,15 @@ class ProfileHeader: UICollectionViewCell {
 		toolbarStackView.addArrangedSubview(listButton)
 		toolbarStackView.addArrangedSubview(bookmarkButton)
 		
-		self.addSubview(toolbarStackView)
-		toolbarStackView.anchor(left: self.leftAnchor, equalTo: 0)
-		toolbarStackView.anchor(right: self.rightAnchor, equalTo: 0)
-		toolbarStackView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(toolbarStackView)
+		toolbarStackView.anchor(left: leftAnchor, equalTo: 0)
+		toolbarStackView.anchor(right: rightAnchor, equalTo: 0)
+		toolbarStackView.anchor(bottom: bottomAnchor, equalTo: 0)
 		toolbarStackView.anchor(height: 50)
         
         let topBorder = UIView()
         topBorder.backgroundColor = UIColor.lightGray
-        self.addSubview(topBorder)
+        addSubview(topBorder)
         topBorder.anchor(left: toolbarStackView.leftAnchor, equalTo: 0)
         topBorder.anchor(right: toolbarStackView.rightAnchor, equalTo: 0)
         topBorder.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
@@ -185,7 +185,7 @@ class ProfileHeader: UICollectionViewCell {
         
         let bottomBorder = UIView()
         bottomBorder.backgroundColor = UIColor.lightGray
-        self.addSubview(bottomBorder)
+        addSubview(bottomBorder)
         bottomBorder.anchor(left: toolbarStackView.leftAnchor, equalTo: 0)
         bottomBorder.anchor(right: toolbarStackView.rightAnchor, equalTo: 0)
         bottomBorder.anchor(top: toolbarStackView.bottomAnchor, equalTo: 0)
@@ -193,9 +193,9 @@ class ProfileHeader: UICollectionViewCell {
 	}
 	
 	private func setupUsername() {
-		self.addSubview(usernameLabel)
-		usernameLabel.anchor(left: self.leftAnchor, equalTo: 10)
-		usernameLabel.anchor(right: self.rightAnchor, equalTo: 10)
+		addSubview(usernameLabel)
+		usernameLabel.anchor(left: leftAnchor, equalTo: 10)
+		usernameLabel.anchor(right: rightAnchor, equalTo: 10)
 		usernameLabel.anchor(top: profileImageView.bottomAnchor, equalTo: 0)
 		usernameLabel.anchor(bottom: toolbarStackView.topAnchor, equalTo: 0)
 	}
@@ -205,15 +205,15 @@ class ProfileHeader: UICollectionViewCell {
         statsStackView.addArrangedSubview(followersLabel)
         statsStackView.addArrangedSubview(followingLabel)
         
-        self.addSubview(statsStackView)
-        statsStackView.anchor(top: self.topAnchor, equalTo: 10)
+        addSubview(statsStackView)
+        statsStackView.anchor(top: topAnchor, equalTo: 10)
         statsStackView.anchor(left: profileImageView.rightAnchor, equalTo: 10)
-        statsStackView.anchor(right: self.rightAnchor, equalTo: 10)
+        statsStackView.anchor(right: rightAnchor, equalTo: 10)
         statsStackView.anchor(height: 50)
     }
     
     private func setupEditProfileButton() {
-        self.addSubview(editProfileButton)
+        addSubview(editProfileButton)
         editProfileButton.anchor(top: statsStackView.bottomAnchor, equalTo: 2)
         editProfileButton.anchor(left: statsStackView.leftAnchor, equalTo: 0)
         editProfileButton.anchor(right: statsStackView.rightAnchor, equalTo: 0)

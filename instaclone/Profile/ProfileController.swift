@@ -17,7 +17,7 @@ class ProfileController: UICollectionViewController {
 	// MARK: - Properties
 	private var user: User? {
 		didSet {
-			self.navigationItem.title = user?.username
+			navigationItem.title = user?.username
 		}
 	}
 	
@@ -33,12 +33,12 @@ class ProfileController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.user?.posts.count ?? 0
+		return user?.posts.count ?? 0
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
-		cell.post = self.user?.posts[indexPath.item]
+		cell.post = user?.posts[indexPath.item]
 		return cell
 	}
 	
@@ -46,7 +46,7 @@ class ProfileController: UICollectionViewController {
 		
 		let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ProfileHeader.identifier, for: indexPath) as! ProfileHeader
 		
-		if let user = self.user {
+		if let user = user {
 			header.user = user
 		}
 		
@@ -114,8 +114,7 @@ class ProfileController: UICollectionViewController {
 	private func fetchPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		let reference = Database.database().reference().child("posts").child(uid)
-		reference.queryOrdered(byChild: "createdOn").observe(.childAdded, with: { (snapshot: DataSnapshot) in
+		Database.database().reference().child("posts").child(uid).queryOrdered(byChild: "createdOn").observe(.childAdded, with: { (snapshot: DataSnapshot) in
 			
 			guard let postDict = snapshot.value as? [String: Any] else {
 				print("No posts were fecthed.")
@@ -136,12 +135,12 @@ class ProfileController: UICollectionViewController {
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		self.collectionView?.backgroundColor = .white
+		collectionView?.backgroundColor = .white
 		setupLogoutButton()
 	}
 	
 	private func setupLogoutButton() {
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").renderOriginal(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(onLogoutButtonPress))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").renderOriginal(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(onLogoutButtonPress))
 	}
 }
 
@@ -151,7 +150,7 @@ class ProfileController: UICollectionViewController {
 extension ProfileController: UICollectionViewDelegateFlowLayout {
 	
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = (self.view.frame.width - 2) / 3
+        let availableWidth = (view.frame.width - 2) / 3
         return CGSize(width: availableWidth, height: availableWidth)
     }
 
@@ -164,7 +163,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-		return CGSize(width: self.view.frame.width, height: 200)
+		return CGSize(width: view.frame.width, height: 200)
 	}
 	
 }

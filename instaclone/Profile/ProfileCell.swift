@@ -18,7 +18,7 @@ class ProfileCell: UICollectionViewCell {
 		didSet {
 			if let imageURL = post?.imageURL {
 				guard let url = URL(string: imageURL) else { return }
-				self.imageView.loadImage(from: url.absoluteString)
+				imageView.loadImage(from: url.absoluteString)
 			}
 		}
 	}
@@ -50,11 +50,11 @@ class ProfileCell: UICollectionViewCell {
 	}
 	
 	private func setupImageView() {
-		self.addSubview(imageView)
-		imageView.anchor(left: self.leftAnchor, equalTo: 0)
-		imageView.anchor(right: self.rightAnchor, equalTo: 0)
-		imageView.anchor(top: self.topAnchor, equalTo: 0)
-		imageView.anchor(bottom: self.bottomAnchor, equalTo: 0)
+		addSubview(imageView)
+		imageView.anchor(left: leftAnchor, equalTo: 0)
+		imageView.anchor(right: rightAnchor, equalTo: 0)
+		imageView.anchor(top: topAnchor, equalTo: 0)
+		imageView.anchor(bottom: bottomAnchor, equalTo: 0)
 	}
 	
 }
