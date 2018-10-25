@@ -24,13 +24,9 @@ class HomeController: UICollectionViewController {
 		super.viewDidLoad()
 		configureCollectionView()
 		setupViews()
+		fetchFollowedUsersPosts()
 	}
-	
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		fetchPosts()
-	}
-	
+
 	
 	
 	// MARK: - UICollectionView
@@ -51,27 +47,38 @@ class HomeController: UICollectionViewController {
 	private func configureCollectionView() {
 		collectionView?.backgroundColor = .white
 		collectionView?.register(HomePostCell.self, forCellWithReuseIdentifier: HomePostCell.identifier)
+		
+		let refreshControl = UIRefreshControl()
+		refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+		collectionView?.refreshControl = refreshControl
 	}
 	
-	private func fetchPosts() {
+	@objc private func onRefresh() {
+		collectionView?.refreshControl?.beginRefreshing()
+		fetchFollowedUsersPosts()
+	}
+	
+	private func fetchFollowedUsersPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		posts.removeAll()
 		Database.database().reference().child("following").child(uid).observeSingleEvent(of: .value) { (snapshot) in
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
 			
+			self.posts.removeAll()
 			for (key, value) in snapshotDict {
 				if let isFollowing = value as? Int, isFollowing == 1 {
 					Database.fetchUser(withUID: key) { (user) in
-						self.fetchPosts(with: user)
+						self.fetchPosts(from: user)
 					}
 				}
 			}
 		}
 	}
 	
-	private func fetchPosts(with user: User) {
+	private func fetchPosts(from user: User) {
 		Database.database().reference().child("posts").child(user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+			self.collectionView?.refreshControl?.endRefreshing()
+			
 			guard let snapshotDict = snapshot.value as? [String: Any] else {
 				print("No posts were fecthed.")
 				return
