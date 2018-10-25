@@ -64,6 +64,10 @@ class SearchController: UICollectionViewController {
 				self.users.append(user)
 			}
 			
+			self.users.sort(by: { (user1, user2) -> Bool in
+				return user1.username.compare(user2.username) == .orderedAscending
+			})
+			
 			self.filteredUsers = self.users
 			self.collectionView?.reloadData()
 		}
@@ -104,7 +108,9 @@ extension SearchController: UISearchBarDelegate {
 		if searchText.isEmpty {
 			filteredUsers = self.users
 		} else {
-			filteredUsers = self.users.filter { $0.username.lowercased().contains(searchText.lowercased()) }
+			filteredUsers = self.users.filter({ (user) -> Bool in
+				return user.username.lowercased().contains(searchText.lowercased())
+			})
 		}
 		collectionView?.reloadData()
 	}
