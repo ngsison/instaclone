@@ -13,19 +13,28 @@ class SearchCell: UICollectionViewCell {
 	
 	
 	// MARK: - Properties
-	public static let identifier = "searchCell"
+	static let identifier = "searchCell"
+	
+	var user: User? {
+		didSet {
+			usernameLabel.text = user?.username
+			
+			if let imageURL = user?.profileImageURL {
+				profileImageView.loadImage(from: imageURL)
+			}
+		}
+	}
 	
 	let profileImageView: CustomImageView = {
 		let iv = CustomImageView()
 		iv.contentMode = .scaleAspectFill
 		iv.clipsToBounds = true
-		iv.backgroundColor = .red
+		iv.backgroundColor = .lightGray
 		return iv
 	}()
 	
 	let usernameLabel: UILabel = {
 		let label = UILabel()
-		label.text = "Username"
 		label.font = UIFont.boldSystemFont(ofSize: 14)
 		return label
 	}()

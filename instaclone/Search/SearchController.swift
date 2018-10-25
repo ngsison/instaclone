@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class SearchController: UICollectionViewController {
 	
 	
 	
 	// MARK: - Properties
+	var users = [User]()
+	
 	let searchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.placeholder = "Enter username"
@@ -29,14 +32,16 @@ class SearchController: UICollectionViewController {
 		super.viewDidLoad()
 		configureCollectionView()
 		setupViews()
+		fetchUsers()
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return 5
+		return users.count
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
+		cell.user = users[indexPath.item]
 		return cell
 	}
 	
@@ -47,6 +52,20 @@ class SearchController: UICollectionViewController {
 		collectionView?.backgroundColor = .white
 		collectionView?.alwaysBounceVertical = true
 		collectionView?.register(SearchCell.self, forCellWithReuseIdentifier: SearchCell.identifier)
+	}
+	
+	private func fetchUsers() {
+		Database.database().reference().child("users").observeSingleEvent(of: .value) { (snapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			
+			for (key, value) in snapshotDict {
+				guard let userDict = value as? [String: Any] else { return }
+				let user = User(uid: key, dictionary: userDict)
+				self.users.append(user)
+			}
+			
+			self.collectionView?.reloadData()
+		}
 	}
 	
 	

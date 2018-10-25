@@ -33,7 +33,7 @@ class ProfileHeader: UICollectionViewCell {
 		return imageView
 	}()
 	
-	public let gridButton: UIButton = {
+	let gridButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
 		//button.tintColor = UIColor(white: 0, alpha: 0.2)
