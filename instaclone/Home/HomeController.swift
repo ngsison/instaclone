@@ -22,9 +22,12 @@ class HomeController: UICollectionViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		
 		configureCollectionView()
 		setupViews()
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
 		fetchPosts()
 	}
 	
@@ -53,8 +56,17 @@ class HomeController: UICollectionViewController {
 	private func fetchPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		Database.fetchUser(withUID: uid) { (user) in
-			self.fetchPosts(with: user)
+		posts.removeAll()
+		Database.database().reference().child("following").child(uid).observeSingleEvent(of: .value) { (snapshot) in
+			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
+			
+			for (key, value) in snapshotDict {
+				if let isFollowing = value as? Int, isFollowing == 1 {
+					Database.fetchUser(withUID: key) { (user) in
+						self.fetchPosts(with: user)
+					}
+				}
+			}
 		}
 	}
 	
@@ -65,17 +77,15 @@ class HomeController: UICollectionViewController {
 				return
 			}
 			
-			var snapshotKeys = [String]()
-			for key in snapshotDict.keys {
-				snapshotKeys.append(key)
-			}
-			snapshotKeys.sort()
-			
-			for snapshotKey in snapshotKeys {
-				guard let postDict = snapshotDict[snapshotKey] as? [String: Any] else { return }
+			for value in snapshotDict.values {
+				guard let postDict = value as? [String: Any] else { return }
 				let post = Post(user: user, dictionary: postDict)
-				self.posts.insert(post, at: 0)
+				self.posts.append(post)
 			}
+			
+			self.posts.sort(by: { (post1, post2) -> Bool in
+				return post1.createdOn.compare(post2.createdOn) == .orderedDescending
+			})
 			
 			self.collectionView?.reloadData()
 		}) { (error: Error) in

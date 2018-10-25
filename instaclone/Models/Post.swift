@@ -14,7 +14,7 @@ class Post {
 	let imageURL: String
 	let imageWidth: NSNumber?
 	let imageHeight: NSNumber?
-	let createdOn: NSNumber?
+	let createdOn: Date
 	
 	init(user: User, dictionary: [String: Any]) {
 		self.user = user
@@ -22,6 +22,8 @@ class Post {
 		imageURL = dictionary["imageURL"] as? String ?? ""
 		imageWidth = dictionary["imageWidth"] as? NSNumber
 		imageHeight = dictionary["imageHeight"] as? NSNumber
-		createdOn = dictionary["createdOn"] as? NSNumber
+		
+		let secondsFrom1970 = dictionary["createdOn"] as? Double ?? 0
+		createdOn = Date(timeIntervalSince1970: secondsFrom1970)
 	}
 }
