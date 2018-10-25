@@ -15,6 +15,8 @@ class ProfileController: UICollectionViewController {
 	
 	
 	// MARK: - Properties
+	var userID: String?
+	
 	private var user: User? {
 		didSet {
 			navigationItem.title = user?.username
@@ -29,7 +31,6 @@ class ProfileController: UICollectionViewController {
 		configureCollectionView()
 		setupViews()
 		fetchUser()
-		fetchPosts()
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -81,10 +82,13 @@ class ProfileController: UICollectionViewController {
 	}
 
 	private func fetchUser() {
-		guard let uid = Auth.auth().currentUser?.uid else { return }
+		let userID = self.userID ?? Auth.auth().currentUser?.uid ?? ""
 		
-		Database.fetchUser(withUID: uid) { (user) in
+		if userID.isEmpty { return }
+		
+		Database.fetchUser(withUID: userID) { (user) in
 			self.user = user
+			self.fetchPosts()
 			self.collectionView?.reloadData()
 		}
 	}
@@ -112,7 +116,7 @@ class ProfileController: UICollectionViewController {
 	}
 	
 	private func fetchPosts() {
-		guard let uid = Auth.auth().currentUser?.uid else { return }
+		guard let uid = user?.uid else { return }
 		
 		Database.database().reference().child("posts").child(uid).queryOrdered(byChild: "createdOn").observe(.childAdded, with: { (snapshot: DataSnapshot) in
 			

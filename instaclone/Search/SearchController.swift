@@ -36,6 +36,11 @@ class SearchController: UICollectionViewController {
 		fetchUsers()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		searchBar.isHidden = false
+	}
+	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 		return filteredUsers.count
 	}
@@ -46,12 +51,25 @@ class SearchController: UICollectionViewController {
 		return cell
 	}
 	
+	override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		let user = filteredUsers[indexPath.item]
+		
+		searchBar.isHidden = true
+		searchBar.resignFirstResponder()
+		
+		let profileController = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+		profileController.userID = user.uid
+		
+		self.navigationController?.pushViewController(profileController, animated: true)
+	}
+	
 	
 	
 	// MARK: - Functions
 	private func configureCollectionView() {
 		collectionView?.backgroundColor = .white
 		collectionView?.alwaysBounceVertical = true
+		collectionView?.keyboardDismissMode = .onDrag
 		collectionView?.register(SearchCell.self, forCellWithReuseIdentifier: SearchCell.identifier)
 	}
 	
