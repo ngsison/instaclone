@@ -61,11 +61,13 @@ class SearchController: UICollectionViewController {
 			
 			for (key, value) in snapshotDict {
 				guard let userDict = value as? [String: Any] else { return }
-				let user = User(uid: key, dictionary: userDict)
 				
-				if user.uid != Auth.auth().currentUser?.uid {
-					self.users.append(user)
+				if key == Auth.auth().currentUser?.uid {
+					continue
 				}
+				
+				let user = User(uid: key, dictionary: userDict)
+				self.users.append(user)
 			}
 			
 			self.users.sort(by: { (user1, user2) -> Bool in
