@@ -17,8 +17,8 @@ class SignupController: UIViewController {
     
     // MARK: - Properties
     let plusButton: UIButton = {
-        let button = UIButton(type: UIButtonType.system)
-        button.setImage(#imageLiteral(resourceName: "plus_photo").renderOriginal(), for: UIControlState.normal)
+        let button = UIButton(type: .custom)
+        button.setImage(#imageLiteral(resourceName: "plus_photo"), for: UIControlState.normal)
         button.addTarget(self, action: #selector(onPlusButtonPress), for: UIControlEvents.touchUpInside)
         return button
     }()
@@ -274,9 +274,9 @@ extension SignupController: UIImagePickerControllerDelegate, UINavigationControl
         plusButton.layer.borderWidth = 2
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            plusButton.setImage(editedImage.renderOriginal(), for: .normal)
+            plusButton.setImage(editedImage, for: .normal)
         } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            plusButton.setImage(originalImage.renderOriginal(), for: .normal)
+            plusButton.setImage(originalImage, for: .normal)
         }
         
         picker.dismiss(animated: true, completion: nil)

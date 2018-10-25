@@ -43,6 +43,14 @@ class HomeController: UICollectionViewController {
 	
 	
 	
+	// MARK: - Events
+	@objc private func onCameraButtonPress() {
+		let cameraController = CameraController()
+		present(cameraController, animated: true, completion: nil)
+	}
+	
+	
+	
 	// MARK: - Functions
 	private func configureCollectionView() {
 		collectionView?.backgroundColor = .white
@@ -109,6 +117,7 @@ class HomeController: UICollectionViewController {
 	
 	private func setupNavigationItems() {
 		navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "logo2"))
+		navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "camera3").renderOriginal(), style: .plain, target: self, action: #selector(onCameraButtonPress))
 	}
 }
 
@@ -119,7 +128,7 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		var height: CGFloat = 8 + 40 + 8 	// user imageview
-		height += view.frame.width		// post imageview
+		height += view.frame.width			// post imageview
 		height += 50						// action buttons
 		height += 60						// caption
 		

@@ -34,12 +34,13 @@ class ProfileHeader: UICollectionViewCell {
 	}
 	
 	let profileImageView: CustomImageView = {
-		let imageView = CustomImageView()
-		imageView.contentMode = .scaleAspectFill
-		imageView.layer.cornerRadius = 40
-		imageView.layer.masksToBounds = true
-		imageView.backgroundColor = .lightGray
-		return imageView
+		let iv = CustomImageView()
+		iv.contentMode = .scaleAspectFill
+		iv.clipsToBounds = true
+		iv.backgroundColor = .lightGray
+		iv.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
+		iv.layer.borderWidth = 0.5
+		return iv
 	}()
 	
 	let gridButton: UIButton = {
@@ -230,6 +231,7 @@ class ProfileHeader: UICollectionViewCell {
 		profileImageView.anchor(left: leftAnchor, equalTo: 10)
 		profileImageView.anchor(width: 80)
 		profileImageView.anchor(height: 80)
+		profileImageView.layer.cornerRadius = 40
 	}
 	
 	private func setupToolbar() {

@@ -34,7 +34,9 @@ class HomePostCell: UICollectionViewCell {
 		let iv = CustomImageView()
 		iv.contentMode = .scaleAspectFill
 		iv.clipsToBounds = true
-		iv.backgroundColor = UIColor.lightGray
+		iv.backgroundColor = .lightGray
+		iv.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
+		iv.layer.borderWidth = 0.5
 		return iv
 	}()
 	
@@ -60,26 +62,26 @@ class HomePostCell: UICollectionViewCell {
 	}()
 	
 	let likeButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setImage(#imageLiteral(resourceName: "like_unselected").renderOriginal(), for: .normal)
+		let button = UIButton(type: .custom)
+		button.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
 		return button
 	}()
 
 	let commentButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setImage(#imageLiteral(resourceName: "comment").renderOriginal(), for: .normal)
+		let button = UIButton(type: .custom)
+		button.setImage(#imageLiteral(resourceName: "comment"), for: .normal)
 		return button
 	}()
 	
 	let shareButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setImage(#imageLiteral(resourceName: "send2").renderOriginal(), for: .normal)
+		let button = UIButton(type: .custom)
+		button.setImage(#imageLiteral(resourceName: "send2"), for: .normal)
 		return button
 	}()
 	
 	let bookmarkButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setImage(#imageLiteral(resourceName: "ribbon").renderOriginal(), for: .normal)
+		let button = UIButton(type: .custom)
+		button.setImage(#imageLiteral(resourceName: "ribbon"), for: .normal)
 		return button
 	}()
 	

@@ -144,7 +144,7 @@ class ProfileController: UICollectionViewController {
 	}
 	
 	private func setupLogoutButton() {
-		navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").renderOriginal(), style: UIBarButtonItemStyle.plain, target: self, action: #selector(onLogoutButtonPress))
+		navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").renderOriginal(), style: .plain, target: self, action: #selector(onLogoutButtonPress))
 	}
 }
 
