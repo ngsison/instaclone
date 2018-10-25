@@ -15,13 +15,13 @@ class SearchController: UICollectionViewController {
 	
 	// MARK: - Properties
 	var users = [User]()
+	var filteredUsers = [User]()
 	
-	let searchBar: UISearchBar = {
+	lazy var searchBar: UISearchBar = {
 		let sb = UISearchBar()
 		sb.placeholder = "Enter username"
-		
+		sb.delegate = self
 		UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = UIColor.rgb(red: 230, green: 230, blue: 230)
-		
 		return sb
 	}()
 	
@@ -36,12 +36,12 @@ class SearchController: UICollectionViewController {
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return users.count
+		return filteredUsers.count
 	}
 	
 	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SearchCell.identifier, for: indexPath) as! SearchCell
-		cell.user = users[indexPath.item]
+		cell.user = filteredUsers[indexPath.item]
 		return cell
 	}
 	
@@ -64,6 +64,7 @@ class SearchController: UICollectionViewController {
 				self.users.append(user)
 			}
 			
+			self.filteredUsers = self.users
 			self.collectionView?.reloadData()
 		}
 	}
@@ -92,5 +93,19 @@ class SearchController: UICollectionViewController {
 extension SearchController: UICollectionViewDelegateFlowLayout {
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		return CGSize(width: collectionView.frame.width, height: 60)
+	}
+}
+
+
+
+// MARK: - Extension: UISearchBarDelegate
+extension SearchController: UISearchBarDelegate {
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		if searchText.isEmpty {
+			filteredUsers = self.users
+		} else {
+			filteredUsers = self.users.filter { $0.username.lowercased().contains(searchText.lowercased()) }
+		}
+		collectionView?.reloadData()
 	}
 }
