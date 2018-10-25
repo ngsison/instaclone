@@ -7,6 +7,14 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
+
+enum action {
+	case follow
+	case unfollow
+	case editProfile
+}
 
 class ProfileHeader: UICollectionViewCell {
 	
@@ -21,6 +29,7 @@ class ProfileHeader: UICollectionViewCell {
 				profileImageView.loadImage(from: profileImageURL)
 			}
 			updateStats()
+			setupEditFollowButton()
 		}
 	}
 	
@@ -36,7 +45,6 @@ class ProfileHeader: UICollectionViewCell {
 	let gridButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
-		//button.tintColor = UIColor(white: 0, alpha: 0.2)
 		return button
 	}()
 	
@@ -95,14 +103,13 @@ class ProfileHeader: UICollectionViewCell {
         return stackView
     }()
     
-    let editProfileButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: UIButtonType.system)
-        button.setTitle("Edit Profile", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 3
+		button.layer.borderColor = UIColor.lightGray.cgColor
+		button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+		button.addTarget(self, action: #selector(onEditProfileFollowButtonPress), for: .touchUpInside)
         return button
     }()
 	
@@ -116,6 +123,33 @@ class ProfileHeader: UICollectionViewCell {
 	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	
+	
+	// MARK: - Events
+	@objc private func onEditProfileFollowButtonPress() {
+		guard
+			let user = user,
+			let currentUser = Auth.auth().currentUser
+		else { return }
+		
+		var values = [user.uid: 0] // 0 = unfollow
+		if editProfileFollowButton.titleLabel?.text == "Follow" {
+			values = [user.uid: 1] // 1 = follow
+		}
+		
+		Database.database().reference().child("following").child(currentUser.uid).updateChildValues(values) { (error, dbRef) in
+			guard let user = self.user else { return }
+			
+			if let error = error {
+				print("Failed to \(values[user.uid] == 0 ? "Unfollow" : "Follow"):", error)
+				return
+			}
+			
+			print("Successfully \(values[user.uid] == 0 ? "Unfollowed" : "Followed") user:", self.user?.username ?? "")
+			self.setupEditFollowButton()
+		}
 	}
 	
 	
@@ -142,6 +176,41 @@ class ProfileHeader: UICollectionViewCell {
 		]))
 		
 		return attributedString
+	}
+	
+	private func setupEditFollowButton() {
+		guard
+			let user = user,
+			let currentUser = Auth.auth().currentUser
+		else { return }
+		
+		if (user.uid == currentUser.uid) {
+			editProfileFollowButton.setTitle("Edit Profile", for: .normal)
+			setEditFollowButtonStyle(forAction: .editProfile)
+		} else {
+			Database.database().reference().child("following").child(currentUser.uid).child(user.uid).observeSingleEvent(of: .value) { (snapshot) in
+				if let isFollowing = snapshot.value as? Int, isFollowing == 1 {
+					self.editProfileFollowButton.setTitle("Unfollow", for: .normal)
+					self.setEditFollowButtonStyle(forAction: .unfollow)
+				} else {
+					self.editProfileFollowButton.setTitle("Follow", for: .normal)
+					self.setEditFollowButtonStyle(forAction: .follow)
+				}
+			}
+		}
+	}
+	
+	private func setEditFollowButtonStyle(forAction action: action) {
+		switch action {
+		case .follow:
+			self.editProfileFollowButton.setTitleColor(.white, for: .normal)
+			self.editProfileFollowButton.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
+			self.editProfileFollowButton.backgroundColor = UIColor.rgb(red: 17, green: 154, blue: 237)
+		default:
+			self.editProfileFollowButton.setTitleColor(.black, for: .normal)
+			self.editProfileFollowButton.layer.borderColor = UIColor.lightGray.cgColor
+			self.editProfileFollowButton.backgroundColor = .white
+		}
 	}
 	
 	
@@ -213,11 +282,11 @@ class ProfileHeader: UICollectionViewCell {
     }
     
     private func setupEditProfileButton() {
-        addSubview(editProfileButton)
-        editProfileButton.anchor(top: statsStackView.bottomAnchor, equalTo: 2)
-        editProfileButton.anchor(left: statsStackView.leftAnchor, equalTo: 0)
-        editProfileButton.anchor(right: statsStackView.rightAnchor, equalTo: 0)
-        editProfileButton.anchor(height: 32)
+        addSubview(editProfileFollowButton)
+        editProfileFollowButton.anchor(top: statsStackView.bottomAnchor, equalTo: 2)
+        editProfileFollowButton.anchor(left: statsStackView.leftAnchor, equalTo: 0)
+        editProfileFollowButton.anchor(right: statsStackView.rightAnchor, equalTo: 0)
+        editProfileFollowButton.anchor(height: 32)
     }
 }
 
