@@ -36,6 +36,7 @@ class CameraController: UIViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		transitioningDelegate = self
 		setupCaptureSession()
 		setupViews()
 	}
@@ -121,7 +122,7 @@ class CameraController: UIViewController {
 
 
 
-// MARK: Extension - AVCapturePhotoCaptureDelegate
+// MARK: - Extension: AVCapturePhotoCaptureDelegate
 extension CameraController: AVCapturePhotoCaptureDelegate {
 	func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 		guard let imageData = photo.fileDataRepresentation() else { return }
@@ -134,5 +135,14 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 		photoPreviewContainer.anchor(bottom: view.bottomAnchor, equalTo: 0)
 		photoPreviewContainer.anchor(left: view.leftAnchor, equalTo: 0)
 		photoPreviewContainer.anchor(right: view.rightAnchor, equalTo: 0)
+	}
+}
+
+
+
+// MARK: - Extension: UIViewControllerTransitioningDelegate
+extension CameraController: UIViewControllerTransitioningDelegate {
+	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		return CustomAnimationPresenter()
 	}
 }

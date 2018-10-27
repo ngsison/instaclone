@@ -49,6 +49,11 @@ class HomeController: UICollectionViewController {
 		present(cameraController, animated: true, completion: nil)
 	}
 	
+	@objc private func onRefresh() {
+		collectionView?.refreshControl?.beginRefreshing()
+		fetchFollowedUsersPosts()
+	}
+	
 	
 	
 	// MARK: - Functions
@@ -59,11 +64,6 @@ class HomeController: UICollectionViewController {
 		let refreshControl = UIRefreshControl()
 		refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
 		collectionView?.refreshControl = refreshControl
-	}
-	
-	@objc private func onRefresh() {
-		collectionView?.refreshControl?.beginRefreshing()
-		fetchFollowedUsersPosts()
 	}
 	
 	private func fetchFollowedUsersPosts() {
