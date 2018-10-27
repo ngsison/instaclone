@@ -47,10 +47,11 @@ class HomePostCell: UICollectionViewCell {
 		return label
 	}()
 	
-	let optionsButton: UIButton = {
+	lazy var optionsButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setTitle("•••", for: .normal)
 		button.setTitleColor(.black, for: .normal)
+		button.addTarget(self, action: #selector(optionsButtonClicked), for: .touchUpInside)
 		return button
 	}()
 	
@@ -174,8 +175,6 @@ class HomePostCell: UICollectionViewCell {
 		optionsButton.anchor(bottom: usernameLabel.bottomAnchor, equalTo: 0)
 		optionsButton.anchor(right: rightAnchor, equalTo: 0)
 		optionsButton.anchor(width: 44)
-		
-		optionsButton.addTarget(self, action: #selector(optionsButtonClicked), for: .touchUpInside)
 	}
 	
 	private func setupPostImageView() {

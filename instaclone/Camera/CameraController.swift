@@ -19,7 +19,7 @@ class CameraController: UIViewController {
 	let captureButton: UIButton = {
 		let button = UIButton(type: .custom)
 		button.setImage(#imageLiteral(resourceName: "capture_photo"), for: .normal)
-		button.contentMode = .scaleAspectFit
+		button.imageView?.contentMode = .scaleAspectFit
 		button.addTarget(self, action: #selector(onCaptureButtonPress), for: .touchUpInside)
 		return button
 	}()
@@ -38,6 +38,10 @@ class CameraController: UIViewController {
 		super.viewDidLoad()
 		setupCaptureSession()
 		setupViews()
+	}
+	
+	override var prefersStatusBarHidden: Bool {
+		return true
 	}
 	
 	
@@ -101,12 +105,14 @@ class CameraController: UIViewController {
 		captureButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, equalTo: 20)
 		captureButton.anchor(width: 80)
 		captureButton.anchor(height: 80)
+		captureButton.imageView?.anchor(width: 80)
+		captureButton.imageView?.anchor(height: 80)
 	}
 	
 	private func setupDismissButton() {
 		view.addSubview(dismissButton)
 		dismissButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, equalTo: 12)
-		dismissButton.anchor(right: view.rightAnchor, equalTo: 12)
+		dismissButton.anchor(right: view.rightAnchor, equalTo: 20)
 		dismissButton.anchor(width: 50)
 		dismissButton.anchor(height: 50)
 	}
@@ -120,14 +126,13 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 	func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 		guard let imageData = photo.fileDataRepresentation() else { return }
 		
-		let previewImageView = UIImageView(image: UIImage(data: imageData))
-		previewImageView.contentMode = .scaleAspectFill
-		previewImageView.clipsToBounds = true
+		let photoPreviewContainer = PhotoPreviewContainer()
+		photoPreviewContainer.photoImageView.image = UIImage(data: imageData)
 		
-		view.addSubview(previewImageView)
-		previewImageView.anchor(top: view.topAnchor, equalTo: 0)
-		previewImageView.anchor(bottom: view.bottomAnchor, equalTo: 0)
-		previewImageView.anchor(left: view.leftAnchor, equalTo: 0)
-		previewImageView.anchor(right: view.rightAnchor, equalTo: 0)
+		view.addSubview(photoPreviewContainer)
+		photoPreviewContainer.anchor(top: view.topAnchor, equalTo: 0)
+		photoPreviewContainer.anchor(bottom: view.bottomAnchor, equalTo: 0)
+		photoPreviewContainer.anchor(left: view.leftAnchor, equalTo: 0)
+		photoPreviewContainer.anchor(right: view.rightAnchor, equalTo: 0)
 	}
 }

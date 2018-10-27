@@ -73,7 +73,6 @@ class PhotoSelectorController: UICollectionViewController {
 	
 	// MARK: - Events
 	@objc private func onCancelBarButtonPress() {
-		print("Cancel button was pressed!")
 		dismiss(animated: true, completion: nil)
 	}
 	
