@@ -1,5 +1,5 @@
 //
-//  CustomAnimationPresenter.swift
+//  DismissCameraAnimation.swift
 //  instaclone
 //
 //  Created by Nathaniel Brion Sison on 27/10/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomAnimationPresenter: NSObject, UIViewControllerAnimatedTransitioning {
+class DismissCameraAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 	
 	private let animationDuration = 0.75
 	
@@ -19,6 +19,8 @@ class CustomAnimationPresenter: NSObject, UIViewControllerAnimatedTransitioning 
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
 		let containerView = transitionContext.containerView
 		
+		// from = CameraController
+		// to 	= OtherController
 		guard
 			let fromView = transitionContext.view(forKey: .from),
 			let toView = transitionContext.view(forKey: .to)
@@ -27,11 +29,14 @@ class CustomAnimationPresenter: NSObject, UIViewControllerAnimatedTransitioning 
 		containerView.addSubview(fromView)
 		containerView.addSubview(toView)
 		
+		// from animation = center going left
+		// to	animation = right going center
+		
 		fromView.frame = CGRect(x: 0, y: 0, width: fromView.frame.width, height: fromView.frame.height)
-		toView.frame = CGRect(x: -toView.frame.width, y: 0, width: toView.frame.width, height: toView.frame.height)
+		toView.frame = CGRect(x: toView.frame.width, y: 0, width: toView.frame.width, height: toView.frame.height)
 		
 		UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-			fromView.frame = CGRect(x: fromView.frame.width, y: 0, width: fromView.frame.width, height: fromView.frame.height)
+			fromView.frame = CGRect(x: -fromView.frame.width, y: 0, width: fromView.frame.width, height: fromView.frame.height)
 			toView.frame = CGRect(x: 0, y: 0, width: toView.frame.width, height: toView.frame.height)
 		}) { (completed) in
 			transitionContext.completeTransition(true)

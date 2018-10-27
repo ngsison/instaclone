@@ -143,6 +143,10 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 // MARK: - Extension: UIViewControllerTransitioningDelegate
 extension CameraController: UIViewControllerTransitioningDelegate {
 	func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		return CustomAnimationPresenter()
+		return PresentCameraAnimation()
+	}
+	
+	func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+		return DismissCameraAnimation()
 	}
 }
