@@ -10,6 +10,7 @@ import Foundation
 
 class Post {
 	let user: User
+	var postID: String?
 	let caption: String
 	let imageURL: String
 	let imageWidth: NSNumber?

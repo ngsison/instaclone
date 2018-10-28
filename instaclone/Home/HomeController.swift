@@ -93,9 +93,10 @@ class HomeController: UICollectionViewController {
 				return
 			}
 			
-			for value in snapshotDict.values {
+			for (key, value) in snapshotDict {
 				guard let postDict = value as? [String: Any] else { return }
 				let post = Post(user: user, dictionary: postDict)
+				post.postID = key
 				self.posts.append(post)
 			}
 			
@@ -144,6 +145,7 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 extension HomeController: HomePostCellDelegate {
 	func didTapComment(post: Post) {
 		let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
+		commentsController.post = post
 		navigationController?.pushViewController(commentsController, animated: true)
 	}
 }

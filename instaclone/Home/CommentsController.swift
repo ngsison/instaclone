@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class CommentsController: UICollectionViewController {
 	
 	
 	
 	// MARK: - Properties
+	var post: Post?
+	
 	let containerView: UIView = {
 		let containerView = UIView()
 		containerView.backgroundColor = .white
@@ -66,7 +70,26 @@ class CommentsController: UICollectionViewController {
 	
 	// MARK: - Events
 	@objc private func onSubmitButtonPress() {
-		print("SUBMIT BUTTON PRESSED")
+		guard
+			let userID = Auth.auth().currentUser?.uid,
+			let postID = post?.postID,
+			let comment = commentTextField.text
+		else { return }
+		
+		let values = [
+			"userID": userID,
+			"comment": comment,
+			"creationDate": Date().timeIntervalSince1970
+		] as [String: Any]
+		
+		Database.database().reference().child("comments").child(postID).childByAutoId().updateChildValues(values) { (error, dbRef) in
+			if let error = error {
+				print("Failed to insert comment:", error)
+			}
+			
+			print("Successfully inserted comment")
+		}
+		
 	}
 	
 	
