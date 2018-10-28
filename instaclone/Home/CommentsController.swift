@@ -37,6 +37,7 @@ class CommentsController: UICollectionViewController {
 		let textField = UITextField()
 		textField.placeholder = "Enter Comment"
 		textField.autocorrectionType = .no
+		textField.font = UIFont.systemFont(ofSize: 14)
 		return textField
 	}()
 	
@@ -45,7 +46,9 @@ class CommentsController: UICollectionViewController {
 	// MARK: - Overrides
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		configureCollectionView()
 		setupViews()
+		fetchComments()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +67,16 @@ class CommentsController: UICollectionViewController {
 	
 	override var canBecomeFirstResponder: Bool {
 		return true
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		return post?.comments.count ?? 0
+	}
+	
+	override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentCell.identifier, for: indexPath) as! CommentCell
+		cell.comment = post?.comments[indexPath.item]
+		return cell
 	}
 	
 	
@@ -94,9 +107,38 @@ class CommentsController: UICollectionViewController {
 	
 	
 	
+	// MARK: - Functions
+	private func configureCollectionView() {
+		collectionView?.backgroundColor = .red
+		collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		collectionView?.register(CommentCell.self, forCellWithReuseIdentifier: CommentCell.identifier)
+	}
+	
+	private func fetchComments() {
+		guard let postID = post?.postID else { return }
+		
+		post?.comments.removeAll()
+		Database.database().reference().child("comments").child(postID).observe(.childAdded, with: { (snapshot) in
+			guard
+				let snapshotDict = snapshot.value as? [String: Any],
+				let userID = snapshotDict["userID"] as? String
+			else { return }
+			
+			Database.fetchUser(withUID: userID, onSuccess: { (user) in
+				let comment = Comment(user: user, dictionary: snapshotDict)
+				self.post?.comments.append(comment)
+				self.collectionView?.reloadData()
+			})
+		}) { (error) in
+			print("Failed to fetch comments:", error)
+		}
+	}
+	
+	
+	
 	// MARK: - Setup Views
 	private func setupViews() {
-		collectionView?.backgroundColor = .red
 		title = "Comments"
 		setupSubmitButton()
 		setupCommentTextField()
@@ -116,5 +158,14 @@ class CommentsController: UICollectionViewController {
 		commentTextField.anchor(bottom: containerView.bottomAnchor, equalTo: 0)
 		commentTextField.anchor(left: containerView.leftAnchor, equalTo: 12)
 		commentTextField.anchor(right: submitButton.leftAnchor, equalTo: 0)
+	}
+}
+
+
+
+// MARK: - Extension: UICollectionViewDelegateFlowLayout
+extension CommentsController: UICollectionViewDelegateFlowLayout {
+	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+		return CGSize(width: view.frame.width, height: 60)
 	}
 }

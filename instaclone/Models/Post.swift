@@ -16,6 +16,7 @@ class Post {
 	let imageWidth: NSNumber?
 	let imageHeight: NSNumber?
 	let createdOn: Date
+	var comments = [Comment]()
 	
 	init(user: User, dictionary: [String: Any]) {
 		self.user = user
