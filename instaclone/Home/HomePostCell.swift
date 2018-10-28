@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol HomePostCellDelegate {
+	func didTapComment(post: Post)
+}
+
 class HomePostCell: UICollectionViewCell {
 	
 	
 	
 	// MARK: - Properties
 	static let identifier = "homePostCell"
+	
+	var delegate: HomePostCellDelegate?
 	
 	var post: Post? {
 		didSet {
@@ -51,7 +57,7 @@ class HomePostCell: UICollectionViewCell {
 		let button = UIButton(type: .system)
 		button.setTitle("•••", for: .normal)
 		button.setTitleColor(.black, for: .normal)
-		button.addTarget(self, action: #selector(optionsButtonClicked), for: .touchUpInside)
+		button.addTarget(self, action: #selector(onOptionsButtonPress), for: .touchUpInside)
 		return button
 	}()
 	
@@ -68,9 +74,10 @@ class HomePostCell: UICollectionViewCell {
 		return button
 	}()
 
-	let commentButton: UIButton = {
+	lazy var commentButton: UIButton = {
 		let button = UIButton(type: .custom)
 		button.setImage(#imageLiteral(resourceName: "comment"), for: .normal)
+		button.addTarget(self, action: #selector(onCommentButtonPress), for: .touchUpInside)
 		return button
 	}()
 	
@@ -107,8 +114,13 @@ class HomePostCell: UICollectionViewCell {
 	
 	
 	// MARK: - Events
-	@objc private func optionsButtonClicked() {
-		print("OPTIONS BUTTON CLICKED!")
+	@objc private func onCommentButtonPress() {
+		guard let post = post else { return }
+		delegate?.didTapComment(post: post)
+	}
+	
+	@objc private func onOptionsButtonPress() {
+		print("OPTIONS BUTTON PRESSED!")
 	}
 	
 	

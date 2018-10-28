@@ -30,6 +30,7 @@
 		484726802182433600FCCCC5 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4847267F2182433600FCCCC5 /* CameraController.swift */; };
 		4885BF66213182D800B94ACF /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4885BF65213182D800B94ACF /* LoginController.swift */; };
 		4897D7832177968B002FAD7E /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4897D7822177968B002FAD7E /* CustomImageView.swift */; };
+		48A5E70721848BB300F8B24F /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5E70621848BB300F8B24F /* CommentsController.swift */; };
 		48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */; };
 		48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEB7212BC51700FC375C /* ProfileHeader.swift */; };
 		48F1AEBB212BD0FF00FC375C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEBA212BD0FF00FC375C /* User.swift */; };
@@ -63,6 +64,7 @@
 		4847267F2182433600FCCCC5 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		4885BF65213182D800B94ACF /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		4897D7822177968B002FAD7E /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		48A5E70621848BB300F8B24F /* CommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsController.swift; sourceTree = "<group>"; };
 		48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		48F1AEB7212BC51700FC375C /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		48F1AEBA212BD0FF00FC375C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				481660622177DFCA00C27079 /* HomeController.swift */,
 				481660642177E36F00C27079 /* HomePostCell.swift */,
+				48A5E70621848BB300F8B24F /* CommentsController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				481660652177E36F00C27079 /* HomePostCell.swift in Sources */,
 				48142649212B1F6000DE2EA6 /* ProfileController.swift in Sources */,
 				20E4B3C52122AB9D00616430 /* SignupController.swift in Sources */,
+				48A5E70721848BB300F8B24F /* CommentsController.swift in Sources */,
 				4847267D2181229B00FCCCC5 /* SearchCell.swift in Sources */,
 				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				4897D7832177968B002FAD7E /* CustomImageView.swift in Sources */,
