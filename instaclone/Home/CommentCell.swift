@@ -76,15 +76,16 @@ class CommentCell: UICollectionViewCell {
 	private func setupViews() {
 		setupProfileImageView()
 		setupCommentLabel()
+		configureSeparatorView()
 	}
 	
 	private func setupProfileImageView() {
 		addSubview(profileImageView)
 		profileImageView.anchor(top: topAnchor, equalTo: 8)
 		profileImageView.anchor(left: leftAnchor, equalTo: 8)
-		profileImageView.anchor(width: 40)
-		profileImageView.anchor(height: 40)
-		profileImageView.layer.cornerRadius = 20
+		profileImageView.anchor(width: 32)
+		profileImageView.anchor(height: 32)
+		profileImageView.layer.cornerRadius = 16
 	}
 	
 	private func setupCommentLabel() {
@@ -93,5 +94,16 @@ class CommentCell: UICollectionViewCell {
 		commentTextView.anchor(bottom: bottomAnchor, equalTo: 4)
 		commentTextView.anchor(left: profileImageView.rightAnchor, equalTo: 8)
 		commentTextView.anchor(right: rightAnchor, equalTo: 4)
+	}
+	
+	private func configureSeparatorView() {
+		let lineSeparatorView = UIView()
+		lineSeparatorView.backgroundColor = UIColor.rgb(red: 230, green: 230, blue: 230)
+		
+		addSubview(lineSeparatorView)
+		lineSeparatorView.anchor(bottom: bottomAnchor, equalTo: 0)
+		lineSeparatorView.anchor(left: commentTextView.leftAnchor, equalTo: 0)
+		lineSeparatorView.anchor(right: rightAnchor, equalTo: 0)
+		lineSeparatorView.anchor(height: 0.5)
 	}
 }
