@@ -35,10 +35,10 @@ class CommentCell: UICollectionViewCell {
 		return iv
 	}()
 	
-	let commentLabel: UILabel = {
-		let label = UILabel()
-		label.numberOfLines = 0
-		return label
+	let commentTextView: UITextView = {
+		let textView = UITextView()
+		textView.isScrollEnabled = false
+		return textView
 	}()
 	
 	
@@ -67,14 +67,13 @@ class CommentCell: UICollectionViewCell {
 			NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)
 		]))
 		
-		commentLabel.attributedText = attributedText
+		commentTextView.attributedText = attributedText
 	}
 	
 	
 	
 	// MARK: - Setup Views
 	private func setupViews() {
-		backgroundColor = .white
 		setupProfileImageView()
 		setupCommentLabel()
 	}
@@ -89,10 +88,10 @@ class CommentCell: UICollectionViewCell {
 	}
 	
 	private func setupCommentLabel() {
-		addSubview(commentLabel)
-		commentLabel.anchor(top: topAnchor, equalTo: 4)
-		commentLabel.anchor(bottom: bottomAnchor, equalTo: 4)
-		commentLabel.anchor(left: profileImageView.rightAnchor, equalTo: 8)
-		commentLabel.anchor(right: rightAnchor, equalTo: 4)
+		addSubview(commentTextView)
+		commentTextView.anchor(top: topAnchor, equalTo: 0)
+		commentTextView.anchor(bottom: bottomAnchor, equalTo: 4)
+		commentTextView.anchor(left: profileImageView.rightAnchor, equalTo: 8)
+		commentTextView.anchor(right: rightAnchor, equalTo: 4)
 	}
 }
