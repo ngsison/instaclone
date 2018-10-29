@@ -33,6 +33,7 @@
 		48A5E70721848BB300F8B24F /* CommentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5E70621848BB300F8B24F /* CommentsController.swift */; };
 		48A5E70921854F7000F8B24F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5E70821854F7000F8B24F /* Comment.swift */; };
 		48A5E70B21854FB000F8B24F /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5E70A21854FB000F8B24F /* CommentCell.swift */; };
+		48A5E70E2186ECAF00F8B24F /* CustomInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A5E70D2186ECAF00F8B24F /* CustomInputAccessoryView.swift */; };
 		48DA4DEF2135C96000CCE3E7 /* SharePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */; };
 		48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEB7212BC51700FC375C /* ProfileHeader.swift */; };
 		48F1AEBB212BD0FF00FC375C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F1AEBA212BD0FF00FC375C /* User.swift */; };
@@ -69,6 +70,7 @@
 		48A5E70621848BB300F8B24F /* CommentsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsController.swift; sourceTree = "<group>"; };
 		48A5E70821854F7000F8B24F /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		48A5E70A21854FB000F8B24F /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		48A5E70D2186ECAF00F8B24F /* CustomInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputAccessoryView.swift; sourceTree = "<group>"; };
 		48DA4DEE2135C96000CCE3E7 /* SharePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePhotoController.swift; sourceTree = "<group>"; };
 		48F1AEB7212BC51700FC375C /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		48F1AEBA212BD0FF00FC375C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -126,8 +128,8 @@
 		20E4B3D42122BA8C00616430 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				48A5E70C2186EC8700F8B24F /* CustomViews */,
 				20E4B3D52122BAB900616430 /* Extensions.swift */,
-				4897D7822177968B002FAD7E /* CustomImageView.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -181,6 +183,15 @@
 				20E4B3C42122AB9D00616430 /* SignupController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		48A5E70C2186EC8700F8B24F /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				4897D7822177968B002FAD7E /* CustomImageView.swift */,
+				48A5E70D2186ECAF00F8B24F /* CustomInputAccessoryView.swift */,
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		48B1EC902131908D00258340 /* Supporting Files */ = {
@@ -359,6 +370,7 @@
 				4847267D2181229B00FCCCC5 /* SearchCell.swift in Sources */,
 				48F1AEB8212BC51700FC375C /* ProfileHeader.swift in Sources */,
 				4897D7832177968B002FAD7E /* CustomImageView.swift in Sources */,
+				48A5E70E2186ECAF00F8B24F /* CustomInputAccessoryView.swift in Sources */,
 				483D02542136A1DD008C8C48 /* Post.swift in Sources */,
 				48A5E70921854F7000F8B24F /* Comment.swift in Sources */,
 				4808A92E21840744009E3DBA /* PresentCameraAnimation.swift in Sources */,

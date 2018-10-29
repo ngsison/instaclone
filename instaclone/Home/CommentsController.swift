@@ -17,8 +17,8 @@ class CommentsController: UICollectionViewController {
 	// MARK: - Properties
 	var post: Post?
 	
-	let containerView: UIView = {
-		let containerView = UIView()
+	let containerView: CustomInputAccessoryView = {
+		let containerView = CustomInputAccessoryView()
 		containerView.backgroundColor = .white
 		return containerView
 	}()
