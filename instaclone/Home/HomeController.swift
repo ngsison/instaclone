@@ -17,6 +17,12 @@ class HomeController: UICollectionViewController {
 	// MARK: - Properties
 	var posts = [Post]()
 	
+	// Because clearing posts immediately before `refresh` is causing the app to crash,
+	// we need this to temporarily hold the posts being fetched from Firebase
+	// and assign it as the value of `posts` just after successful fetch.
+	// PM the developer for more info. LOL
+	var tempPosts = [Post]()
+	
 	
 	
 	// MARK: - Overrides
@@ -70,7 +76,7 @@ class HomeController: UICollectionViewController {
 	private func fetchFollowedUsersPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
-		posts.removeAll()
+		tempPosts.removeAll()
 		Database.database().reference().child("following").child(uid).observeSingleEvent(of: .value) { (snapshot) in
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
 			
@@ -104,10 +110,11 @@ class HomeController: UICollectionViewController {
 							post.isLikedByMe = value == 1
 						}
 						
-						self.posts.append(post)
-						self.posts.sort(by: { (post1, post2) -> Bool in
+						self.tempPosts.append(post)
+						self.tempPosts.sort(by: { (post1, post2) -> Bool in
 							return post1.createdOn.compare(post2.createdOn) == .orderedDescending
 						})
+						self.posts = self.tempPosts
 						self.collectionView?.reloadData()
 					}, withCancel: { (error) in
 						print("Failed to fetch likes for post \(key):", error)
