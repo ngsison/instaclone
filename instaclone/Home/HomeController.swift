@@ -70,10 +70,10 @@ class HomeController: UICollectionViewController {
 	private func fetchFollowedUsersPosts() {
 		guard let uid = Auth.auth().currentUser?.uid else { return }
 		
+		posts.removeAll()
 		Database.database().reference().child("following").child(uid).observeSingleEvent(of: .value) { (snapshot) in
 			guard let snapshotDict = snapshot.value as? [String: Any] else { return }
 			
-			self.posts.removeAll()
 			for (key, value) in snapshotDict {
 				if let isFollowing = value as? Int, isFollowing == 1 {
 					Database.fetchUser(withUID: key) { (user) in
@@ -97,14 +97,23 @@ class HomeController: UICollectionViewController {
 				guard let postDict = value as? [String: Any] else { return }
 				let post = Post(user: user, dictionary: postDict)
 				post.postID = key
-				self.posts.append(post)
+				
+				if let uid = Auth.auth().currentUser?.uid {
+					Database.database().reference().child("likes").child(key).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+						if let value = snapshot.value as? Int {
+							post.isLikedByMe = value == 1
+						}
+						
+						self.posts.append(post)
+						self.posts.sort(by: { (post1, post2) -> Bool in
+							return post1.createdOn.compare(post2.createdOn) == .orderedDescending
+						})
+						self.collectionView?.reloadData()
+					}, withCancel: { (error) in
+						print("Failed to fetch likes for post \(key):", error)
+					})
+				}
 			}
-			
-			self.posts.sort(by: { (post1, post2) -> Bool in
-				return post1.createdOn.compare(post2.createdOn) == .orderedDescending
-			})
-			
-			self.collectionView?.reloadData()
 		}) { (error: Error) in
 			print("Failed to retrieve posts from the database: \(error)")
 		}
@@ -143,6 +152,32 @@ extension HomeController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - Extension: HomePostCellDelegate
 extension HomeController: HomePostCellDelegate {
+	func didLike(cell: HomePostCell) {
+		guard
+			let uid = Auth.auth().currentUser?.uid,
+			let post = cell.post,
+			let postID = post.postID,
+			let indexPath = collectionView?.indexPath(for: cell)
+		else { return }
+		
+		let value = post.isLikedByMe ? 0 : 1
+		let values = [uid: value]
+
+		post.isLikedByMe = !post.isLikedByMe
+		collectionView?.reloadItems(at: [indexPath])
+		
+		Database.database().reference().child("likes").child(postID).updateChildValues(values) { (error, dbRef) in
+			if let error = error {
+				print("Failed to \(value == 1 ? "like" : "unlike") post:", error)
+				post.isLikedByMe = !post.isLikedByMe
+				self.collectionView?.reloadItems(at: [indexPath])
+				return
+			}
+			
+			print("Successfully \(value == 1 ? "liked" : "unliked") post")
+		}
+	}
+	
 	func didTapComment(post: Post) {
 		let commentsController = CommentsController(collectionViewLayout: UICollectionViewFlowLayout())
 		commentsController.post = post

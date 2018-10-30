@@ -9,6 +9,7 @@
 import UIKit
 
 protocol HomePostCellDelegate {
+	func didLike(cell: HomePostCell)
 	func didTapComment(post: Post)
 }
 
@@ -23,16 +24,13 @@ class HomePostCell: UICollectionViewCell {
 	
 	var post: Post? {
 		didSet {
-			usernameLabel.text = post?.user.username;
+			guard let post = post else { return }
+			
+			usernameLabel.text = post.user.username;
 			setupAttributedCaption()
-			
-			if let profileImageURL = post?.user.profileImageURL {
-				profileImageView.loadImage(from: profileImageURL)
-			}
-			
-			if let postImageURL = post?.imageURL {
-				postImageView.loadImage(from: postImageURL)
-			}
+			profileImageView.loadImage(from: post.user.profileImageURL)
+			postImageView.loadImage(from: post.imageURL)
+			likeButton.setImage(post.isLikedByMe ? #imageLiteral(resourceName: "like_selected") : #imageLiteral(resourceName: "like_unselected"), for: .normal)
 		}
 	}
 	
@@ -68,9 +66,9 @@ class HomePostCell: UICollectionViewCell {
 		return iv
 	}()
 	
-	let likeButton: UIButton = {
+	lazy var likeButton: UIButton = {
 		let button = UIButton(type: .custom)
-		button.setImage(#imageLiteral(resourceName: "like_unselected"), for: .normal)
+		button.addTarget(self, action: #selector(onLikeButtonPress), for: .touchUpInside)
 		return button
 	}()
 
@@ -114,6 +112,10 @@ class HomePostCell: UICollectionViewCell {
 	
 	
 	// MARK: - Events
+	@objc private func onLikeButtonPress() {
+		delegate?.didLike(cell: self)
+	}
+	
 	@objc private func onCommentButtonPress() {
 		guard let post = post else { return }
 		delegate?.didTapComment(post: post)
